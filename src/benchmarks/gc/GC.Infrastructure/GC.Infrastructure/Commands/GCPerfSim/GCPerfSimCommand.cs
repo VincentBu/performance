@@ -36,12 +36,12 @@ namespace GC.Infrastructure.Commands.GCPerfSim
             [Description("Crank Server to target.")]
             [CommandOption("-s|--server")]
             public string? Server { get; init; }
-
+            
             [Description("loop count.")]
             [CommandOption("-l|--loop")]
             public int? Loop { get; init; }
         }
-
+        
         internal sealed class RunInfo
         {
             public RunInfo(KeyValuePair<string, Run> runDetails, KeyValuePair<string, CoreRunInfo> corerunDetails)
@@ -53,13 +53,13 @@ namespace GC.Infrastructure.Commands.GCPerfSim
             public KeyValuePair<string, Run> RunDetails { get; set; }
             public KeyValuePair<string, CoreRunInfo> CorerunDetails { get; set; }
         }
-
+        
         public override int Execute([NotNull] CommandContext context, [NotNull] GCPerfSimSettings settings)
         {
-
             GCPerfSimConfiguration configuration = GCPerfSimConfigurationParser.Parse(settings.ConfigurationPath);
+            
             // run gcoerfsim several times
-            int loopCount = settings.Loop == null ? 1 : settings.Loop.Value;
+            int loopCount = settings.Loop == null? 1 : settings.Loop.Value;
             string outputRoot = configuration.Output.Path;
             for (int i = 0; i < loopCount; i++)
             {
@@ -67,7 +67,7 @@ namespace GC.Infrastructure.Commands.GCPerfSim
                 {
                     Stopwatch sw = new();
                     sw.Start();
-
+                    
                     AnsiConsole.Write(new Rule("GCPerfSim Orchestrator"));
                     AnsiConsole.WriteLine();
 
@@ -92,6 +92,7 @@ namespace GC.Infrastructure.Commands.GCPerfSim
                     continue;
                 }
             }
+            
             return 0;
         }
 

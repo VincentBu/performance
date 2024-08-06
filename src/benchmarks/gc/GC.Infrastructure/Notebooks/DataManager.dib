@@ -88,6 +88,8 @@ public sealed class LoadInfo
     public double Latency75thMS {get; set;} = double.NaN;
     public double Latency50thMS {get; set;} = double.NaN;
 
+    public double StartupTimeMS {get; set;} = double.NaN;
+
     // Do these need to be stored on the LoadInfo?  Context should already have this information.
     public string Run {get; set;}
     public string Config {get; set;}
@@ -595,6 +597,10 @@ public class DataManager
             else if (line.Contains("Private Memory P50") && (idxOfApplication < idx && idx < idxOfLoad)) 
             {
                 info.P50PrivateMemoryMB = double.Parse(sp[2]);
+            }
+            else if (line.Contains("Start Time") && (idxOfApplication < idx && idx < idxOfLoad))
+            {
+                info.StartupTimeMS = double.Parse(sp[2]);
             }
 
             ++idx;

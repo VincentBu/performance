@@ -37,6 +37,7 @@ public static IEnumerable<(string run, string config, ConfigData configData)> Ge
 public static IEnumerable<(string run, string config)> GetConfigs(this DataManager dataManager, Filter runFilter, Filter configFilter)
     => dataManager.GetConfigsWithData(runFilter, configFilter).Select(tuple => (tuple.run, tuple.config));
 
+
 public static IEnumerable<(string run, string config, string benchmark, BenchmarkData benchmarkData)> GetBenchmarksWithData(
     this DataManager dataManager, Filter runFilter, Filter configFilter, Filter benchmarkFilter, IntFilter iterationFilter, ConfigIterationFilter configIterationFilter)
 {
@@ -639,6 +640,8 @@ public static class Metrics
     {
         public static Metric<IterationData> MaxNumHeaps = Promote(Metrics.G.NumHeaps, Aggregation.Max);
         public static Metric<IterationData> MaxPauseDuration = Promote(Metrics.G.PauseDuration, Aggregation.Max);
+        public static Metric<IterationData> MeanHeapSizeBefore = Promote(Metrics.G.HeapSizeBefore, Aggregation.Average);
+        public static Metric<IterationData> MaxeapSizeBefore = Promote(Metrics.G.HeapSizeBefore, Aggregation.Max);
 
         public static Metric<IterationData> TotalSuspensionTime = new (iterationData => iterationData.GCSummaryInfo.TotalSuspensionTimeMSec, "Total suspension time", "ms");
         public static Metric<IterationData> PercentPauseTimeInGC = new (iterationData => iterationData.GCSummaryInfo.PercentPauseTimeInGC, "% pause GC", "%");
@@ -675,6 +678,8 @@ public static class Metrics
         public static Metric<IterationData> Latency75thMS = new (iterationData => iterationData.LoadInfo.Latency75thMS, "Latency 75th", "ms");
         public static Metric<IterationData> Latency50thMS = new (iterationData => iterationData.LoadInfo.Latency50thMS, "Latency 50th", "ms");
         public static List<Metric<IterationData>> LatencyMSList = ML(MeanLatencyMS, Latency99thMS, Latency90thMS, Latency75thMS, Latency50thMS);
+
+        public static Metric<IterationData> StartupTimeMS = new (iterationData => iterationData.LoadInfo.StartupTimeMS, "Startup Time", "ms");
     }
 
     public static class B
@@ -1412,13 +1417,137 @@ public class ChartPresenter : DataPresenter<List<PlotlyChart>>
     public override void Finish(XArrangement xArrangement) => _charts.Add(Chart.Plot(_scatters, _layout));
 }
 
+public sealed class ComparerItem
+{
+    public string ConfigName { get; }
+    public string MetricName { get; }
+    public string Title { get; }
+    public string Unit { get; }
+    public string ColorFamilyKey { get; }
+    public string ColorFamilyId { get; }
+    public List<(XValue x, double? y)> Data { get; }
+
+    // Make use of new functions.
+    public ComparerItem(string configName, string metricName, string title, string unit, string colorFamilyKey, string colorFamilyId, List<(XValue x, double? y)> data)
+    {
+        // SeriesTitle: Average of Max heap size / datas_fix, Unit: MB, ColorFamilyKey: datas_fix, ColorFamilyId: Average of Max heap size / 
+        ConfigName = configName;
+        Title = title;
+        MetricName = metricName;
+        Unit = unit;
+        ColorFamilyKey = colorFamilyKey;
+        ColorFamilyId = colorFamilyId;
+        Data = data;
+    }
+
+    public override string ToString() => $"{ConfigName} {MetricName}";
+    public override int GetHashCode() => ConfigName.GetHashCode() ^ MetricName.GetHashCode();
+    public override bool Equals(object obj) => obj is ComparerItem other && (ConfigName == other.ConfigName) && (MetricName == other.MetricName);
+}
+
+public interface ICompareInfo
+{
+    void Add(ComparerItem item);
+    IReadOnlyList<ComparerItem> GenerateSeries<TResult>();
+}
+
+public sealed class ComparisonCalculation
+{
+    public ComparisonCalculation(string name, Func<double?, double?, double?> calculation)
+    {
+        Name = name;
+        Calculation = calculation;
+    }
+
+    public string Name { get; }
+    public Func<double?, double?, double?> Calculation { get; }
+}
+
+public static class ComparisonCalculations
+{
+    public static ComparisonCalculation PercentDiff { get; } = new("Percent Diff", (baseline, comparand) => (baseline != 0) ? (comparand - baseline) / baseline * 100.0 : null);
+    public static ComparisonCalculation Diff { get; } = new("Diff", (baseline, comparand) => comparand - baseline); 
+}
+
+public sealed class ConfigCompareInfo : ICompareInfo 
+{
+    private readonly List<ComparerItem> _data = new();
+    private readonly List<(ComparerItem baseline, ComparerItem comparand)> _pairs = new();
+
+    // TODO: Add multiple comparands
+    // TODO: Add multiple calculations
+    public ConfigCompareInfo(string baselineConfig, string comparandConfig, ComparisonCalculation? calculation = null) 
+    {
+        BaselineConfig = baselineConfig;
+        ComparandConfig = comparandConfig;
+        Calculation = calculation ?? ComparisonCalculations.PercentDiff;
+    }
+
+    public void Add(ComparerItem item) 
+        => _data.Add(item);
+
+    public IReadOnlyList<ComparerItem> GenerateSeries<TResult>()
+    {
+        var baselines = _data.Where(d => d.ConfigName == BaselineConfig);
+        List<ComparerItem> items = new();
+
+        // Assumption: What if the baseline was missing?
+        // Console.WriteLine($"Baseline not found for: {b.ConfigName} {b.MetricName}");
+        foreach (var b in baselines)
+        {
+            // Get the Comparand.
+            var comparand = _data.FirstOrDefault(d => d.ConfigName == ComparandConfig && d.MetricName == b.MetricName);
+            if (comparand == null)
+            {
+                Console.WriteLine($"Comparand not found for: {b.ConfigName} {b.MetricName}");
+                items.Add(b);
+            }
+
+            else
+            {
+                List<(XValue x, double? y)> data = new();
+
+                // For each pair generate the comparison calc result.
+                foreach (var r in b.Data)
+                {
+                    (XValue xVal, double? y) comparer = comparand.Data.FirstOrDefault(d => d.x.Equals(r.x));
+                    data.Add((r.x, Calculation.Calculation(/* baseline */ r.y,  /* comparand: */ comparer.y)));
+                }
+
+                // Add baseline.
+                items.Add(b);
+                //presenter.AddSeries(b.Title, b.Unit, b.ColorFamilyKey, b.ColorFamilyId, b.Data);
+
+                // Add comparand.
+                items.Add(comparand);
+                // SeriesTitle: Average of Max heap size / datas_fix, Unit: MB, ColorFamilyKey: datas_fix, ColorFamilyId: Average of Max heap size / 
+                string comparisonTitle = b.Title + " Comparison %"; 
+                items.Add( new ComparerItem(configName: comparisonTitle, 
+                                            title: b.ColorFamilyId + " Comparison %", 
+                                            metricName: "%", 
+                                            unit: "%", 
+                                            colorFamilyKey: b.ColorFamilyKey + " vs. " + comparand.ColorFamilyKey, 
+                                            colorFamilyId: b.ColorFamilyId, data: data) );
+                // presenter.AddSeries(title: seriesTitle, unit: info.Metric.Unit, colorFamilyKey: colorFamilyKey, colorFamilyId: colorFamilyId, data: data);
+                // presenter.AddSeries(b.ColorFamilyId + " Comparison %", "%", b.ColorFamilyKey + " vs. " + comparand.ColorFamilyKey, comparand.ColorFamilyId, data);
+            }
+        }
+
+        return items;
+    }
+
+    public string BaselineConfig { get; }
+    public string ComparandConfig { get; }
+    public ComparisonCalculation Calculation { get; }
+}
+
 TResult ChartInternal<TData, TResult>(DataPresenter<TResult> presenter, ChartType<TData> chartType,
     DataManager dataManager, List<Metric<TData>> metrics,
     Filter runFilter = null, Filter configFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
     ConfigIterationFilter configIterationFilter = null, Func<TData, bool> dataFilter = null, Func<string, string> benchmarkMap = null,
     BaseMetric<(string, TData), XValue> xMetric = null, XArrangement xArrangement = null,
     NameSimplifier configNameSimplifier = null, bool includeRunName = false,
-    bool display = true, bool debug = false)
+    bool display = true, bool debug = false, ICompareInfo compareInfo = null)
 {
     runFilter = runFilter ?? Filter.All;
     configFilter = configFilter ?? Filter.All;
@@ -1600,7 +1729,24 @@ TResult ChartInternal<TData, TResult>(DataPresenter<TResult> presenter, ChartTyp
                 }
 
                 string colorFamilyId = chartType.GetColorFamilyId(info, multipleMetrics: metrics.Count > 1);
-                presenter.AddSeries(title: seriesTitle, unit: info.Metric.Unit, colorFamilyKey: colorFamilyKey, colorFamilyId: colorFamilyId, data: data);
+
+                if (compareInfo == null)
+                {
+                    presenter.AddSeries(title: seriesTitle, unit: info.Metric.Unit, colorFamilyKey: colorFamilyKey, colorFamilyId: colorFamilyId, data: data);
+                }
+
+                else
+                {
+                    compareInfo.Add(new ComparerItem(configName: info.Config, metricName: info.Metric.Title, title: seriesTitle, unit: info.Metric.Unit, colorFamilyKey: colorFamilyKey, colorFamilyId: colorFamilyId, data: data));
+                }
+            }
+
+            if (compareInfo != null)
+            {
+                foreach (var item in compareInfo.GenerateSeries<TResult>())
+                {
+                    presenter.AddSeries(title: item.Title, unit: item.Unit, colorFamilyKey: item.ColorFamilyKey, colorFamilyId: item.ColorFamilyId, data: item.Data);
+                }
             }
 
             presenter.Finish(xArrangement);
@@ -1614,6 +1760,20 @@ TResult ChartInternal<TData, TResult>(DataPresenter<TResult> presenter, ChartTyp
 
     return presenter.Result;
 }
+
+List<List<string>> TableBenchmarks(DataManager dataManager, List<Metric<BenchmarkData>> metrics, TextPresenter textPresenter = null,
+    Filter runFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
+    ConfigIterationFilter configIterationFilter = null, Func<BenchmarkData, bool> dataFilter = null,
+    Func<string, string> benchmarkMap = null, BaseMetric<(string, BenchmarkData), XValue> xMetric = null, XArrangement xArrangement = null,
+    NameSimplifier configNameSimplifier = null, bool includeRunName = false,
+    bool display = true, bool debug = false, ConfigCompareInfo configCompareInfo = null)
+    => ChartInternal(textPresenter ?? TextPresenter.Markdown, new BenchmarksChartType(),
+        dataManager, metrics,
+        runFilter: runFilter, configFilter: null, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter,
+        configIterationFilter: configIterationFilter, dataFilter: dataFilter,
+        benchmarkMap: benchmarkMap, xMetric: xMetric, xArrangement: xArrangement,
+        configNameSimplifier: configNameSimplifier, includeRunName: includeRunName,
+        display: display, debug: debug, compareInfo: configCompareInfo);
 
 List<List<string>> TableBenchmarks(DataManager dataManager, List<Metric<BenchmarkData>> metrics, TextPresenter textPresenter = null,
     Filter runFilter = null, Filter configFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
@@ -1780,6 +1940,7 @@ List<PlotlyChart> ChartGCData(DataManager dataManager, Metric<TraceGC> metric,
 #!csharp
 
 // Benchmark lists
+
 
 // scoutList is a list of ASP.NET benchmarks identified by looking at allocation rates.
 // scoutList2 adds some tests that Maoni identified.

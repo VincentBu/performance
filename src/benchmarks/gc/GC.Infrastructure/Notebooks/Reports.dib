@@ -371,6 +371,13 @@ public class Aggregation
 
         public static double Average(IEnumerable<double> data) => data.Average();
         public static double Range(IEnumerable<double> data) => data.Max() - data.Min();
+        public static double StdDev(IEnumerable<double> data)
+        {
+            double avg = data.Average();
+            double sum = data.Sum(d => Math.Pow(d - avg, 2));
+            return Math.Sqrt(sum / data.Count());
+        }
+        public static double CVPercent(IEnumerable<double> data) => StdDev(data) / data.Average() * 100;
 
         public static double GeoMean(IEnumerable<double> data)
         {
@@ -391,6 +398,7 @@ public class Aggregation
     public static Aggregation Average { get; } = new Aggregation(Funcs.Average, "Average", null);
     public static Aggregation Range { get; } = new Aggregation(Funcs.Range, "Range", null);
     public static Aggregation GeoMean { get; } = new Aggregation(Funcs.GeoMean, "GeoMean", null);
+    public static Aggregation CVPercent { get; } = new Aggregation(Funcs.CVPercent, "CV %", "%");
 }
 
 public class BaseMetric<TSource, TValue>
@@ -641,7 +649,6 @@ public static class Metrics
         public static Metric<IterationData> MaxNumHeaps = Promote(Metrics.G.NumHeaps, Aggregation.Max);
         public static Metric<IterationData> MaxPauseDuration = Promote(Metrics.G.PauseDuration, Aggregation.Max);
         public static Metric<IterationData> MeanHeapSizeBefore = Promote(Metrics.G.HeapSizeBefore, Aggregation.Average);
-        public static Metric<IterationData> MaxeapSizeBefore = Promote(Metrics.G.HeapSizeBefore, Aggregation.Max);
 
         public static Metric<IterationData> TotalSuspensionTime = new (iterationData => iterationData.GCSummaryInfo.TotalSuspensionTimeMSec, "Total suspension time", "ms");
         public static Metric<IterationData> PercentPauseTimeInGC = new (iterationData => iterationData.GCSummaryInfo.PercentPauseTimeInGC, "% pause GC", "%");
@@ -689,8 +696,12 @@ public static class Metrics
         public static Metric<BenchmarkData> MaxPercentPauseTimeInGC = Promote(Metrics.I.PercentPauseTimeInGC, Aggregation.Max);
         public static Metric<BenchmarkData> AveragePercentPauseTimeInGC = Promote(Metrics.I.PercentPauseTimeInGC, Aggregation.Average);
         public static Metric<BenchmarkData> AverageRequestPerMSec = Promote(Metrics.I.RequestsPerMSec, Aggregation.Average);
+        public static Metric<BenchmarkData> RequestPerMSecCVPerc = Promote(Metrics.I.RequestsPerMSec, Aggregation.CVPercent);
         public static Metric<BenchmarkData> AverageMaxHeapSize = Promote(Metrics.I.MaxHeapSizeMB, Aggregation.Average);
+        public static Metric<BenchmarkData> MaxMaxHeapSize = Promote(Metrics.I.MaxHeapSizeMB, Aggregation.Max);
+        public static Metric<BenchmarkData> MaxHeapSizeCVPerc = Promote(Metrics.I.MaxHeapSizeMB, Aggregation.CVPercent);
         public static Metric<BenchmarkData> AverageP50Latency = Promote(Metrics.I.Latency50thMS, Aggregation.Average);
+        public static Metric<BenchmarkData> P50LatencyCVPerc = Promote(Metrics.I.Latency50thMS, Aggregation.CVPercent);
         public static Metric<BenchmarkData> AverageMeanLatency = Promote(Metrics.I.MeanLatencyMS, Aggregation.Average);
     }
 }
@@ -1475,7 +1486,7 @@ public sealed class ConfigCompareInfo : ICompareInfo
     private readonly List<(ComparerItem baseline, ComparerItem comparand)> _pairs = new();
 
     // TODO: Add multiple comparands
-    // TODO: Add multiple calculations
+    // TODO: Add multiple calculations.
     public ConfigCompareInfo(string baselineConfig, string comparandConfig, ComparisonCalculation? calculation = null) 
     {
         BaselineConfig = baselineConfig;
@@ -1521,6 +1532,8 @@ public sealed class ConfigCompareInfo : ICompareInfo
                 // Add comparand.
                 items.Add(comparand);
                 // SeriesTitle: Average of Max heap size / datas_fix, Unit: MB, ColorFamilyKey: datas_fix, ColorFamilyId: Average of Max heap size / 
+
+                // Add Comparison.
                 string comparisonTitle = b.Title + " Comparison %"; 
                 items.Add( new ComparerItem(configName: comparisonTitle, 
                                             title: b.ColorFamilyId + " Comparison %", 
@@ -1528,8 +1541,6 @@ public sealed class ConfigCompareInfo : ICompareInfo
                                             unit: "%", 
                                             colorFamilyKey: b.ColorFamilyKey + " vs. " + comparand.ColorFamilyKey, 
                                             colorFamilyId: b.ColorFamilyId, data: data) );
-                // presenter.AddSeries(title: seriesTitle, unit: info.Metric.Unit, colorFamilyKey: colorFamilyKey, colorFamilyId: colorFamilyId, data: data);
-                // presenter.AddSeries(b.ColorFamilyId + " Comparison %", "%", b.ColorFamilyKey + " vs. " + comparand.ColorFamilyKey, comparand.ColorFamilyId, data);
             }
         }
 

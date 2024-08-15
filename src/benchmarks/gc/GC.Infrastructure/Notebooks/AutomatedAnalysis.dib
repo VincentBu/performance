@@ -1,0 +1,393 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!csharp
+
+#!import BenchmarkAnalysis.dib
+
+#!markdown
+
+## Benchmark Regressions
+
+#!csharp
+
+List<(SeriesInfo<TData>, List<KeyValuePair<string, TData>>)> GetDataInternal<TData>(ChartType<TData> chartType,
+    DataManager dataManager, List<Metric<TData>> metrics,
+    Filter runFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
+    ConfigIterationFilter configIterationFilter = null, Func<TData, bool> dataFilter = null, XArrangement xArrangement = null,
+    NameSimplifier configNameSimplifier = null, bool includeRunName = false, Filter configFilter = null, bool debug = false)
+{
+    runFilter = runFilter ?? Filter.All;
+    benchmarkFilter = benchmarkFilter ?? Filter.All;
+    iterationFilter = iterationFilter ?? IntFilter.All;
+    configFilter = configFilter ?? Filter.All;
+    // configIterationFilter is not set to an empty dictionary as that would exclude everything
+    dataFilter = dataFilter ?? (data => true);
+    var benchmarkMap = chartType.DefaultBenchmarkMap;
+    var xMetric = chartType.DefaultXMetric;
+    xArrangement = xArrangement ?? XArrangements.Default;
+
+    List<(SeriesInfo<TData>, List<KeyValuePair<string, TData>>)> dataSources = new();
+
+    if (metrics.Count == 0)
+    {
+        Console.WriteLine("No metrics");
+        return dataSources;
+    }
+
+    List<string> configs = dataManager.GetConfigs(runFilter: runFilter, configFilter: configFilter).Select(tuple => tuple.config).Distinct().ToList();
+    if (configs.Count == 0)
+    {
+        Console.WriteLine("No configs afer filtering");
+        return dataSources;
+    }
+
+    if (debug) Console.WriteLine("Simplify config names");
+    Dictionary<string, string> configDisplayNames = null;
+    string configPrefix = null;
+    if (configNameSimplifier != null)
+    {
+        (configPrefix, configDisplayNames) = configNameSimplifier.Simplify(configs);
+    }
+    
+    if (debug) Console.WriteLine("Prepare units");
+
+    Dictionary<string, List<string>> benchmarkGroups = new();
+    HashSet<string> benchmarkSet = new();
+    foreach ((string run, string config, string benchmark) in
+        dataManager.GetBenchmarks(runFilter: runFilter, configFilter: configFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter,
+            configIterationFilter: configIterationFilter))
+    {
+        if (!benchmarkSet.Add(benchmark)) continue;
+
+        string benchmarkGroup = (benchmarkMap != null) ? benchmarkMap(benchmark) : benchmark;
+        benchmarkGroups.GetOrAdd(benchmarkGroup, new());
+        benchmarkGroups[benchmarkGroup].Add(benchmark);
+    }
+
+    foreach (var (benchmarkGroup, benchmarkList) in benchmarkGroups)
+    {
+        if (debug) Console.WriteLine("Initialize colors");
+
+        {
+            string xlabel = xArrangement.GetNewTitle(xMetric.Title);
+
+            string titlePrefix = chartType.GetChartTitle();
+            List<string> titleParts = new();
+            if (!string.IsNullOrWhiteSpace(benchmarkGroup)) titleParts.Add(benchmarkGroup);
+            if (metrics.Count == 1) titleParts.Add(metrics[0].Title);
+            if (configPrefix != null) titleParts.Add(configPrefix);
+            else if (configs.Count == 1) titleParts.Add(configDisplayNames?.GetValueOrDefault(configs[0]) ?? configs[0]);
+            string titleWithoutPrefix = string.Join(" / ", titleParts);
+            string title = string.Join(" / ", titleParts.Prepend(titlePrefix));
+
+            List<(XValue x, double? y)> firstDataPreSorted = null;
+            double firstDataMin = 0;
+            HashSet<XValue> firstDataSet = new();
+
+            foreach (SeriesInfo<TData> info in
+                chartType.GetSeries(dataManager, metrics, runFilter: runFilter, configFilter: configFilter, benchmarkFilter: benchmarkFilter,
+                    iterationFilter: iterationFilter, configIterationFilter: configIterationFilter, benchmarkList: benchmarkList))
+            {
+                string colorFamilyKey = chartType.GetColorFamilyKey(info, multipleMetrics: metrics.Count > 1, includeRunName: includeRunName, multipleConfigs: configs.Count > 1,
+                    configDisplayNames: configDisplayNames, multipleBenchmarks: benchmarkList.Count > 1);
+                string seriesTitle = chartType.GetSeriesTitle(info, colorFamilyKey, metrics.Count > 1);
+                if (debug) Console.Write($"series title: {seriesTitle}, ");
+
+                List<KeyValuePair<string, TData>> dataSource;
+                try { dataSource = chartType.GetDataSource(info, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter,
+                    configIterationFilter: configIterationFilter, dataFilter: dataFilter); }
+                catch (Exception e) { Console.WriteLine($"Exception {e} processing data source for {title} / {seriesTitle}"); dataSource = null; }
+                if (dataSource == null)
+                {
+                    Console.WriteLine($"No data for {titleWithoutPrefix} / {seriesTitle}");
+                    continue;
+                }
+
+                else
+                {
+                    dataSources.Add((info, dataSource));
+                }
+            }
+        }
+    }
+
+    return dataSources;
+}
+
+#!csharp
+
+Dictionary<string, Dictionary<string, Dictionary<string, double?>>> GetBenchmarkData(DataManager dataManager, List<Metric<BenchmarkData>> metrics,
+    Filter runFilter = null, Filter configFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
+    ConfigIterationFilter configIterationFilter = null, Func<BenchmarkData, bool> dataFilter = null,
+    Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
+    NameSimplifier configNameSimplifier = null, bool includeRunName = false,
+    bool display = true, bool debug = false)
+{
+    BenchmarksChartType chartType = new BenchmarksChartType();
+    var xMetric = chartType.DefaultXMetric; 
+    var result = GetDataInternal(chartType: chartType,
+        dataManager: dataManager, metrics: metrics,
+        runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, configFilter: configFilter,
+        configIterationFilter: configIterationFilter, dataFilter: dataFilter,
+        xArrangement: xArrangement,
+        configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, debug: debug);
+
+    Dictionary<string, Dictionary<string, Dictionary<string, double?>>> data = new();
+    //foreach (var r in result)
+    for (int i = 0; i < result.Count; i++)
+    {
+        var r = result[i];
+
+        List<(XValue, double?)> benchmarkMetricData = null;
+        try { benchmarkMetricData = r.Item2.Select(b => (x: xMetric.DoExtract((b.Key, b.Value)), y: r.Item1.Metric.DoExtract(b.Value, i))).ToList(); }
+        catch { Console.WriteLine($"Exception processing data items"); benchmarkMetricData = null; } 
+
+        // Config -> Metric -> (Benchmark, Data).
+        if (benchmarkMetricData != null)
+        {
+            if (!data.TryGetValue(r.Item1.Config, out var configData))
+            {
+                data[r.Item1.Config] = configData = new();
+            }
+
+            if (!configData.TryGetValue(r.Item1.Metric.Title, out var runData))
+            {
+                configData[r.Item1.Metric.Title] = runData = new();
+            }
+
+            foreach (var benchmark in benchmarkMetricData)
+            {
+                runData[benchmark.Item1.GetName()] = benchmark.Item2;
+            }
+        }
+
+        else
+        {
+            // TODO: Log.
+        }
+    }
+
+    return data; 
+}
+
+Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?>>>> GetIterationData_Raw(DataManager dataManager, List<Metric<IterationData>> metrics,
+    Filter runFilter = null, Filter configFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
+    ConfigIterationFilter configIterationFilter = null, Func<IterationData, bool> dataFilter = null,
+    Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
+    NameSimplifier configNameSimplifier = null, bool includeRunName = false,
+    bool display = true, bool debug = false)
+{
+    IterationsChartType chartType = new IterationsChartType();
+    var xMetric = chartType.DefaultXMetric; 
+    var result = GetDataInternal(chartType: chartType,
+        dataManager: dataManager, metrics: metrics,
+        runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, configFilter: configFilter,
+        configIterationFilter: configIterationFilter, dataFilter: dataFilter,
+        xArrangement: xArrangement,
+        configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, debug: debug);
+
+    Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?>>>> data = new();
+
+    //foreach (var r in result)
+    for (int i = 0; i < result.Count; i++)
+    {
+        var r = result[i];
+
+        List<(XValue, double?)> metricData = null;
+        try { metricData = r.Item2.Select(b => (x: xMetric.DoExtract((b.Key, b.Value)), y: r.Item1.Metric.DoExtract(b.Value, i))).ToList(); }
+        catch { Console.WriteLine($"Exception processing data items"); metricData = null; } 
+
+        if (metricData != null)
+        {
+            // Config
+            if (!data.TryGetValue(r.Item1.Config, out var configData))
+            {
+                data[r.Item1.Config] = configData = new();
+            }
+
+            // Metric
+            if (!configData.TryGetValue(r.Item1.Metric.Title, out var m))
+            {
+                configData[r.Item1.Metric.Title] = m = new();
+            }
+
+            // Benchmark 
+            foreach (var metric in metricData)
+            {
+                if (!m.TryGetValue(metric.Item1.GetName(), out var itData))
+                {
+                    m[metric.Item1.GetName()] = itData = new(); 
+                }
+
+                itData[r.Item1.Iteration.GetValueOrDefault()] = metric.Item2;
+            }
+        }
+
+        else
+        {
+            // TODO: Log.
+        }
+    }
+
+    return data; 
+}
+
+#!csharp
+
+public record BenchmarkRegressionInfo(string benchmarkName, string metricName, double regressionPercentage);
+
+// TODO: Add custom calculation.
+static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (this Dictionary<string, Dictionary<string, Dictionary<string, double?>>> data, string baselineConfig, string comparandConfig, double tolerancePercentage = 5, bool debug = false)
+{
+    List<BenchmarkRegressionInfo> regressions = new();
+    double? percentDifference (double? baseline, double? comparand) => (comparand - baseline) / baseline * 100;
+
+    // Preconditition Checks.
+    if (!data.ContainsKey(baselineConfig) || !data.ContainsKey(comparandConfig))
+    {
+        if (debug)
+        {
+            Console.WriteLine($"Either {baselineConfig} or {comparandConfig} is not present in the data.");
+        }
+
+        return regressions;
+    }
+
+    // Metric -> BenchmarkData.
+    var baselineData = data[baselineConfig];
+    var comparandData = data[comparandConfig];
+
+    foreach (var metricToBenchmarkData in baselineData)
+    {
+        string metric = metricToBenchmarkData.Key;
+        if (comparandData.TryGetValue(metric, out var comparandSeries))
+        {
+            foreach (var b in metricToBenchmarkData.Value)
+            {
+                string benchmark = b.Key;
+                if (!comparandSeries.TryGetValue(b.Key, out var c))
+                {
+                    if (debug)
+                    {
+                        Console.WriteLine($"Skipping comparison for {metricToBenchmarkData.Key} as one of the values is null.");
+                    }
+                    continue;
+                }
+
+                var diff = percentDifference(b.Value, c.Value);
+                if (double.IsNaN(diff.GetValueOrDefault()) || double.IsInfinity(diff.GetValueOrDefault()))
+                {
+                    if (debug)
+                    {
+                        Console.WriteLine($"Obtained illegal diff for {b.Key} x {metricToBenchmarkData.Key} - Omitting");
+                    }
+                }
+
+                // TODO: Add some sense of metric differentiation.
+                if (diff > tolerancePercentage || (metricToBenchmarkData.Key.Contains("Average of RPS") && diff < -tolerancePercentage))
+                {
+                    regressions.Add(new BenchmarkRegressionInfo(b.Key, metricToBenchmarkData.Key, Math.Round(diff.GetValueOrDefault(), 2)));
+                }
+            }
+        }
+
+        else
+        {
+            if (debug)
+            {
+                Console.WriteLine($"Metric missing in comparand config: {metricToBenchmarkData.Key} -- skipping");
+            }
+        }
+    }
+
+    return regressions;
+}
+
+#!csharp
+
+// Write a C# function that finds the most different data point from a Dictionary<int, double?> data set.
+public static (int, double?) FindMostDifferentDataPoint(Dictionary<int, double?> data, double volatilityThreshold = 5)
+{
+    double? Abs(double? x) => x < 0 ? -x : x;
+    double? volatility = (data.Values.Max() - data.Values.Min()) / data.Values.Min() * 100;
+    if (volatility > volatilityThreshold)
+    {
+        var mostDifferentDataPoint = data.OrderByDescending(x => Abs(x.Value - data.Values.Average(d => d))).FirstOrDefault();
+        return (mostDifferentDataPoint.Key, volatility);
+    }
+
+    else
+    {
+        return (-1, volatility);
+    }
+}
+
+public static void GetAnomolousIterations(this Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?>>>> data, double volatilityThreshold = 5)
+{
+    foreach (var config in data)
+    {
+        foreach (var metric in config.Value)
+        {
+            foreach (var benchmark in metric.Value)
+            {
+                var anomolousIteration = FindMostDifferentDataPoint(benchmark.Value, volatilityThreshold);
+                if (anomolousIteration.Item1 != -1)
+                {
+                    //Console.WriteLine($"Anomolous Iteration found for {config.Key} / {metric.Key} / {benchmark.Key} at iteration {metric.Value[anomolousIteration]} - volatility: {Math.Round((decimal)anomolousIteration.Item2)} - Vals: {string.Join(", ", benchmark.Value.Values)}");
+                }
+            }
+        }
+    }
+}
+
+#!csharp
+
+void DisplayBenchmarkSummaryWithAnomalies(DataManager dm, string baselineConfigName, string comparandConfigName, List<Metric<BenchmarkData>> metrics = null, double benchmarkRegressionThreshold = 5.0,
+    Filter runFilter = null, Filter configFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
+    ConfigIterationFilter configIterationFilter = null, Func<BenchmarkData, bool> dataFilter = null,
+    Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
+    NameSimplifier configNameSimplifier = null, bool includeRunName = false,
+    bool display = true, bool debug = false)
+{
+    metrics ??= ML( Metrics.B.MaxMaxHeapSize, Metrics.B.MaxHeapSizeCVPerc, Metrics.B.AverageP50Latency, Metrics.B.P50LatencyCVPerc, Metrics.B.AverageRequestPerMSec, Metrics.B.RequestPerMSecCVPerc);
+    TableBenchmarks(dm, metrics, configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName), 
+    runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, 
+    benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
+
+    var benchmarkData = GetBenchmarkData(dm, metrics, runFilter, configFilter, benchmarkFilter, iterationFilter, configIterationFilter, dataFilter, benchmarkMap, xArrangement, configNameSimplifier, includeRunName, display, debug);
+    List<BenchmarkRegressionInfo> regressions = 
+        benchmarkData.GetBenchmarkRegressions(baselineConfig: baselineConfigName, comparandConfig: comparandConfigName, tolerancePercentage: benchmarkRegressionThreshold, debug: debug);
+
+    StringBuilder regressionTableSb = new();
+    regressionTableSb.AppendLine($"### Regressions (>{benchmarkRegressionThreshold}%)");
+    regressionTableSb.AppendLine();
+    regressionTableSb.AppendLine("| Benchmark | Metric | Regression % |");
+    regressionTableSb.AppendLine("| --------- | ------ | ------------ |");
+    foreach (var r in regressions.OrderByDescending(d => Math.Abs(d.regressionPercentage)))
+    {
+        regressionTableSb.AppendLine($"| {r.benchmarkName} | {r.metricName} | {Math.Round(r.regressionPercentage, 2)} |");
+    }
+
+    regressionTableSb.ToString().DisplayAs("text/markdown");
+}
+
+#!markdown
+
+## Iteration
+
+#!csharp
+
+//        run |                           benchmark |  gen0 | pause |  gen1 | pause |  ngc2 | pause |   bgc | pause |    allocMB |   alloc/gc |   pct |   peakMB |   meanMB |  max mem |      rps |  latency |   hc |   gc count |
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// baseline_0 |         ConnectionCloseHttpsHttpSys |   591 |  1.26 |    81 |  0.87 |     1 |  2.85 |     0 |  0.00 |    5059.47 |       7.52 |  2.71 |    14.37 |    11.00 |    44.00 |    33.95 |     0.30 |    0 |        673 |
+// baseline_1 |         ConnectionCloseHttpsHttpSys |   632 |  1.27 |    19 |  0.95 |     0 |  0.00 |     1 |  0.32 |    4899.91 |       7.52 |  2.73 |    14.10 |    12.50 |    45.00 |    32.91 |     0.31 |    0 |        652 |
+
+#!csharp
+
+// Top level constructor taking in dm, baseline config name, comparand config.
+// Display Details func that assumes all defaults. 
+// Else, fluent builder.
+
+// Build default first and then specialize.

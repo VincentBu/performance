@@ -657,6 +657,7 @@ public static class Metrics
         public static Metric<IterationData> MaxHeapSizeMB = new (iterationData => iterationData.GCSummaryInfo.MaxHeapSizeMB, "Max heap size", "MB");
         public static Metric<IterationData> TotalAllocationsMB = new (iterationData => iterationData.GCSummaryInfo.TotalAllocationsMB, "Total allocations", "MB");
         public static Metric<IterationData> GCScore = new (iterationData => iterationData.GCSummaryInfo.GCScore, "GC score", "score"); // MB * %
+        public static Metric<IterationData> MeanAllocPerGC = new (iterationData => iterationData.GCProcessData.Stats.TotalAllocatedMB / iterationData.GCProcessData.Stats.TotalPauseTimeMSec, "Mean Allocations Per GC", "mb/ms");
 
         public static Metric<IterationData> MaxHeapCount = new (iterationData => iterationData.GCSummaryInfo.MaxHeapCount, "Max heap count", "#");
         public static Metric<IterationData> NumberOfHeapCountSwitches = new (iterationData => iterationData.GCSummaryInfo.NumberOfHeapCountSwitches, "# hc changes", "#");
@@ -688,7 +689,7 @@ public static class Metrics
 
         public static Metric<IterationData> StartupTimeMS = new (iterationData => iterationData.LoadInfo.StartupTimeMS, "Startup Time", "ms");
 
-        // //        run |                           benchmark |  gen0 | pause |  gen1 | pause |  ngc2 | pause |   bgc | pause |    allocMB |   alloc/gc |   pct |   peakMB |   meanMB |  max mem |      rps |  latency |   hc |   gc count |    
+        // //        run | benchmark |  gen0 | pause |  gen1 | pause |  ngc2 | pause |   bgc | pause |    allocMB |   alloc/gc |   pct |   peakMB |   meanMB |  max mem |      rps |  latency |   hc |   gc count |    
         public static Metric<IterationData> TotalGCCount = new (iterationData => iterationData.GCProcessData.Stats.Count, "Total GC Count", "#");
 
         // Per Generation Iteration Data.
@@ -704,6 +705,10 @@ public static class Metrics
         public static Metric<IterationData> BlockingGCCount = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Count, "Gen2 Blocking Count", "#");
         public static Metric<IterationData> BlockingGCTotalPauseTime = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Sum(gc => gc.PauseDurationMSec), "Gen2 Blocking Total Pause Duration", "ms");
         public static Metric<IterationData> BlockingGCMeanPauseTime = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Average(gc => gc.PauseDurationMSec) , "Gen2 Mean Pause Duration", "ms");
+        // BGC.
+        public static Metric<IterationData> BGCCount = new (iterationData => iterationData.GCProcessData.BGCs.Count, "BGC Count", "#");
+        public static Metric<IterationData> BGCTotalPauseTime = new (iterationData => iterationData.GCProcessData.BGCs.Sum(gc => gc.PauseDurationMSec), "BGC Total Pause Duration", "ms");
+        public static Metric<IterationData> BGCMeanPauseTime = new (iterationData => iterationData.GCProcessData.BGCs.Average(gc => gc.PauseDurationMSec), "BGC Mean Pause Duration", "ms");
     }
 
     public static class B

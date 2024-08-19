@@ -245,39 +245,25 @@ static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (this Dictionary<st
 
 #!csharp
 
-// Write a C# function that finds the most different data point from a Dictionary<int, double?> data set.
-public static (int, double?) FindMostDifferentDataPoint(Dictionary<int, double?> data, double volatilityThreshold = 5)
+public static (int, double?) FindMostDifferentDataPoint(List<double?> data, double volatilityThreshold = 5)
 {
     double? Abs(double? x) => x < 0 ? -x : x;
-    double? volatility = (data.Values.Max() - data.Values.Min()) / data.Values.Min() * 100;
+    double? volatility = (data.Max() - data.Min()) / data.Min() * 100;
+
     if (volatility > volatilityThreshold)
     {
-        var mostDifferentDataPoint = data.OrderByDescending(x => Abs(x.Value - data.Values.Average(d => d))).FirstOrDefault();
-        return (mostDifferentDataPoint.Key, volatility);
-    }
-
-    else
-    {
-        return (-1, volatility);
-    }
-}
-
-public static void GetAnomolousIterations(this Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?>>>> data, double volatilityThreshold = 5)
-{
-    foreach (var config in data)
-    {
-        foreach (var metric in config.Value)
+        double? mostDifferentDataPoint = data.OrderByDescending(x => Abs(x.Value - data.Average(d => d))).FirstOrDefault();
+        for (int i = 0; i < data.Count; i++)
         {
-            foreach (var benchmark in metric.Value)
+            if (data[i] == mostDifferentDataPoint)
             {
-                var anomolousIteration = FindMostDifferentDataPoint(benchmark.Value, volatilityThreshold);
-                if (anomolousIteration.Item1 != -1)
-                {
-                    //Console.WriteLine($"Anomolous Iteration found for {config.Key} / {metric.Key} / {benchmark.Key} at iteration {metric.Value[anomolousIteration]} - volatility: {Math.Round((decimal)anomolousIteration.Item2)} - Vals: {string.Join(", ", benchmark.Value.Values)}");
-                }
+                return (i, volatility);
             }
         }
+
     }
+
+    return (-1, volatility);
 }
 
 #!csharp
@@ -320,11 +306,11 @@ void DisplayBenchmarkSummaryWithRegressions(DataManager dm, string baselineConfi
 public record IterationDetails(string configName, int iterationNumber, Dictionary<string, double?> data);
 
 void DisplayIterationData(DataManager dataManager, string baselineConfigName, string comparandConfigName, List<Metric<IterationData>> metrics = null,
-    Filter runFilter = null, Filter configFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
+    Filter runFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
     ConfigIterationFilter configIterationFilter = null, Func<IterationData, bool> dataFilter = null,
     Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
     NameSimplifier configNameSimplifier = null, bool includeRunName = false,
-    bool display = true, bool debug = false)
+    bool display = true, bool debug = false, double volatilityThreshold = 5)
 {
     IterationsChartType chartType = new IterationsChartType();
     var xMetric = chartType.DefaultXMetric; 
@@ -337,14 +323,21 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                    Metrics.I.MaxWorkingSetMB, Metrics.I.RequestsPerMSec, Metrics.I.MeanLatencyMS, Metrics.I.NumberOfHeapCountSwitches, Metrics.I.TotalGCCount);
     var result = GetDataInternal(chartType: chartType,
         dataManager: dataManager, metrics: metrics,
-        runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, configFilter: configFilter,
+        runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, configFilter: Filter.All,
         configIterationFilter: configIterationFilter, dataFilter: dataFilter,
         xArrangement: xArrangement,
         configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, debug: debug);
 
+    string GetBenchmarkFromKey(string key) => key.Split('|')[1];
+    string GetConfigFromKey(string key) => key.Split('|')[0];
+    string GetMetricFromKey(string key) => key.Split('|')[2];
+    string CreateKey(string configName, string benchmarkName, string metricName) => $"{configName}|{benchmarkName}|{metricName}";
+
     // Benchmark -> (Key -> IterationDetails)
     Dictionary<string, Dictionary<string, IterationDetails>> iterationDetails = new();
+    Dictionary<string, List<double?>> iterationData = new();
 
+    // Config -> Benchmark -> (Iteration -> Data).
     // For a benchmark and config -> Intravol of the iterations.
 
     // Display Table that's keyed on benchmarks.
@@ -366,6 +359,14 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                 foreach (var metric in metrics)
                 {
                     metricData[metric.Title] = metric.DoExtract(benchmark.Value);
+                    string iterationKey = CreateKey(kvp.Item1.Config, benchmark.Key, metric.Title);
+
+                    if (!iterationData.TryGetValue(iterationKey, out var iData))
+                    {
+                        iterationData[iterationKey] = iData = new();
+                    }
+
+                    iData.Add(metricData[metric.Title]);
                 }
 
                 d[key] = new IterationDetails(configName: kvp.Item1.Config, iterationNumber: iterationNumber.GetValueOrDefault(), data: metricData);
@@ -395,13 +396,36 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                 configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName));
 
         table.AppendLine(string.Join(" \n", details[0].Skip(2)));
+
+        List<(string key, int idx, double? anomolousVal, string allVals, double volatility)> anomalies = new();
+
+        foreach (var iteration in iterationData.Where(gc => GetBenchmarkFromKey(gc.Key) == benchmark.Key))
+        {
+            (int idx, double? vol) = FindMostDifferentDataPoint(iteration.Value, volatilityThreshold);
+            if (idx != -1)
+            {
+                anomalies.Add((iteration.Key, idx, iteration.Value[idx], string.Join(", ", iteration.Value.Select(v => v?.ToString("F2") ?? "N/A")), vol.GetValueOrDefault()));
+            }
+        }
+
+        if (anomalies.Count > 0)
+        {
+            table.AppendLine($"### Anomalies");
+            table.AppendLine();
+            table.AppendLine("| Config | Iteration | Metric | Vol % | Anomalous Value | All Values |");
+            table.AppendLine("| ------ | --------- | ------ | ---------- | ----------- | --------- |");
+            foreach (var anomaly in anomalies.OrderByDescending(a => a.volatility))
+            {
+                string key = anomaly.key;
+                string config = GetConfigFromKey(key);
+                string metric = GetMetricFromKey(key);
+                int iteration = anomaly.idx;
+                table.AppendLine($"| {config} | {anomaly.idx} | {metric}  | {Math.Round(anomaly.volatility, 2)} | {Math.Round(anomaly.anomolousVal.GetValueOrDefault(), 2)} | {anomaly.allVals} | ");
+            }
+        }
     }
 
     table.ToString().DisplayAs("text/markdown");
-
-    // Detect Anomalies.
-
-    //iterationDetails.Display();
 }
 
 Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?>>>> GetIterationData_Raw(DataManager dataManager, List<Metric<IterationData>> metrics,

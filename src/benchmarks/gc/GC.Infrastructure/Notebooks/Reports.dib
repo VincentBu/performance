@@ -688,27 +688,25 @@ public static class Metrics
         public static List<Metric<IterationData>> LatencyMSList = ML(MeanLatencyMS, Latency99thMS, Latency90thMS, Latency75thMS, Latency50thMS);
 
         public static Metric<IterationData> StartupTimeMS = new (iterationData => iterationData.LoadInfo.StartupTimeMS, "Startup Time", "ms");
-
-        // //        run | benchmark |  gen0 | pause |  gen1 | pause |  ngc2 | pause |   bgc | pause |    allocMB |   alloc/gc |   pct |   peakMB |   meanMB |  max mem |      rps |  latency |   hc |   gc count |    
         public static Metric<IterationData> TotalGCCount = new (iterationData => iterationData.GCProcessData.Stats.Count, "Total GC Count", "#");
 
         // Per Generation Iteration Data.
         // Gen0.
-        public static Metric<IterationData> Gen0Count = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.Count, "Gen0 Count", "#");
-        public static Metric<IterationData> Gen0TotalPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.TotalPauseTimeMSec, "Gen0 Total Pause Duration", "ms");
-        public static Metric<IterationData> Gen0MeanPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.MeanPauseDurationMSec, "Gen0 Mean Pause Duration", "ms");
+        public static Metric<IterationData> Gen0Count = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.Count, "ng0", "#");
+        public static Metric<IterationData> Gen0TotalPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.TotalPauseTimeMSec, "g0 Total Pause", "ms");
+        public static Metric<IterationData> Gen0MeanPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.MeanPauseDurationMSec, "g0 Mean Pause", "ms");
         // Gen1.
-        public static Metric<IterationData> Gen1Count = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen1]?.Count, "Gen1 Count", "#");
-        public static Metric<IterationData> Gen1TotalPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.TotalPauseTimeMSec, "Gen1 Total Pause Duration", "ms");
-        public static Metric<IterationData> Gen1MeanPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.MeanPauseDurationMSec, "Gen1 Mean Pause Duration", "ms");
+        public static Metric<IterationData> Gen1Count = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen1]?.Count, "ng1", "#");
+        public static Metric<IterationData> Gen1TotalPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.TotalPauseTimeMSec, "g1 Total Pause", "ms");
+        public static Metric<IterationData> Gen1MeanPauseMSec = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.MeanPauseDurationMSec, "g1 Mean Pause", "ms");
         // Gen2 Blocking.
-        public static Metric<IterationData> BlockingGCCount = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Count, "Gen2 Blocking Count", "#");
-        public static Metric<IterationData> BlockingGCTotalPauseTime = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Sum(gc => gc.PauseDurationMSec), "Gen2 Blocking Total Pause Duration", "ms");
-        public static Metric<IterationData> BlockingGCMeanPauseTime = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Average(gc => gc.PauseDurationMSec) , "Gen2 Mean Pause Duration", "ms");
+        public static Metric<IterationData> BlockingGCCount = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Count, "ngc", "#");
+        public static Metric<IterationData> BlockingGCTotalPauseTime = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Sum(gc => gc.PauseDurationMSec), "ngc Total Pause", "ms");
+        public static Metric<IterationData> BlockingGCMeanPauseTime = new (iterationData => iterationData.GCProcessData.Gen2Blocking.Average(gc => gc.PauseDurationMSec) , "ngc Mean Pause", "ms");
         // BGC.
-        public static Metric<IterationData> BGCCount = new (iterationData => iterationData.GCProcessData.BGCs.Count, "BGC Count", "#");
-        public static Metric<IterationData> BGCTotalPauseTime = new (iterationData => iterationData.GCProcessData.BGCs.Sum(gc => gc.PauseDurationMSec), "BGC Total Pause Duration", "ms");
-        public static Metric<IterationData> BGCMeanPauseTime = new (iterationData => iterationData.GCProcessData.BGCs.Average(gc => gc.PauseDurationMSec), "BGC Mean Pause Duration", "ms");
+        public static Metric<IterationData> BGCCount = new (iterationData => iterationData.GCProcessData.BGCs.Count, "nbgc", "#");
+        public static Metric<IterationData> BGCTotalPauseTime = new (iterationData => iterationData.GCProcessData.BGCs.Sum(gc => gc.PauseDurationMSec), "bgc Total Pause", "ms");
+        public static Metric<IterationData> BGCMeanPauseTime = new (iterationData => iterationData.GCProcessData.BGCs.Average(gc => gc.PauseDurationMSec), "bgc Mean Pause", "ms");
     }
 
     public static class B

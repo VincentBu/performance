@@ -174,11 +174,20 @@ Dictionary<string, Dictionary<string, Dictionary<string, double?>>> GetBenchmark
 
 #!csharp
 
-public record BenchmarkRegressionInfo(string benchmarkName, string metricName, double regressionPercentage);
+public record BenchmarkRegressionInfo(string benchmarkName, string metricInfo, double regressionPercentage);
 
 // TODO: Add custom calculation.
-static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (this Dictionary<string, Dictionary<string, Dictionary<string, double?>>> data, string baselineConfig, string comparandConfig, double tolerancePercentage = 5, bool debug = false)
+static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (
+    this Dictionary<string, Dictionary<string, Dictionary<string, double?>>> data, string baselineConfig, string comparandConfig, double tolerancePercentage = 5, bool debug = false,
+    Dictionary<Metric<BenchmarkData>, double> metricToleranceOverridePercentage = null)
 {
+    metricToleranceOverridePercentage ??= new();
+    Dictionary<string, double> simplifiedMetricToleranceOverridePercentage = new();
+    foreach (var metricToleranceOverride in metricToleranceOverridePercentage)
+    {
+        simplifiedMetricToleranceOverridePercentage[metricToleranceOverride.Key.Title] = metricToleranceOverride.Value;
+    }
+
     List<BenchmarkRegressionInfo> regressions = new();
     double? percentDifference (double? baseline, double? comparand) => (comparand - baseline) / baseline * 100;
 
@@ -224,7 +233,18 @@ static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (this Dictionary<st
                 }
 
                 // TODO: Add some sense of metric differentiation.
-                if (diff > tolerancePercentage || (metricToBenchmarkData.Key.Contains("Average of RPS") && diff < -tolerancePercentage))
+
+                // If the override exists, use it.
+                if (simplifiedMetricToleranceOverridePercentage.TryGetValue(metricToBenchmarkData.Key, out var overrideValue))
+                {
+                    if (Math.Abs(diff.GetValueOrDefault()) > Math.Abs(overrideValue))
+                    {
+                        regressions.Add(new BenchmarkRegressionInfo(b.Key, metricToBenchmarkData.Key, Math.Round(diff.GetValueOrDefault(), 2)));
+                    }
+                }
+
+                // Else, fall back to the default calculation.
+                else if (Math.Abs(diff.GetValueOrDefault()) > Math.Abs(tolerancePercentage)) 
                 {
                     regressions.Add(new BenchmarkRegressionInfo(b.Key, metricToBenchmarkData.Key, Math.Round(diff.GetValueOrDefault(), 2)));
                 }
@@ -273,28 +293,29 @@ void DisplayBenchmarkSummaryWithRegressions(DataManager dm, string baselineConfi
     ConfigIterationFilter configIterationFilter = null, Func<BenchmarkData, bool> dataFilter = null,
     Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
     NameSimplifier configNameSimplifier = null, bool includeRunName = false,
-    bool display = true, bool debug = false)
+    bool display = true, bool debug = false, Dictionary<Metric<BenchmarkData>, double> metricToleranceOverridePercentage = null)
 {
     metrics ??= ML(Metrics.B.MaxMaxHeapSize, Metrics.B.MaxHeapSizeCVPerc, Metrics.B.AverageP50Latency, Metrics.B.P50LatencyCVPerc, Metrics.B.AverageRequestPerMSec, Metrics.B.RequestPerMSecCVPerc);
-    TableBenchmarks(dm, metrics, configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName), 
-    runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, 
-    benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
-
-    var benchmarkData = GetBenchmarkData(dm, metrics, runFilter, configFilter, benchmarkFilter, iterationFilter, configIterationFilter, dataFilter, benchmarkMap, xArrangement, configNameSimplifier, includeRunName, display, debug);
+    var benchmarkData = 
+        GetBenchmarkData(dm, metrics, runFilter, configFilter, benchmarkFilter, iterationFilter, configIterationFilter, dataFilter, benchmarkMap, xArrangement, configNameSimplifier, includeRunName, display, debug);
     List<BenchmarkRegressionInfo> regressions = 
-        benchmarkData.GetBenchmarkRegressions(baselineConfig: baselineConfigName, comparandConfig: comparandConfigName, tolerancePercentage: benchmarkRegressionThreshold, debug: debug);
+        benchmarkData.GetBenchmarkRegressions(baselineConfig: baselineConfigName, comparandConfig: comparandConfigName, tolerancePercentage: benchmarkRegressionThreshold, debug: debug, metricToleranceOverridePercentage: metricToleranceOverridePercentage);
 
-    StringBuilder regressionTableSb = new();
-    regressionTableSb.AppendLine($"### Regressions (>{benchmarkRegressionThreshold}%)");
-    regressionTableSb.AppendLine();
-    regressionTableSb.AppendLine("| Benchmark | Metric | Regression % |");
-    regressionTableSb.AppendLine("| --------- | ------ | ------------ |");
-    foreach (var r in regressions.OrderByDescending(d => Math.Abs(d.regressionPercentage)))
+    HashSet<string> benchmarks = new();
+    HashSet<string> metricSet = new();
+
+    foreach (var regression in regressions)
     {
-        regressionTableSb.AppendLine($"| {r.benchmarkName} | {r.metricName} | {Math.Round(r.regressionPercentage, 2)} |");
+        benchmarks.Add(regression.benchmarkName);
+        metricSet.Add(regression.metricInfo);
     }
 
-    regressionTableSb.ToString().DisplayAs("text/markdown");
+    // Map metric string to Metric<Benchmark> list.
+    metrics = metrics.Where(m => metricSet.Contains(m.Title)).ToList();
+
+    TableBenchmarks(dm, metrics, configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName), 
+    runFilter: runFilter, benchmarkFilter: new Filter(benchmarks), iterationFilter: iterationFilter, 
+    benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
 }
 
 #!markdown
@@ -310,8 +331,10 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     ConfigIterationFilter configIterationFilter = null, Func<IterationData, bool> dataFilter = null,
     Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
     NameSimplifier configNameSimplifier = null, bool includeRunName = false,
-    bool display = true, bool debug = false, double volatilityThreshold = 5)
+    bool display = true, bool debug = false, double volatilityThreshold = 5, Dictionary<Metric<IterationData>, double> metricVolOverridePercentage = null, Aggregation aggregation = null)
 {
+    metricVolOverridePercentage ??= new();
+    aggregation ??= Aggregation.Average;
     IterationsChartType chartType = new IterationsChartType();
     var xMetric = chartType.DefaultXMetric; 
     metrics ??= ML(Metrics.I.Gen0Count, Metrics.I.Gen0MeanPauseMSec, 
@@ -323,7 +346,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                    Metrics.I.MaxWorkingSetMB, Metrics.I.RequestsPerMSec, Metrics.I.MeanLatencyMS, Metrics.I.NumberOfHeapCountSwitches, Metrics.I.TotalGCCount);
     var result = GetDataInternal(chartType: chartType,
         dataManager: dataManager, metrics: metrics,
-        runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, configFilter: Filter.All,
+        runFilter: runFilter, benchmarkFilter: benchmarkFilter, iterationFilter: iterationFilter, configFilter: new Filter( baselineConfigName, comparandConfigName ),
         configIterationFilter: configIterationFilter, dataFilter: dataFilter,
         xArrangement: xArrangement,
         configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, debug: debug);
@@ -385,26 +408,40 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
         {
             table.AppendLine($"| {iteration.Value.configName} | {iteration.Value.iterationNumber} | " + string.Join(" | ", iteration.Value.data.Select(d => d.Value?.ToString("F2") ?? "N/A")) + " |");
         }
+
+        // Get Config and Benchmark Data for Metrics.
+        List<Metric<BenchmarkData>> benchmarkMetrics = metrics.Select(m => Metrics.Promote(m, aggregation)).ToList();
+        var baselineData = GetBenchmarkData(dataManager: dataManager, metrics: benchmarkMetrics, configFilter: new Filter(baselineConfigName),  benchmarkFilter: new Filter(benchmark.Key), iterationFilter: iterationFilter, 
+        configIterationFilter: configIterationFilter, benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
+        IEnumerable<double?> baselineAggregatedMetrics = baselineData.SelectMany(d => d.Value.Values).SelectMany(d => d.Values);
+        // Add baseline agg.
+        table.AppendLine($"| {baselineConfigName} | {aggregation.Title} | " + string.Join(" | ", baselineAggregatedMetrics.Select(d => d.GetValueOrDefault().ToString("N2"))) + " |");
+
+        // Add comparand agg.
+        var comparandData = GetBenchmarkData(dataManager: dataManager, metrics: benchmarkMetrics, configFilter: new Filter(comparandConfigName),  benchmarkFilter: new Filter(benchmark.Key), iterationFilter: iterationFilter, 
+        configIterationFilter: configIterationFilter, benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
+        IEnumerable<double?> comparisonAggregatedMetrics = comparandData.SelectMany(d => d.Value.Values).SelectMany(d => d.Values);
+        table.AppendLine($"| {comparandConfigName} | {aggregation.Title} | " + string.Join(" | ", comparisonAggregatedMetrics.Select(d => d.GetValueOrDefault().ToString("N2"))) + " |");
+
+        // Add comparison data.
+        table.AppendLine($"| Comparison | % Diff | " + string.Join(" | ", baselineAggregatedMetrics.Zip(comparisonAggregatedMetrics, (b, c) => ((c - b) / b * 100).GetValueOrDefault().ToString("F2"))) + " |"); 
         table.AppendLine("\n");
 
-        // Table Benchmark but with single config.
-        //  data |    max mem |        CV% |    p50 mem |        CV% |        rps |        CV% |
-        List<List<string>> details = TableBenchmarks(dataManager, 
-                metrics: ML( Metrics.B.MaxMaxHeapSize, Metrics.B.MaxHeapSizeCVPerc, Metrics.B.AverageP50Latency, Metrics.B.P50LatencyCVPerc, Metrics.B.AverageRequestPerMSec, Metrics.B.RequestPerMSecCVPerc), 
-                benchmarkFilter: new Filter( benchmark.Key ), 
-                display: false, 
-                configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName));
-
-        table.AppendLine(string.Join(" \n", details[0].Skip(2)));
-
-        List<(string key, int idx, double? anomolousVal, string allVals, double volatility)> anomalies = new();
+        List<(string key, int idx, double? anomolousVal, IEnumerable<double?> allVals, double volatility)> anomalies = new();
 
         foreach (var iteration in iterationData.Where(gc => GetBenchmarkFromKey(gc.Key) == benchmark.Key))
         {
-            (int idx, double? vol) = FindMostDifferentDataPoint(iteration.Value, volatilityThreshold);
+            double volatilityThresholdToUse = volatilityThreshold;
+            var overrideKey =  metrics.FirstOrDefault(m => m.Title == GetMetricFromKey(iteration.Key));
+            if (overrideKey != null && (metricVolOverridePercentage.TryGetValue(overrideKey, out var overrideVol)))
+            {
+                volatilityThresholdToUse = overrideVol;
+            }
+
+            (int idx, double? vol) = FindMostDifferentDataPoint(iteration.Value, volatilityThresholdToUse);
             if (idx != -1)
             {
-                anomalies.Add((iteration.Key, idx, iteration.Value[idx], string.Join(", ", iteration.Value.Select(v => v?.ToString("F2") ?? "N/A")), vol.GetValueOrDefault()));
+                anomalies.Add((iteration.Key, idx, iteration.Value[idx], iteration.Value, vol.GetValueOrDefault()));  
             }
         }
 
@@ -412,15 +449,15 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
         {
             table.AppendLine($"### Anomalies");
             table.AppendLine();
-            table.AppendLine("| Config | Iteration | Metric | Vol % | Anomalous Value | All Values |");
-            table.AppendLine("| ------ | --------- | ------ | ---------- | ----------- | --------- |");
+            table.AppendLine($"| Config | Iteration | Metric | Vol % | Anomalous Value | {string.Join("|", Enumerable.Range(0, anomalies[0].allVals.Count()))} |");
+            table.AppendLine("| ------ | --------- | ------ | ---------- | ----------- | " + string.Join(" | ", Enumerable.Range(0, anomalies[0].allVals.Count()).Select(i => "------")) + " |");
             foreach (var anomaly in anomalies.OrderByDescending(a => a.volatility))
             {
                 string key = anomaly.key;
                 string config = GetConfigFromKey(key);
                 string metric = GetMetricFromKey(key);
                 int iteration = anomaly.idx;
-                table.AppendLine($"| {config} | {anomaly.idx} | {metric}  | {Math.Round(anomaly.volatility, 2)} | {Math.Round(anomaly.anomolousVal.GetValueOrDefault(), 2)} | {anomaly.allVals} | ");
+                table.AppendLine($"| {config} | {anomaly.idx} | {metric}  | {Math.Round(anomaly.volatility, 2)} | {Math.Round(anomaly.anomolousVal.GetValueOrDefault(), 2)} | {string.Join(" | ", anomaly.allVals.Select(a => a.GetValueOrDefault().ToString("N2")))} | ");
             }
         }
     }

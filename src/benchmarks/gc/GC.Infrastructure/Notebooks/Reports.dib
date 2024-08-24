@@ -5,6 +5,7 @@
 #!csharp
 
 // Instructions to get Intellisense, etc., in this file:
+
 //
 // Normally this file is #!import-ed into an environment (BenchmarkAnalysis.dib) that already has types such as DataManager defined.
 // However, to work on this file, we need that context available here.  To get that, uncomment the following  #!import, execute this
@@ -534,6 +535,7 @@ public static class Metrics
         public static Metric<TraceGC> CommittedBeforeInGlobalFree = new(gc => gc.CommittedUsageBefore.TotalCommittedInGlobalFree, title: "Committed In Global Free (before)", unit: "MB");
         public static Metric<TraceGC> CommittedBeforeInUse = new(gc => gc.CommittedUsageBefore.TotalCommittedInUse, title: "Committed In Use (before)", unit: "MB");
         public static List<Metric<TraceGC>> CommittedBeforeMetrics = ML(CommittedBeforeTotalBookkeeping, CommittedBeforeInFree, CommittedBeforeInGlobalDecommit, CommittedBeforeInGlobalFree, CommittedBeforeInUse);
+        public static Metric<TraceGC> TotalCommittedBefore = new ((gc => gc.CommittedUsageBefore.TotalCommittedInUse + gc.CommittedUsageBefore.TotalCommittedInFree + gc.CommittedUsageBefore.TotalCommittedInGlobalDecommit + gc.CommittedUsageBefore.TotalCommittedInGlobalFree + gc.CommittedUsageBefore.TotalBookkeepingCommitted), "Total Committed Before", "bytes");
         public static Metric<TraceGC> DurationMSec = new(gc => gc.DurationMSec, "Duration", "ms");
         public static Metric<TraceGC> GCCpuMSec = new(gc => gc.GCCpuMSec, "GC CPU", "ms");
         public static Metric<TraceGC> Gen0Budget = new(gc => gc.GenBudgetMB(Gens.Gen0), "Gen0 budget", "MB");
@@ -659,6 +661,7 @@ public static class Metrics
         public static Metric<IterationData> GCScore = new (iterationData => iterationData.GCSummaryInfo.GCScore, "GC score", "score"); // MB * %
         public static Metric<IterationData> MeanAllocPerGC = new (iterationData => iterationData.GCProcessData.Stats.TotalAllocatedMB / iterationData.GCProcessData.Stats.TotalPauseTimeMSec, "Mean Allocations Per GC", "mb/ms");
 
+        public static Metric<IterationData> MaxTotalCommittedBefore = Metrics.Promote(Metrics.G.TotalCommittedBefore, Aggregation.Max);
         public static Metric<IterationData> MaxHeapCount = new (iterationData => iterationData.GCSummaryInfo.MaxHeapCount, "Max heap count", "#");
         public static Metric<IterationData> NumberOfHeapCountSwitches = new (iterationData => iterationData.GCSummaryInfo.NumberOfHeapCountSwitches, "# hc changes", "#");
         public static Metric<IterationData> NumberOfHeapCountDirectionChanges = new (iterationData => iterationData.GCSummaryInfo.NumberOfHeapCountDirectionChanges, "# hc dir changes", "#");
@@ -690,6 +693,8 @@ public static class Metrics
         public static Metric<IterationData> StartupTimeMS = new (iterationData => iterationData.LoadInfo.StartupTimeMS, "Startup Time", "ms");
         public static Metric<IterationData> TotalGCCount = new (iterationData => iterationData.GCProcessData.Stats.Count, "Total GC Count", "#");
 
+        public static Metric<IterationData> AvgTCPToConsider = new (iterationData => iterationData.GCProcessData.GCs.Where(gc => gc.DynamicEvents().SizeAdaptationTuning?.TcpToConsider != null)
+                                                                                                  .Average(gc => gc.DynamicEvents().SizeAdaptationTuning?.TcpToConsider), "Avg TCPToConsider", "%");
         // Per Generation Iteration Data.
         // Gen0.
         public static Metric<IterationData> Gen0Count = new (iterationData => iterationData.GCProcessData.Generations[(int)Gens.Gen0]?.Count, "ng0", "#");
@@ -723,6 +728,9 @@ public static class Metrics
         public static Metric<BenchmarkData> AverageP50Latency = Promote(Metrics.I.Latency50thMS, Aggregation.Average);
         public static Metric<BenchmarkData> P50LatencyCVPerc = Promote(Metrics.I.Latency50thMS, Aggregation.CVPercent);
         public static Metric<BenchmarkData> AverageMeanLatency = Promote(Metrics.I.MeanLatencyMS, Aggregation.Average);
+        public static Metric<BenchmarkData> AverageMaxCommittedBefore = Promoted(Metrics.I.MaxTotalCommittedBefore, Aggregation.Average);
+        public static Metric<BenchmarkData> AverageMaxWorkingSetMB = Promoted(Metrics.I.MaxWorkingSetMB, Aggregation.Average);
+        public static Metric<BenchmarkData> AverageMaxPrivateMemoryMB = Promoted(Metrics.I.MaxPrivateMemoryMB, Aggregation.Average);
     }
 }
 

@@ -728,9 +728,9 @@ public static class Metrics
         public static Metric<BenchmarkData> AverageP50Latency = Promote(Metrics.I.Latency50thMS, Aggregation.Average);
         public static Metric<BenchmarkData> P50LatencyCVPerc = Promote(Metrics.I.Latency50thMS, Aggregation.CVPercent);
         public static Metric<BenchmarkData> AverageMeanLatency = Promote(Metrics.I.MeanLatencyMS, Aggregation.Average);
-        public static Metric<BenchmarkData> AverageMaxCommittedBefore = Promoted(Metrics.I.MaxTotalCommittedBefore, Aggregation.Average);
-        public static Metric<BenchmarkData> AverageMaxWorkingSetMB = Promoted(Metrics.I.MaxWorkingSetMB, Aggregation.Average);
-        public static Metric<BenchmarkData> AverageMaxPrivateMemoryMB = Promoted(Metrics.I.MaxPrivateMemoryMB, Aggregation.Average);
+        public static Metric<BenchmarkData> AverageMaxCommittedBefore = Promote(Metrics.I.MaxTotalCommittedBefore, Aggregation.Average);
+        public static Metric<BenchmarkData> AverageMaxWorkingSetMB = Promote(Metrics.I.MaxWorkingSetMB, Aggregation.Average);
+        public static Metric<BenchmarkData> AverageMaxPrivateMemoryMB = Promote(Metrics.I.MaxPrivateMemoryMB, Aggregation.Average);
     }
 }
 

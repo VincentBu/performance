@@ -384,7 +384,7 @@ def main(args: Any):
     if framework in ('net8.0', 'nativeaot8.0'):
         global_json_path = os.path.join(get_repo_root_path(), 'global.json')
         shutil.copy(os.path.join(get_repo_root_path(), 'global.net8.json'), global_json_path)
-        print('Overwrote global.json with global.net8.json')
+        getLogger().info('Overwrote global.json with global.net8.json')
              
     # dotnet --info
     dotnet.info(verbose=verbose)
@@ -414,9 +414,7 @@ def main(args: Any):
     if args.r2r_status == 'nor2r':
         r2r_config = variable_format % ('DOTNET_ReadyToRun', '0')
 
-    if args.experiment_name == "rlcse":
-        experiment_config = variable_format % ('DOTNET_JitRLCSEGreedy', '1')
-    elif args.experiment_name == "jitoptrepeat":
+    if args.experiment_name == "jitoptrepeat":
         experiment_config = variable_format % ('DOTNET_JitOptRepeat', '*')
     elif args.experiment_name == "rpolayout":
         experiment_config = variable_format % ('DOTNET_JitDoReversePostOrderLayout', '1')
@@ -442,12 +440,11 @@ def main(args: Any):
         output_file += extension
 
     dir_path = os.path.dirname(output_file)
-    if not os.path.isdir(dir_path):
-        os.mkdir(dir_path)
+    os.makedirs(dir_path, exist_ok=True)
 
     if not framework.startswith('net4'):
         target_framework_moniker = dotnet.FrameworkAction.get_target_framework_moniker(framework)
-        dotnet_version = dotnet.get_dotnet_version(target_framework_moniker, args.cli) if args.dotnet_versions == [] else args.dotnet_versions[0]
+        dotnet_version = dotnet.get_dotnet_version_precise(target_framework_moniker, args.cli) if args.dotnet_versions == [] else args.dotnet_versions[0]
         commit_sha = dotnet.get_dotnet_sdk(target_framework_moniker, args.cli) if use_core_sdk else args.commit_sha
 
         if args.local_build:

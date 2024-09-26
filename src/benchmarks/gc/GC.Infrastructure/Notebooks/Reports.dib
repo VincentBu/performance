@@ -439,14 +439,6 @@ public class Metric<TSource> : BaseMetric<TSource, double?>
     private double _capExceededMax;
     public double? AxisCountOffset;
 
-    public Metric(Func<TSource, double> extract, string title, string unit, double? cap = null, double? axisCountOffset = null)
-        : base((s => extract(s)), title)
-    {
-        Unit = unit;
-        Cap = cap;
-        AxisCountOffset = axisCountOffset;
-    }
-
     public Metric(Func<TSource, double?> extract, string title, string unit, double? cap = null, double? axisCountOffset = null)
         : base(extract, title)
     {

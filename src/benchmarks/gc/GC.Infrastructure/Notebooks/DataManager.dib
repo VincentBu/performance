@@ -659,6 +659,10 @@ public class DataManager
         bool expectAspNetData, bool loadMultipleProcesses)
     {
         var traceFiles = Directory.GetFiles(path, "*.etl.zip", searchOption).ToList();
+        if (traceFiles.Count == 0)
+        {
+            traceFiles = Directory.GetFiles(path, "*.etl", searchOption).ToList();
+        }
         var nettraceFiles = Directory.GetFiles(path, "*.nettrace", searchOption);
         traceFiles.AddRange(nettraceFiles);
 

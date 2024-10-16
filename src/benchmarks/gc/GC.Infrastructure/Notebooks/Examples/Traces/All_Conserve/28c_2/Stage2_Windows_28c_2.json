@@ -1,0 +1,4940 @@
+{
+  "returnCode": 0,
+  "jobResults": {
+    "jobs": {
+      "db": {
+        "results": {
+          "benchmarks/build-time": 1000.0,
+          "benchmarks/published-size": 421583.0,
+          "benchmarks/start-time": 872.0,
+          "benchmarks/working-set": 292.0,
+          "benchmarks/cpu": 14.0,
+          "benchmarks/cpu/raw": 679.0
+        },
+        "metadata": [
+          {
+            "name": "benchmarks/cpu",
+            "description": "Max CPU Usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/raw",
+            "description": "Max Cores usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set",
+            "description": "Max Working Set (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory",
+            "description": "Max Private Memory (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/build-time",
+            "description": "Build Time (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/start-time",
+            "description": "Start Time (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/published-size",
+            "description": "Published Size (KB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/published-nativeaot-size/raw",
+            "description": "Native Aot Size summary",
+            "format": "json"
+          },
+          {
+            "name": "benchmarks/symbols-size",
+            "description": "Symbols Size (KB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/memory/swap",
+            "description": "Swap (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/periods/total",
+            "description": "Runnable Periods (#)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/periods/throttled",
+            "description": "Throttled Periods (#)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/throttled",
+            "description": "Throttled Time (ns)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P99",
+            "description": "Working Set P99 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P95",
+            "description": "Working Set P95 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/steady",
+            "description": "Working Set P90 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P75",
+            "description": "Working Set P75 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P50",
+            "description": "Working Set P50 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P99",
+            "description": "Private Memory P99 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P95",
+            "description": "Private Memory P95 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P90",
+            "description": "Private Memory P90 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P75",
+            "description": "Private Memory P75 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P50",
+            "description": "Private Memory P50 (MB)",
+            "format": "n0"
+          }
+        ],
+        "dependencies": [],
+        "measurements": [
+          [
+            {
+              "timestamp": "2024-09-08T00:59:32.7058643Z",
+              "name": "benchmarks/build-time",
+              "value": 1000
+            },
+            {
+              "timestamp": "2024-09-08T00:59:32.7160466Z",
+              "name": "benchmarks/published-size",
+              "value": 421583
+            },
+            {
+              "timestamp": "2024-09-08T00:59:33.6253964Z",
+              "name": "benchmarks/start-time",
+              "value": 872
+            },
+            {
+              "timestamp": "2024-09-08T00:59:34.5057857Z",
+              "name": "benchmarks/working-set",
+              "value": 22.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:34.5057857Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:34.5057857Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:37.5268993Z",
+              "name": "benchmarks/working-set",
+              "value": 22.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:37.5268993Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:37.5268993Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:40.551961Z",
+              "name": "benchmarks/working-set",
+              "value": 22.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:40.551961Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:40.551961Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:43.575515Z",
+              "name": "benchmarks/working-set",
+              "value": 22.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:43.575515Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:43.575515Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:46.5974947Z",
+              "name": "benchmarks/working-set",
+              "value": 22.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:46.5974947Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:46.5974947Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:49.6179272Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:49.6179272Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:49.6179272Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.6382147Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.6382147Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.6382147Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.6583869Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.6583869Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.6583869Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.6828842Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.6828842Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.6828842Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.7049075Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.7049075Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.7049075Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.7265444Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.7265444Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.7265444Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.7527939Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.7527939Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.7527939Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.7748887Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.7748887Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.7748887Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.7954455Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.7954455Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.7954455Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.8153896Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.8153896Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.8153896Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.8375351Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.8375351Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.8375351Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.8593108Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.8593108Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.8593108Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.8848604Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.8848604Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.8848604Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9065656Z",
+              "name": "benchmarks/working-set",
+              "value": 25.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9065656Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9065656Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.9294058Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.9294058Z",
+              "name": "benchmarks/cpu",
+              "value": 4.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.9294058Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 202.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.95138Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.95138Z",
+              "name": "benchmarks/cpu",
+              "value": 4.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.95138Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 213.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.975033Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.975033Z",
+              "name": "benchmarks/cpu",
+              "value": 9.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.975033Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 427.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9993247Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9993247Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9993247Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 653.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.0235872Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.0235872Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.0235872Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 656.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.0476217Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.0476217Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.0476217Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 672.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.0756255Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.0756255Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.0756255Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 679.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.0993653Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.0993653Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.0993653Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 676.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.1276887Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.1276887Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.1276887Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 668.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.1531726Z",
+              "name": "benchmarks/working-set",
+              "value": 292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.1531726Z",
+              "name": "benchmarks/cpu",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.1531726Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 677.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.1740826Z",
+              "name": "benchmarks/working-set",
+              "value": 291.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.1740826Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.1740826Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:05.1965414Z",
+              "name": "benchmarks/working-set",
+              "value": 37.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:05.1965414Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:05.1965414Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:08.2220101Z",
+              "name": "benchmarks/working-set",
+              "value": 36.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:08.2220101Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:08.2220101Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            }
+          ]
+        ],
+        "environment": {
+          "hw": "AMD64_2",
+          "env": "Unspecified",
+          "os": "Linux",
+          "arch": "X64",
+          "proc": 48,
+          "version": "0.2.0-dev"
+        },
+        "variables": {
+          "localendpoint": "http://localhost:5010",
+          "headers": {
+            "none": "",
+            "plaintext": "--header \"Accept: text/plain,text/html;q=0.9,application/xhtml+xml;q=0.9,application/xml;q=0.8,*/*;q=0.7\" --header \"Connection: keep-alive\"",
+            "html": "--header \"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\" --header \"Connection: keep-alive\"",
+            "json": "--header \"Accept: application/json,text/html;q=0.9,application/xhtml+xml;q=0.9,application/xml;q=0.8,*/*;q=0.7\" --header \"Connection: keep-alive\"",
+            "connectionclose": "--header \"Connection: close\"",
+            "grpc": "--header \"content-type: application/grpc\" --header \"TE: trailers\"",
+            "grpcDeadline": "--header \"content-type: application/grpc\" --header \"TE: trailers\" --header \"grpc-timeout: 100S\""
+          },
+          "presetHeaders": "none",
+          "serverPort": 5000,
+          "serverScheme": "http",
+          "serverAddress": "10.0.0.104",
+          "cores": 28,
+          "secondaryAddress": "10.0.0.102",
+          "databaseServer": "10.0.0.109",
+          "downstreamAddress": "10.0.0.109"
+        },
+        "benchmarks": []
+      },
+      "application": {
+        "results": {
+          "netSdkVersion": "9.0.100-rc.2.24420.1",
+          "aspNetCoreVersion": "9.0.0-rc.1.24412.15+abbd67b97144",
+          "netCoreAppVersion": "9.0.0-rc.1.24414.5+0fbd81404d1f",
+          "benchmarks/build-time": 7476.0,
+          "benchmarks/published-size": 105464.0,
+          "benchmarks/symbols-size": 55.0,
+          "benchmarks/start-time": 774.0,
+          "benchmarks/working-set": 171.0,
+          "benchmarks/private-memory": 141.0,
+          "benchmarks/cpu": 92.0,
+          "benchmarks/cpu/raw": 2577.0,
+          "benchmarks/working-set/P99": 171.0,
+          "benchmarks/working-set/P95": 171.0,
+          "benchmarks/working-set/P90": 171.0,
+          "benchmarks/working-set/P75": 170.0,
+          "benchmarks/working-set/P50": 167.0,
+          "benchmarks/private-memory/P99": 141.0,
+          "benchmarks/private-memory/P95": 141.0,
+          "benchmarks/private-memory/P90": 141.0,
+          "benchmarks/private-memory/P50": 138.0,
+          "benchmarks/private-memory/P75": 140.0
+        },
+        "metadata": [
+          {
+            "name": "benchmarks/cpu",
+            "description": "Max CPU Usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/raw",
+            "description": "Max Cores usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set",
+            "description": "Max Working Set (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory",
+            "description": "Max Private Memory (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/build-time",
+            "description": "Build Time (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/start-time",
+            "description": "Start Time (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/published-size",
+            "description": "Published Size (KB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/published-nativeaot-size/raw",
+            "description": "Native Aot Size summary",
+            "format": "json"
+          },
+          {
+            "name": "benchmarks/symbols-size",
+            "description": "Symbols Size (KB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/memory/swap",
+            "description": "Swap (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/periods/total",
+            "description": "Runnable Periods (#)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/periods/throttled",
+            "description": "Throttled Periods (#)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/throttled",
+            "description": "Throttled Time (ns)",
+            "format": "n0"
+          },
+          {
+            "name": "netSdkVersion",
+            "description": ".NET Core SDK Version",
+            "format": ""
+          },
+          {
+            "name": "AspNetCoreVersion",
+            "description": "ASP.NET Core Version",
+            "format": ""
+          },
+          {
+            "name": "NetCoreAppVersion",
+            "description": ".NET Runtime Version",
+            "format": ""
+          },
+          {
+            "name": "runtime-counter/cpu-usage",
+            "description": "Max CPU Usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/working-set",
+            "description": "Max Working Set (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/gc-heap-size",
+            "description": "Max GC Heap Size (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/gc-committed",
+            "description": "Size of committed memory by the GC (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/gen-0-gc-count",
+            "description": "Max Number of Gen 0 GCs / sec",
+            "format": "n2"
+          },
+          {
+            "name": "runtime-counter/gen-1-gc-count",
+            "description": "Max Number of Gen 1 GCs / sec",
+            "format": "n2"
+          },
+          {
+            "name": "runtime-counter/gen-2-gc-count",
+            "description": "Max Number of Gen 2 GCs / sec",
+            "format": "n2"
+          },
+          {
+            "name": "runtime-counter/gen-0-gc-budget",
+            "description": "Max Gen 0 GC Budget (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/time-in-gc",
+            "description": "Max Time in GC (%)",
+            "format": "n2"
+          },
+          {
+            "name": "runtime-counter/gen-0-size",
+            "description": "Max Gen 0 Size (B)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/gen-1-size",
+            "description": "Max Gen 1 Size (B)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/gen-2-size",
+            "description": "Max Gen 2 Size (B)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/loh-size",
+            "description": "Max LOH Size (B)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/poh-size",
+            "description": "Max POH Size (B)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/alloc-rate",
+            "description": "Max Allocation Rate (B/sec)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/gc-fragmentation",
+            "description": "Max GC Heap Fragmentation (%)",
+            "format": "p0"
+          },
+          {
+            "name": "runtime-counter/assembly-count",
+            "description": "# of Assemblies Loaded",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/exception-count",
+            "description": "Max Exceptions (#/s)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/monitor-lock-contention-count",
+            "description": "Max Lock Contention (#/s)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/threadpool-thread-count",
+            "description": "Max ThreadPool Threads Count",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/threadpool-queue-length",
+            "description": "Max ThreadPool Queue Length",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/threadpool-completed-items-count",
+            "description": "Max ThreadPool Items (#/s)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/active-timer-count",
+            "description": "Max Active Timers",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/il-bytes-jitted",
+            "description": "IL Jitted (B)",
+            "format": "n0"
+          },
+          {
+            "name": "runtime-counter/methods-jitted-count",
+            "description": "Methods Jitted",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P99",
+            "description": "Working Set P99 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P95",
+            "description": "Working Set P95 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/steady",
+            "description": "Working Set P90 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P75",
+            "description": "Working Set P75 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P50",
+            "description": "Working Set P50 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P99",
+            "description": "Private Memory P99 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P95",
+            "description": "Private Memory P95 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P90",
+            "description": "Private Memory P90 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P75",
+            "description": "Private Memory P75 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P50",
+            "description": "Private Memory P50 (MB)",
+            "format": "n0"
+          }
+        ],
+        "dependencies": [],
+        "measurements": [
+          [
+            {
+              "timestamp": "2024-09-08T00:59:40.4224895Z",
+              "name": "netSdkVersion",
+              "value": "9.0.100-rc.2.24420.1"
+            },
+            {
+              "timestamp": "2024-09-08T00:59:40.4226341Z",
+              "name": "AspNetCoreVersion",
+              "value": "9.0.0-rc.1.24412.15+abbd67b97144"
+            },
+            {
+              "timestamp": "2024-09-08T00:59:40.4227615Z",
+              "name": "NetCoreAppVersion",
+              "value": "9.0.0-rc.1.24414.5+0fbd81404d1f"
+            },
+            {
+              "timestamp": "2024-09-08T00:59:47.8995428Z",
+              "name": "benchmarks/build-time",
+              "value": 7476
+            },
+            {
+              "timestamp": "2024-09-08T00:59:47.9011058Z",
+              "name": "benchmarks/published-size",
+              "value": 105464
+            },
+            {
+              "timestamp": "2024-09-08T00:59:47.9015986Z",
+              "name": "benchmarks/symbols-size",
+              "value": 55
+            },
+            {
+              "timestamp": "2024-09-08T00:59:48.972618Z",
+              "name": "benchmarks/start-time",
+              "value": 774
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.5307003Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.5307003Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.5307003Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.5307003Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.5396344Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.5396344Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.5396344Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.5396344Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.9881314Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 24600.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.988192Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.9881984Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:50.9882053Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.5394344Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.5394344Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.5394344Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.5394344Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.987563Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.9876215Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.9876274Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:51.9876333Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.5392449Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.5392449Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.5392449Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.5392449Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.9875477Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.9876069Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.987614Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:52.9876226Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.5546652Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.5546652Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.5546652Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.5546652Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.9871715Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.9872268Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.9872319Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:53.987237Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.5544737Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.5544737Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.5544737Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.5544737Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.9869321Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.9869797Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.9869846Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:54.9869894Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.569906Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.569906Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.569906Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.569906Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.9867221Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.9867584Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.9867635Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:55.9867677Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.5697129Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.5697129Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.5697129Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.5697129Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.9865045Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.986543Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.9865484Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:56.986552Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.5695253Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.5695253Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.5695253Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.5695253Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.9863118Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.9863529Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.9863567Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:57.9863603Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.5849527Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.5849527Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.5849527Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.5849527Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.9861053Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.9861734Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.9861773Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:58.9861811Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.5847623Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.5847623Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.5847623Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.5847623Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.9859328Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.9859603Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.9859642Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T00:59:59.9859679Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.5898574Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.5898574Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.5898574Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.5898574Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.9910029Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.9910331Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.991037Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:00.9910407Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.5896649Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.5896649Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.5896649Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.5896649Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.9908165Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.9908432Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.9908469Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:01.9908506Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.5927584Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.5927584Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.5927584Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.5927584Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.9782669Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.9782966Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.9783005Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:02.9783043Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.5984354Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.5984354Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.5984354Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.5984354Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.9839459Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.9839727Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.9839765Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:03.9839814Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.5982476Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.5982476Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.5982476Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.5982476Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.9837461Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.9837744Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.9837783Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:04.983782Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.613684Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.613684Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.613684Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.613684Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.9835422Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.9835732Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.9835772Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:05.9835819Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.6134858Z",
+              "name": "benchmarks/working-set",
+              "value": 67.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.6134858Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.6134858Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.6134858Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.9833859Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.9834188Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.9834226Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:06.9834263Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.6289158Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.6289158Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.6289158Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.6289158Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.9831566Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.9831843Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.9831881Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:07.9831929Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.628726Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.628726Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.628726Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.628726Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.9829419Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 12352.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.9829704Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.9829741Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:08.9829776Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.6285327Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.6285327Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.6285327Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.6285327Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.9827495Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.9827743Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.9827791Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:09.9827827Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.6283422Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.6283422Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.6283422Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.6283422Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.9825586Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.9825855Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.9825892Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:10.9825928Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.6437724Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.6437724Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.6437724Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.6437724Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.9823445Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.9823695Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.9823744Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:11.9823779Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.6435813Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.6435813Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.6435813Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.6435813Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.9821482Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.9821754Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.9821792Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:12.9821827Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.6534881Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.6534881Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.6534881Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.6534881Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.9883077Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.9883328Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.9883377Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:13.9883414Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.6652634Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.6652634Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.6652634Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.6652634Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.9855965Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.9856236Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.9856275Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:14.985631Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.6720102Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.6720102Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.6720102Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.6720102Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.9806393Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.9806679Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.9806728Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:15.9806765Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.6787619Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.6787619Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.6787619Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.6787619Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.9873421Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.9873701Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.9873739Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:16.9873774Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.6849695Z",
+              "name": "benchmarks/working-set",
+              "value": 65.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.6849695Z",
+              "name": "benchmarks/private-memory",
+              "value": 33.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.6849695Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.6849695Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.9879987Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.9880261Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.9880299Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:17.9880335Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.694622Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.694622Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.694622Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.694622Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.9841486Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 24576.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.9841769Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.9841807Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:18.9841843Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.7042486Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.7042486Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.7042486Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.7042486Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.9803228Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.9803501Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.9803538Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:19.9803573Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.7086353Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.7086353Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.7086353Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.7086353Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.981451Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.9814786Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.9814822Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:20.9814856Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.7182102Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.7182102Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.7182102Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.7182102Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.9781223Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.9781477Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.9781514Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:21.9781549Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.7307547Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.7307547Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.7307547Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.7307547Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.9848599Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.9848856Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.9848891Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:22.9848926Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.7405346Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.7405346Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.7405346Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.7405346Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.9865679Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.9865937Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.9865973Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:23.9866008Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.7528429Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.7528429Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.7528429Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.7528429Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.9850771Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 24584.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.9851033Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.9851069Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.9851103Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.7659094Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.7659094Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.7659094Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.7659094Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.9788878Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8176.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.9789141Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.9789178Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:25.9789212Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.7670929Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.7670929Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.7670929Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.7670929Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.979195Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.979221Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.9792245Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:26.979228Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.7810587Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.7810587Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.7810587Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.7810587Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.9918177Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.9918431Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.9918467Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:27.9918501Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.7893528Z",
+              "name": "benchmarks/working-set",
+              "value": 66.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.7893528Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.7893528Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.7893528Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9778465Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 16400.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9778727Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9778762Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:28.9778797Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.7966379Z",
+              "name": "benchmarks/working-set",
+              "value": 68.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.7966379Z",
+              "name": "benchmarks/private-memory",
+              "value": 34.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.7966379Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.7966379Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 3.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.9870032Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.9870293Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.9870328Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:29.9870362Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.8144824Z",
+              "name": "benchmarks/working-set",
+              "value": 123.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.8144824Z",
+              "name": "benchmarks/private-memory",
+              "value": 90.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.8144824Z",
+              "name": "benchmarks/cpu",
+              "value": 68.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.8144824Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 1905.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.9809682Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 4225576.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.9810127Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.9810186Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.9810328Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.8657913Z",
+              "name": "benchmarks/working-set",
+              "value": 140.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.8657913Z",
+              "name": "benchmarks/private-memory",
+              "value": 112.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.8657913Z",
+              "name": "benchmarks/cpu",
+              "value": 90.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.8657913Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2522.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.984737Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 469641568.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.9847876Z",
+              "name": "dotnet.gc.collections",
+              "value": 3.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.9847933Z",
+              "name": "dotnet.gc.collections",
+              "value": 19.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:31.9847991Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.88354Z",
+              "name": "benchmarks/working-set",
+              "value": 141.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.88354Z",
+              "name": "benchmarks/private-memory",
+              "value": 112.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.88354Z",
+              "name": "benchmarks/cpu",
+              "value": 92.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.88354Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2568.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.996908Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 614612224.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.996957Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.9969628Z",
+              "name": "dotnet.gc.collections",
+              "value": 16.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.9969683Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.8754818Z",
+              "name": "benchmarks/working-set",
+              "value": 145.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.8754818Z",
+              "name": "benchmarks/private-memory",
+              "value": 113.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.8754818Z",
+              "name": "benchmarks/cpu",
+              "value": 90.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.8754818Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2523.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.9782943Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 605337248.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.9783421Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.9783481Z",
+              "name": "dotnet.gc.collections",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.9783539Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.8800486Z",
+              "name": "benchmarks/working-set",
+              "value": 144.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.8800486Z",
+              "name": "benchmarks/private-memory",
+              "value": 112.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.8800486Z",
+              "name": "benchmarks/cpu",
+              "value": 91.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.8800486Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2560.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.009483Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 641429872.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.0095317Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.0095521Z",
+              "name": "dotnet.gc.collections",
+              "value": 14.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.0095604Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.876213Z",
+              "name": "benchmarks/working-set",
+              "value": 146.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.876213Z",
+              "name": "benchmarks/private-memory",
+              "value": 114.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.876213Z",
+              "name": "benchmarks/cpu",
+              "value": 92.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.876213Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2577.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.9848662Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 634762624.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.9849279Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.9849348Z",
+              "name": "dotnet.gc.collections",
+              "value": 15.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.9849415Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.8939371Z",
+              "name": "benchmarks/working-set",
+              "value": 155.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.8939371Z",
+              "name": "benchmarks/private-memory",
+              "value": 122.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.8939371Z",
+              "name": "benchmarks/cpu",
+              "value": 89.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.8939371Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2490.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.9812907Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 693041928.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.9813407Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.9813475Z",
+              "name": "dotnet.gc.collections",
+              "value": 15.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.9813541Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.8965228Z",
+              "name": "benchmarks/working-set",
+              "value": 156.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.8965228Z",
+              "name": "benchmarks/private-memory",
+              "value": 123.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.8965228Z",
+              "name": "benchmarks/cpu",
+              "value": 85.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.8965228Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2388.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.9870149Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 871957680.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.9871165Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.9871227Z",
+              "name": "dotnet.gc.collections",
+              "value": 18.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.9871624Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9049139Z",
+              "name": "benchmarks/working-set",
+              "value": 157.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9049139Z",
+              "name": "benchmarks/private-memory",
+              "value": 123.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9049139Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9049139Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2316.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.9793744Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1087385112.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.979472Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.9794843Z",
+              "name": "dotnet.gc.collections",
+              "value": 21.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.9794906Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9053952Z",
+              "name": "benchmarks/working-set",
+              "value": 157.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9053952Z",
+              "name": "benchmarks/private-memory",
+              "value": 123.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9053952Z",
+              "name": "benchmarks/cpu",
+              "value": 81.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9053952Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2265.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9785324Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1447142648.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9785829Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9785891Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.9785947Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9039396Z",
+              "name": "benchmarks/working-set",
+              "value": 157.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9039396Z",
+              "name": "benchmarks/private-memory",
+              "value": 123.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9039396Z",
+              "name": "benchmarks/cpu",
+              "value": 81.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9039396Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2260.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9792754Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1571288872.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9793266Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9793327Z",
+              "name": "dotnet.gc.collections",
+              "value": 31.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.9793387Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9265507Z",
+              "name": "benchmarks/working-set",
+              "value": 157.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9265507Z",
+              "name": "benchmarks/private-memory",
+              "value": 125.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9265507Z",
+              "name": "benchmarks/cpu",
+              "value": 80.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9265507Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2245.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9770801Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1552177000.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9771157Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9771196Z",
+              "name": "dotnet.gc.collections",
+              "value": 30.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.9771233Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9206905Z",
+              "name": "benchmarks/working-set",
+              "value": 154.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9206905Z",
+              "name": "benchmarks/private-memory",
+              "value": 122.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9206905Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9206905Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2320.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9935824Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1589500568.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9936329Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9936389Z",
+              "name": "dotnet.gc.collections",
+              "value": 31.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.9936444Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9201032Z",
+              "name": "benchmarks/working-set",
+              "value": 154.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9201032Z",
+              "name": "benchmarks/private-memory",
+              "value": 122.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9201032Z",
+              "name": "benchmarks/cpu",
+              "value": 82.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9201032Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2309.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9772487Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1554473224.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.977303Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9773093Z",
+              "name": "dotnet.gc.collections",
+              "value": 30.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.9773156Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.918944Z",
+              "name": "benchmarks/working-set",
+              "value": 154.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.918944Z",
+              "name": "benchmarks/private-memory",
+              "value": 122.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.918944Z",
+              "name": "benchmarks/cpu",
+              "value": 82.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.918944Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2293.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9924391Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1601663200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9928031Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9928103Z",
+              "name": "dotnet.gc.collections",
+              "value": 30.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.9928163Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9188957Z",
+              "name": "benchmarks/working-set",
+              "value": 164.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9188957Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9188957Z",
+              "name": "benchmarks/cpu",
+              "value": 81.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9188957Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2280.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.993127Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1582269736.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.9935243Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.9935738Z",
+              "name": "dotnet.gc.collections",
+              "value": 29.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.9935933Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9351041Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9351041Z",
+              "name": "benchmarks/private-memory",
+              "value": 138.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9351041Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9351041Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2323.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9757802Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1516577920.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9761328Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9761822Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.9761893Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9402613Z",
+              "name": "benchmarks/working-set",
+              "value": 168.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9402613Z",
+              "name": "benchmarks/private-memory",
+              "value": 138.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9402613Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9402613Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2333.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.991069Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1626592712.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9911209Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9924091Z",
+              "name": "dotnet.gc.collections",
+              "value": 30.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.9925958Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9492593Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9492593Z",
+              "name": "benchmarks/private-memory",
+              "value": 138.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9492593Z",
+              "name": "benchmarks/cpu",
+              "value": 82.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9492593Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2304.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9911708Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1614133424.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9912298Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9912363Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.9912422Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9509194Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9509194Z",
+              "name": "benchmarks/private-memory",
+              "value": 138.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9509194Z",
+              "name": "benchmarks/cpu",
+              "value": 84.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9509194Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2365.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9921163Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1608192520.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9921678Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9921739Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.9921795Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.9497218Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.9497218Z",
+              "name": "benchmarks/private-memory",
+              "value": 137.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.9497218Z",
+              "name": "benchmarks/cpu",
+              "value": 80.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.9497218Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2250.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9941273Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1612020688.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9941786Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.994185Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.9941917Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9658085Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9658085Z",
+              "name": "benchmarks/private-memory",
+              "value": 138.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9658085Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9658085Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2313.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.9751912Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1577729504.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.975242Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.975248Z",
+              "name": "dotnet.gc.collections",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.9752539Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9642835Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9642835Z",
+              "name": "benchmarks/private-memory",
+              "value": 137.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9642835Z",
+              "name": "benchmarks/cpu",
+              "value": 82.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9642835Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2310.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9979631Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1645591440.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9980422Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9980746Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.9980831Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9801398Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9801398Z",
+              "name": "benchmarks/private-memory",
+              "value": 137.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9801398Z",
+              "name": "benchmarks/cpu",
+              "value": 82.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9801398Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2309.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9749076Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1568104712.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9752282Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9752622Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.9752829Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9994933Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9994933Z",
+              "name": "benchmarks/private-memory",
+              "value": 137.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9994933Z",
+              "name": "benchmarks/cpu",
+              "value": 81.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9994933Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2275.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9913915Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1636266040.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9915105Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.991517Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.9915475Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9954194Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9954194Z",
+              "name": "benchmarks/private-memory",
+              "value": 137.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9954194Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9954194Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2317.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9932517Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1606763056.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9934015Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9934089Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.9934442Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.0122355Z",
+              "name": "benchmarks/working-set",
+              "value": 167.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.0122355Z",
+              "name": "benchmarks/private-memory",
+              "value": 137.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.0122355Z",
+              "name": "benchmarks/cpu",
+              "value": 83.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.0122355Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2325.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9744725Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1562550112.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9748649Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9749448Z",
+              "name": "dotnet.gc.collections",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.9749528Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.0108335Z",
+              "name": "benchmarks/working-set",
+              "value": 170.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.0108335Z",
+              "name": "benchmarks/private-memory",
+              "value": 141.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.0108335Z",
+              "name": "benchmarks/cpu",
+              "value": 82.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.0108335Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2292.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.9943013Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1639737336.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.9945338Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.9945406Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.9945838Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.0254404Z",
+              "name": "benchmarks/working-set",
+              "value": 170.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.0254404Z",
+              "name": "benchmarks/private-memory",
+              "value": 140.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.0254404Z",
+              "name": "benchmarks/cpu",
+              "value": 84.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.0254404Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2344.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.9738091Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1564358048.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.9738618Z",
+              "name": "dotnet.gc.collections",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.9738681Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.973874Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.0272202Z",
+              "name": "benchmarks/working-set",
+              "value": 170.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.0272202Z",
+              "name": "benchmarks/private-memory",
+              "value": 140.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.0272202Z",
+              "name": "benchmarks/cpu",
+              "value": 84.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.0272202Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2346.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.9892775Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1638438096.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.9894172Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.9894245Z",
+              "name": "dotnet.gc.collections",
+              "value": 28.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.9894303Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.025029Z",
+              "name": "benchmarks/working-set",
+              "value": 171.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.025029Z",
+              "name": "benchmarks/private-memory",
+              "value": 141.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.025029Z",
+              "name": "benchmarks/cpu",
+              "value": 18.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.025029Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 515.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.9892771Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 1614479248.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.9893577Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.9893639Z",
+              "name": "dotnet.gc.collections",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.9894082Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:03.0355256Z",
+              "name": "benchmarks/working-set",
+              "value": 171.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:03.0355256Z",
+              "name": "benchmarks/private-memory",
+              "value": 141.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:03.0355256Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:03.0355256Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.9882046Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 437743800.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.9882374Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.9882411Z",
+              "name": "dotnet.gc.collections",
+              "value": 8.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.9882448Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.9830133Z",
+              "name": "dotnet.gc.heap.total_allocated",
+              "value": 8200.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.9830389Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.9830425Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:02.9830462Z",
+              "name": "dotnet.gc.collections",
+              "value": 0.0
+            }
+          ]
+        ],
+        "environment": {
+          "hw": "PHYSICAL",
+          "env": "CITRINE",
+          "os": "Windows",
+          "arch": "X64",
+          "proc": 28,
+          "version": "0.2.0-dev"
+        },
+        "variables": {
+          "localendpoint": "http://localhost:5010",
+          "headers": {
+            "none": "",
+            "plaintext": "--header \"Accept: text/plain,text/html;q=0.9,application/xhtml+xml;q=0.9,application/xml;q=0.8,*/*;q=0.7\" --header \"Connection: keep-alive\"",
+            "html": "--header \"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\" --header \"Connection: keep-alive\"",
+            "json": "--header \"Accept: application/json,text/html;q=0.9,application/xhtml+xml;q=0.9,application/xml;q=0.8,*/*;q=0.7\" --header \"Connection: keep-alive\"",
+            "connectionclose": "--header \"Connection: close\"",
+            "grpc": "--header \"content-type: application/grpc\" --header \"TE: trailers\"",
+            "grpcDeadline": "--header \"content-type: application/grpc\" --header \"TE: trailers\" --header \"grpc-timeout: 100S\""
+          },
+          "presetHeaders": "none",
+          "serverPort": 5000,
+          "serverScheme": "http",
+          "serverAddress": "10.0.0.104",
+          "cores": 28,
+          "secondaryAddress": "10.0.0.102",
+          "databaseServer": "10.0.0.109",
+          "downstreamAddress": "10.0.0.109"
+        },
+        "benchmarks": []
+      },
+      "load": {
+        "results": {
+          "netSdkVersion": "8.0.401",
+          "aspNetCoreVersion": "8.0.8+954f61dd38b3",
+          "netCoreAppVersion": "8.0.8+08338fcaa5c9",
+          "benchmarks/build-time": 6104.0,
+          "benchmarks/published-size": 72281.0,
+          "benchmarks/symbols-size": 0.0,
+          "benchmarks/start-time": 0.0,
+          "http/firstrequest": 233.0,
+          "benchmarks/working-set": 46.0,
+          "benchmarks/private-memory": 358.0,
+          "benchmarks/cpu": 27.0,
+          "benchmarks/cpu/raw": 746.0,
+          "wrk/rps/mean": 218562.54,
+          "wrk/throughput": 104.64,
+          "wrk/latency/max": 23.17,
+          "wrk/requests": 3300290.0,
+          "wrk/errors/badresponses": 0.0,
+          "wrk/errors/socketerrors": 0.0,
+          "wrk/latency/50": 1.11,
+          "wrk/latency/75": 1.17,
+          "wrk/latency/90": 1.3,
+          "wrk/latency/99": 3.0,
+          "wrk/latency/mean": 1.2,
+          "http/latency/mean": 1.2,
+          "http/rps/mean": 218562.54,
+          "http/throughput": 104.64,
+          "http/latency/max": 23.17,
+          "http/requests": 3300290.0,
+          "http/requests/badresponses": 0.0,
+          "http/requests/errors": 0.0,
+          "http/latency/50": 1.11,
+          "http/latency/75": 1.17,
+          "http/latency/90": 1.3,
+          "http/latency/99": 3.0
+        },
+        "metadata": [
+          {
+            "name": "benchmarks/cpu",
+            "description": "Max CPU Usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/raw",
+            "description": "Max Cores usage (%)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set",
+            "description": "Max Working Set (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory",
+            "description": "Max Private Memory (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/build-time",
+            "description": "Build Time (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/start-time",
+            "description": "Start Time (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/published-size",
+            "description": "Published Size (KB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/published-nativeaot-size/raw",
+            "description": "Native Aot Size summary",
+            "format": "json"
+          },
+          {
+            "name": "benchmarks/symbols-size",
+            "description": "Symbols Size (KB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/memory/swap",
+            "description": "Swap (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/periods/total",
+            "description": "Runnable Periods (#)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/periods/throttled",
+            "description": "Throttled Periods (#)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/cpu/throttled",
+            "description": "Throttled Time (ns)",
+            "format": "n0"
+          },
+          {
+            "name": "netSdkVersion",
+            "description": ".NET Core SDK Version",
+            "format": ""
+          },
+          {
+            "name": "AspNetCoreVersion",
+            "description": "ASP.NET Core Version",
+            "format": ""
+          },
+          {
+            "name": "NetCoreAppVersion",
+            "description": ".NET Runtime Version",
+            "format": ""
+          },
+          {
+            "name": "http/firstrequest",
+            "description": "First Request (ms)",
+            "format": "n0"
+          },
+          {
+            "name": "http/rps/mean",
+            "description": "Requests/sec",
+            "format": "n0"
+          },
+          {
+            "name": "http/requests",
+            "description": "Requests",
+            "format": "n0"
+          },
+          {
+            "name": "http/latency/mean",
+            "description": "Mean latency (ms)",
+            "format": "n2"
+          },
+          {
+            "name": "http/latency/max",
+            "description": "Max latency (ms)",
+            "format": "n2"
+          },
+          {
+            "name": "http/requests/badresponses",
+            "description": "Bad responses",
+            "format": "n0"
+          },
+          {
+            "name": "http/requests/errors",
+            "description": "Socket errors",
+            "format": "n0"
+          },
+          {
+            "name": "http/throughput",
+            "description": "Read throughput (MB/s)",
+            "format": "n2"
+          },
+          {
+            "name": "http/latency/50",
+            "description": "Latency 50th (ms)",
+            "format": "n2"
+          },
+          {
+            "name": "http/latency/75",
+            "description": "Latency 75th (ms)",
+            "format": "n2"
+          },
+          {
+            "name": "http/latency/90",
+            "description": "Latency 90th (ms)",
+            "format": "n2"
+          },
+          {
+            "name": "http/latency/99",
+            "description": "Latency 99th (ms)",
+            "format": "n2"
+          },
+          {
+            "name": "benchmarks/working-set/P99",
+            "description": "Working Set P99 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P95",
+            "description": "Working Set P95 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/steady",
+            "description": "Working Set P90 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P75",
+            "description": "Working Set P75 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/working-set/P50",
+            "description": "Working Set P50 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P99",
+            "description": "Private Memory P99 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P95",
+            "description": "Private Memory P95 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P90",
+            "description": "Private Memory P90 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P75",
+            "description": "Private Memory P75 (MB)",
+            "format": "n0"
+          },
+          {
+            "name": "benchmarks/private-memory/P50",
+            "description": "Private Memory P50 (MB)",
+            "format": "n0"
+          }
+        ],
+        "dependencies": [],
+        "measurements": [
+          [
+            {
+              "timestamp": "2024-09-08T01:00:24.4997665Z",
+              "name": "netSdkVersion",
+              "value": "8.0.401"
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.4998758Z",
+              "name": "AspNetCoreVersion",
+              "value": "8.0.8+954f61dd38b3"
+            },
+            {
+              "timestamp": "2024-09-08T01:00:24.4999262Z",
+              "name": "NetCoreAppVersion",
+              "value": "8.0.8+08338fcaa5c9"
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.6048427Z",
+              "name": "benchmarks/build-time",
+              "value": 6104
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.6079061Z",
+              "name": "benchmarks/published-size",
+              "value": 72281
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.6101592Z",
+              "name": "benchmarks/symbols-size",
+              "value": 0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.6176293Z",
+              "name": "benchmarks/start-time",
+              "value": 0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:30.9505231Z",
+              "name": "http/firstrequest",
+              "value": 233
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.4302274Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.4302274Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.4302274Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:32.4302274Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.4297898Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.4297898Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.4297898Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:33.4297898Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.4293533Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.4293533Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.4293533Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:34.4293533Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.4290003Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.4290003Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.4290003Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:35.4290003Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.4316099Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.4316099Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.4316099Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:36.4316099Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.4356635Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.4356635Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.4356635Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:37.4356635Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 2.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.4379698Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.4379698Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.4379698Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:38.4379698Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.437744Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.437744Z",
+              "name": "benchmarks/private-memory",
+              "value": 134.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.437744Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:39.437744Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.4374817Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.4374817Z",
+              "name": "benchmarks/private-memory",
+              "value": 135.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.4374817Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:40.4374817Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.4373351Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.4373351Z",
+              "name": "benchmarks/private-memory",
+              "value": 135.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.4373351Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:41.4373351Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.437037Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.437037Z",
+              "name": "benchmarks/private-memory",
+              "value": 135.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.437037Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:42.437037Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 1.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.4398826Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.4398826Z",
+              "name": "benchmarks/private-memory",
+              "value": 135.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.4398826Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:43.4398826Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.4437154Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.4437154Z",
+              "name": "benchmarks/private-memory",
+              "value": 135.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.4437154Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:44.4437154Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.4456321Z",
+              "name": "benchmarks/working-set",
+              "value": 46.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.4456321Z",
+              "name": "benchmarks/private-memory",
+              "value": 135.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.4456321Z",
+              "name": "benchmarks/cpu",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:45.4456321Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 0.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.4453547Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.4453547Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.4453547Z",
+              "name": "benchmarks/cpu",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:46.4453547Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 205.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.4450791Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.4450791Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.4450791Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:47.4450791Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 744.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.4478297Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.4478297Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.4478297Z",
+              "name": "benchmarks/cpu",
+              "value": 26.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:48.4478297Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 738.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.4516914Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.4516914Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.4516914Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:49.4516914Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 743.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.4534753Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.4534753Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.4534753Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:50.4534753Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 746.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.4531235Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.4531235Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.4531235Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:51.4531235Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 746.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.4558645Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.4558645Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.4558645Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:52.4558645Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 743.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.4598946Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.4598946Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.4598946Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:53.4598946Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 744.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.4617327Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.4617327Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.4617327Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:54.4617327Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 745.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.4614578Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.4614578Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.4614578Z",
+              "name": "benchmarks/cpu",
+              "value": 26.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:55.4614578Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 740.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.4611576Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.4611576Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.4611576Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:56.4611576Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 743.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.4639224Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.4639224Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.4639224Z",
+              "name": "benchmarks/cpu",
+              "value": 26.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:57.4639224Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 742.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.4676929Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.4676929Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.4676929Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:58.4676929Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 745.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.4695368Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.4695368Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.4695368Z",
+              "name": "benchmarks/cpu",
+              "value": 27.0
+            },
+            {
+              "timestamp": "2024-09-08T01:00:59.4695368Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 745.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.4692026Z",
+              "name": "benchmarks/working-set",
+              "value": 7.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.4692026Z",
+              "name": "benchmarks/private-memory",
+              "value": 358.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.4692026Z",
+              "name": "benchmarks/cpu",
+              "value": 26.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:00.4692026Z",
+              "name": "benchmarks/cpu/raw",
+              "value": 740.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.293824Z",
+              "name": "wrk/latency/mean",
+              "value": 1.2
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.293824Z",
+              "name": "http/latency/mean",
+              "value": 1.2
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2939988Z",
+              "name": "wrk/rps/mean",
+              "value": 218562.54
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2939988Z",
+              "name": "http/rps/mean",
+              "value": 218562.54
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2943597Z",
+              "name": "wrk/throughput",
+              "value": 104.64
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2943597Z",
+              "name": "http/throughput",
+              "value": 104.64
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2947103Z",
+              "name": "wrk/latency/max",
+              "value": 23.17
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2947103Z",
+              "name": "http/latency/max",
+              "value": 23.17
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2951627Z",
+              "name": "wrk/requests",
+              "value": 3300290
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2951627Z",
+              "name": "http/requests",
+              "value": 3300290
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.295365Z",
+              "name": "wrk/errors/badresponses",
+              "value": 0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.295365Z",
+              "name": "http/requests/badresponses",
+              "value": 0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2955887Z",
+              "name": "wrk/errors/socketerrors",
+              "value": 0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2955887Z",
+              "name": "http/requests/errors",
+              "value": 0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2958025Z",
+              "name": "wrk/latency/50",
+              "value": 1.11
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2958025Z",
+              "name": "http/latency/50",
+              "value": 1.11
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2958586Z",
+              "name": "wrk/latency/75",
+              "value": 1.17
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2958586Z",
+              "name": "http/latency/75",
+              "value": 1.17
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2959111Z",
+              "name": "wrk/latency/90",
+              "value": 1.3
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2959111Z",
+              "name": "http/latency/90",
+              "value": 1.3
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2959635Z",
+              "name": "wrk/latency/99",
+              "value": 3.0
+            },
+            {
+              "timestamp": "2024-09-08T01:01:01.2959635Z",
+              "name": "http/latency/99",
+              "value": 3.0
+            }
+          ]
+        ],
+        "environment": {
+          "hw": "PHYSICAL",
+          "env": "Unspecified",
+          "os": "Linux",
+          "arch": "X64",
+          "proc": 28,
+          "version": "0.2.0-dev"
+        },
+        "variables": {
+          "localendpoint": "http://localhost:5010",
+          "headers": {
+            "none": "",
+            "plaintext": "--header \"Accept: text/plain,text/html;q=0.9,application/xhtml+xml;q=0.9,application/xml;q=0.8,*/*;q=0.7\" --header \"Connection: keep-alive\"",
+            "html": "--header \"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\" --header \"Connection: keep-alive\"",
+            "json": "--header \"Accept: application/json,text/html;q=0.9,application/xhtml+xml;q=0.9,application/xml;q=0.8,*/*;q=0.7\" --header \"Connection: keep-alive\"",
+            "connectionclose": "--header \"Connection: close\"",
+            "grpc": "--header \"content-type: application/grpc\" --header \"TE: trailers\"",
+            "grpcDeadline": "--header \"content-type: application/grpc\" --header \"TE: trailers\" --header \"grpc-timeout: 100S\""
+          },
+          "presetHeaders": "json",
+          "serverPort": 5000,
+          "serverScheme": "http",
+          "connections": 256,
+          "duration": 15,
+          "timeout": null,
+          "warmup": 15,
+          "threads": 32,
+          "pipeline": 1,
+          "script": "",
+          "scriptArguments": "",
+          "serverAddress": "10.0.0.104",
+          "path": "/api/todos",
+          "customHeaders": [],
+          "cores": 28,
+          "secondaryAddress": "10.0.0.102",
+          "databaseServer": "10.0.0.109",
+          "downstreamAddress": "10.0.0.109"
+        },
+        "benchmarks": []
+      }
+    },
+    "properties": {}
+  },
+  "benchmarks": []
+}

@@ -178,12 +178,6 @@ public enum ExpectationDirection
     NoChange,
 }
 
-public static Dictionary<Metric<BenchmarkData>, ExpectationDirection> HigherMemoryLowerThroughput = new()
-{
-    { Metrics.B.AverageMaxHeapSize, ExpectationDirection.Increase },
-    { Metrics.B.AverageP50Latency, ExpectationDirection.Decrease }
-};
-
 #!csharp
 
 public record BenchmarkRegressionInfo(string benchmarkName, string metricInfo, double regressionPercentage);
@@ -793,6 +787,50 @@ public Dictionary<string, TCPDataBenchmarkDiff> GetPerBenchmarkTCPData(DataManag
 
     return perBenchmarkData;
 }
+
+#!csharp
+
+/*
+Aggregation SafeAverage = new Aggregation((gcs => {
+    long count = 0;
+    double sum = 0;
+
+    foreach (var gc in gcs)
+    {
+        if (!double.IsNaN(gc) && gc != 0)
+        {
+            sum += gc;
+            count++;
+        }
+    }
+
+    return count != 0 ? sum / count: double.NaN;
+}), "SafeAverage", "");
+
+Aggregation SafeAndStableAverage = new Aggregation((gcs => {
+    long count = 0;
+    double sum = 0;
+
+    foreach (var gc in gcs)
+    {
+        if (!double.IsNaN(gc) && gc != 0)
+        {
+            sum += gc;
+            count++;
+        }
+    }
+
+    double stableAverage = sum / count;
+    long gcIndex = -1;
+    int pointOfStabilization = FindStabilizationPoint(gcs.ToList(), 0.1);
+    if (pointOfStabilization != -1)
+    {
+        stableAverage = gcs.Skip(pointOfStabilization).Average();
+    }
+
+    return stableAverage;
+}), "SafeAndStableAverage", "");
+*/
 
 #!csharp
 

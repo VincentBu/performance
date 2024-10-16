@@ -170,18 +170,40 @@ Dictionary<string, Dictionary<string, Dictionary<string, double?>>> GetBenchmark
 
 #!csharp
 
+public enum ExpectationDirection
+{
+    Unknown,
+    Increase,
+    Decrease,
+    NoChange,
+}
+
+public static Dictionary<Metric<BenchmarkData>, ExpectationDirection> HigherMemoryLowerThroughput = new()
+{
+    { Metrics.B.AverageMaxHeapSize, ExpectationDirection.Increase },
+    { Metrics.B.AverageP50Latency, ExpectationDirection.Decrease }
+};
+
+#!csharp
+
 public record BenchmarkRegressionInfo(string benchmarkName, string metricInfo, double regressionPercentage);
 
-// TODO: Add custom calculation.
 static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (
     this Dictionary<string, Dictionary<string, Dictionary<string, double?>>> data, string baselineConfig, string comparandConfig, double tolerancePercentage = 5, bool debug = false,
-    Dictionary<Metric<BenchmarkData>, double> metricToleranceOverridePercentage = null)
+    Dictionary<Metric<BenchmarkData>, double> metricToleranceOverridePercentage = null, Dictionary<Metric<BenchmarkData>, ExpectationDirection> expectationDirections = null)
 {
     metricToleranceOverridePercentage ??= new();
+    expectationDirections ??= new();
     Dictionary<string, double> simplifiedMetricToleranceOverridePercentage = new();
     foreach (var metricToleranceOverride in metricToleranceOverridePercentage)
     {
         simplifiedMetricToleranceOverridePercentage[metricToleranceOverride.Key.Title] = metricToleranceOverride.Value;
+    }
+
+    Dictionary<string, ExpectationDirection> simplifiedExpectationDirections = new();
+    foreach (var expectationDirection in expectationDirections)
+    {
+        simplifiedExpectationDirections[expectationDirection.Key.Title] = expectationDirection.Value;
     }
 
     List<BenchmarkRegressionInfo> regressions = new();
@@ -228,22 +250,39 @@ static List<BenchmarkRegressionInfo> GetBenchmarkRegressions (
                     }
                 }
 
-                // TODO: Add some sense of metric differentiation.
-
-                // If the override exists, use it.
-                if (simplifiedMetricToleranceOverridePercentage.TryGetValue(metricToBenchmarkData.Key, out var overrideValue))
+                void AddRegression (string benchmarkName, string metricInfo, double regressionPercentage, double threshold, ExpectationDirection direction)
                 {
-                    if (Math.Abs(diff.GetValueOrDefault()) > Math.Abs(overrideValue))
+                    switch (direction)
                     {
-                        regressions.Add(new BenchmarkRegressionInfo(b.Key, metricToBenchmarkData.Key, Math.Round(diff.GetValueOrDefault(), 2)));
+                        // If the expectation is that the metric should increase and if we observe a decrease beyond the threshold, we add it to regressions. 
+                        case ExpectationDirection.Increase:
+                            if (regressionPercentage < 0 && (Math.Abs(regressionPercentage) > Math.Abs(tolerancePercentage)))
+                            {
+                                regressions.Add(new BenchmarkRegressionInfo(benchmarkName, metricInfo, regressionPercentage));
+                            }
+                            break;
+                        // If the expectation is that the metric should decrease and if we observe an increase beyond the threshold, we add it to regressions. 
+                        case ExpectationDirection.Decrease:
+                            if (regressionPercentage > 0 && (Math.Abs(regressionPercentage) > Math.Abs(tolerancePercentage)))
+                            {
+                                regressions.Add(new BenchmarkRegressionInfo(benchmarkName, metricInfo, regressionPercentage));
+                            }
+                            break;
+                        // Otherwise, we add the regression if the percentage difference is beyond the threshold.
+                        default:
+                            if (Math.Abs(diff.GetValueOrDefault()) > Math.Abs(tolerancePercentage))
+                            {
+                                regressions.Add(new BenchmarkRegressionInfo(benchmarkName, metricInfo, regressionPercentage));
+                            }
+                            break;
                     }
                 }
 
-                // Else, fall back to the default calculation.
-                else if (Math.Abs(diff.GetValueOrDefault()) > Math.Abs(tolerancePercentage)) 
-                {
-                    regressions.Add(new BenchmarkRegressionInfo(b.Key, metricToBenchmarkData.Key, Math.Round(diff.GetValueOrDefault(), 2)));
-                }
+                // If the override exists, use it.
+                //if (simplifiedMetricToleranceOverridePercentage.TryGetValue(metricToBenchmarkData.Key, out var overrideValue))
+                bool overrideExists = simplifiedMetricToleranceOverridePercentage.TryGetValue(metricToBenchmarkData.Key, out var overrideValue);
+                overrideValue = overrideExists ? simplifiedMetricToleranceOverridePercentage[metricToBenchmarkData.Key] : tolerancePercentage;
+                AddRegression(b.Key, metricToBenchmarkData.Key, Math.Round(diff.GetValueOrDefault(), 2), overrideValue, simplifiedExpectationDirections.GetValueOrDefault(metricToBenchmarkData.Key));
             }
         }
 
@@ -289,29 +328,42 @@ void DisplayBenchmarkSummaryWithRegressions(DataManager dm, string baselineConfi
     ConfigIterationFilter configIterationFilter = null, Func<BenchmarkData, bool> dataFilter = null,
     Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
     NameSimplifier configNameSimplifier = null, bool includeRunName = false,
-    bool display = true, bool debug = false, Dictionary<Metric<BenchmarkData>, double> metricToleranceOverridePercentage = null)
+    bool display = true, bool debug = false, Dictionary<Metric<BenchmarkData>, double> metricToleranceOverridePercentage = null, int benchmarksToDisplay = 5,
+    Dictionary<Metric<BenchmarkData>, ExpectationDirection> expectationDirections = null)
 {
     metrics ??= ML(Metrics.B.MaxMaxHeapSize, Metrics.B.MaxHeapSizeCVPerc, Metrics.B.AverageP50Latency, Metrics.B.P50LatencyCVPerc, Metrics.B.AverageRequestPerMSec, Metrics.B.RequestPerMSecCVPerc);
     var benchmarkData = 
         GetBenchmarkData(dm, metrics, runFilter, configFilter, benchmarkFilter, iterationFilter, configIterationFilter, dataFilter, benchmarkMap, xArrangement, configNameSimplifier, includeRunName, display, debug);
+    int totalBenchmarks = benchmarkData.First().Value.First().Value.Count;
     List<BenchmarkRegressionInfo> regressions = 
-        benchmarkData.GetBenchmarkRegressions(baselineConfig: baselineConfigName, comparandConfig: comparandConfigName, tolerancePercentage: benchmarkRegressionThreshold, debug: debug, metricToleranceOverridePercentage: metricToleranceOverridePercentage);
+        benchmarkData.GetBenchmarkRegressions(baselineConfig: baselineConfigName, comparandConfig: comparandConfigName, tolerancePercentage: benchmarkRegressionThreshold, debug: debug, metricToleranceOverridePercentage: metricToleranceOverridePercentage, expectationDirections: expectationDirections);
 
-    HashSet<string> benchmarks = new();
-    HashSet<string> metricSet = new();
+    HashSet<string> filteredBenchmarks = new();
+    HashSet<string> filteredMetricSet = new();
 
     foreach (var regression in regressions)
     {
-        benchmarks.Add(regression.benchmarkName);
-        metricSet.Add(regression.metricInfo);
+        filteredBenchmarks.Add(regression.benchmarkName);
+        filteredMetricSet.Add(regression.metricInfo);
     }
 
     // Map metric string to Metric<Benchmark> list.
-    metrics = metrics.Where(m => metricSet.Contains(m.Title)).ToList();
+    metrics = metrics.Where(m => filteredMetricSet.Contains(m.Title)).ToList();
+    StringBuilder sb = new();
+    sb.AppendLine($"## Out of {totalBenchmarks} benchmarks, {filteredBenchmarks.Count} have regressed.");
+    foreach (var regression in regressions.OrderByDescending(r => r.regressionPercentage).Take(benchmarksToDisplay))
+    {
+        sb.AppendLine($"   - __{regression.benchmarkName}__ has regressed by {regression.regressionPercentage}% for {regression.metricInfo}");
+    }
+    
+    sb.ToString().DisplayAs("text/markdown");
 
-    TableBenchmarks(dm, metrics, configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName), 
-    runFilter: runFilter, benchmarkFilter: new Filter(benchmarks), iterationFilter: iterationFilter, 
-    benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
+    if (display)
+    {
+        TableBenchmarks(dm, metrics, configCompareInfo: new ConfigCompareInfo(baselineConfigName, comparandConfigName), 
+        runFilter: runFilter, benchmarkFilter: new Filter(filteredBenchmarks), iterationFilter: iterationFilter, 
+        benchmarkMap: benchmarkMap, xArrangement: xArrangement, configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, display: display, debug: debug);
+    }
 }
 
 #!csharp
@@ -323,7 +375,8 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     ConfigIterationFilter configIterationFilter = null, Func<IterationData, bool> dataFilter = null,
     Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
     NameSimplifier configNameSimplifier = null, bool includeRunName = false,
-    bool display = true, bool debug = false, double volatilityThreshold = 5, Dictionary<Metric<IterationData>, double> metricVolOverridePercentage = null, Aggregation aggregation = null)
+    bool display = true, bool debug = false, double volatilityThreshold = 5, Dictionary<Metric<IterationData>, double> metricVolOverridePercentage = null, Aggregation aggregation = null
+    , int iterationsToDisplay = 5)
 {
     metricVolOverridePercentage ??= new();
     aggregation ??= Aggregation.Average;
@@ -333,7 +386,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                    Metrics.I.Gen1Count, Metrics.I.Gen1MeanPauseMSec, 
                    Metrics.I.BlockingGCCount, Metrics.I.BlockingGCMeanPauseTime, 
                    Metrics.I.BGCCount, Metrics.I.BGCMeanPauseTime, 
-                   Metrics.I.TotalAllocationsMB, Metrics.I.MeanAllocPerGC, 
+                   Metrics.I.TotalAllocationsMB, Metrics.I.MeanAllocPerGC,
                    Metrics.I.PercentPauseTimeInGC, Metrics.I.MeanHeapSizeBefore, Metrics.I.MeanHeapSizeBeforeMB, 
                    Metrics.I.MaxWorkingSetMB, Metrics.I.RequestsPerMSec, Metrics.I.MeanLatencyMS, Metrics.I.NumberOfHeapCountSwitches, Metrics.I.TotalGCCount);
     var result = GetDataInternal(chartType: chartType,
@@ -351,6 +404,8 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     // Benchmark -> (Key -> IterationDetails)
     Dictionary<string, Dictionary<string, IterationDetails>> iterationDetails = new();
     Dictionary<string, List<double?>> iterationData = new();
+
+    List<(string key, int idx, double? anomolousVal, IEnumerable<double?> allVals, double volatility)> allAnomalies = new();
 
     // Config -> Benchmark -> (Iteration -> Data).
     // For a benchmark and config -> Intravol of the iterations.
@@ -374,7 +429,6 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                 foreach (var metric in metrics)
                 {
                     metricData[metric.Title] = metric.DoExtract(benchmark.Value);
-                    Console.WriteLine($"Extracted {metricData[metric.Title]} for {key}");
                     string iterationKey = CreateKey(kvp.Item1.Config, benchmark.Key, metric.Title);
 
                     if (!iterationData.TryGetValue(iterationKey, out var iData))
@@ -393,7 +447,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     StringBuilder table = new();
     foreach (var benchmark in iterationDetails)
     {
-        table.AppendLine($"### {benchmark.Key}");
+        table.AppendLine($"## {benchmark.Key}");
         table.AppendLine();
         table.AppendLine("| Config | Iteration | " + string.Join(" | ", metrics.Select(m => m.Title)) + " |");
         table.AppendLine("| ------ | --------- | " + string.Join(" | ", metrics.Select(m => "------")) + " |");
@@ -452,10 +506,24 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                 int iteration = anomaly.idx;
                 table.AppendLine($"| {config} | {anomaly.idx} | {metric}  | {Math.Round(anomaly.volatility, 2)} | {Math.Round(anomaly.anomolousVal.GetValueOrDefault(), 2)} | {string.Join(" | ", anomaly.allVals.Select(a => a.GetValueOrDefault().ToString("N2")))} | ");
             }
+
+            allAnomalies.AddRange(anomalies);
         }
     }
 
-    table.ToString().DisplayAs("text/markdown");
+    StringBuilder sb = new();
+    sb.AppendLine($"## Anomalies in Iterations"); 
+    foreach (var volatilityVals in allAnomalies.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
+    {
+        sb.AppendLine($"   - __{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has an anomaly: {Math.Round(volatilityVals.anomolousVal.GetValueOrDefault(), 2)} for {volatilityVals.idx}th iteration with Volatility: {Math.Round(volatilityVals.volatility, 2)}% - {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
+    }
+    
+    sb.ToString().DisplayAs("text/markdown");
+
+    if (display)
+    {
+        table.ToString().DisplayAs("text/markdown");
+    }
 }
 
 Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?>>>> GetIterationData_Raw(DataManager dataManager, List<Metric<IterationData>> metrics,
@@ -518,4 +586,242 @@ Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<int, double?
     }
 
     return data; 
+}
+
+#!csharp
+
+double CalculateMean(List<double> data, int endIndex = -1)
+{
+    if (endIndex == -1)
+        endIndex = data.Count - 1;
+
+    double sum = 0;
+    for (int i = 0; i <= endIndex; i++)
+    {
+        sum += data[i];
+    }
+
+    return sum / (endIndex + 1);
+}
+
+double CalculateVariance(List<double> data, double mean, int endIndex = -1)
+{
+    if (endIndex == -1)
+        endIndex = data.Count - 1;
+
+    double sum = 0;
+    for (int i = 0; i <= endIndex; i++)
+    {
+        sum += Math.Pow(data[i] - mean, 2);
+    }
+
+    return sum / (endIndex + 1);
+}
+
+List<(int start, int end)> FindStabilizationPoint2(List<double> gcs, double threshold)
+{
+    var data = gcs.Where(gc => !double.IsNaN(gc) && gc != 0).ToList();
+    List<(int start, int end)> stabilizationPoints = new List<(int start, int end)>();
+    double mean = CalculateMean(data);
+    double variance = CalculateVariance(data, mean);
+
+    int stabilizationPoint = -1;
+    for (int i = 0; i < data.Count; i++)
+    {
+        double currentMean = CalculateMean(data, i);
+        double currentVariance = CalculateVariance(data, currentMean, i);
+
+        if (Math.Abs(currentMean - mean) <= threshold && Math.Abs(currentVariance - variance) <= threshold)
+        {
+            stabilizationPoint = i;
+            break;
+        }
+    }
+
+    if (stabilizationPoint != -1)
+    {
+        // Split sections based on level
+        double level = data.Skip(stabilizationPoint).Average();
+        List<double> currentSection = new List<double>();
+        int sectionStart = stabilizationPoint;
+
+        for (int i = stabilizationPoint; i < data.Count; i++)
+        {
+            if (Math.Abs(data[i] - level) <= threshold)
+            {
+                currentSection.Add(data[i]);
+            }
+            else
+            {
+                if (currentSection.Count > 0)
+                {
+                    stabilizationPoints.Add((sectionStart, i - 1));
+                    currentSection.Clear();
+                }
+                level = data[i];
+                sectionStart = i;
+                currentSection.Add(data[i]);
+            }
+        }
+
+        if (currentSection.Count > 0)
+        {
+            stabilizationPoints.Add((sectionStart, data.Count - 1));
+        }
+    }
+
+    return stabilizationPoints;
+}
+
+int FindStabilizationPoint(List<double> gcs, double threshold)
+{
+    var data = gcs.Where(gc => !double.IsNaN(gc) && gc != 0);
+    int stabilizationPoint = -1;
+    double mean = CalculateMean(data);
+    double variance = CalculateVariance(data, mean);
+
+    for (int i = 0; i < data.Count; i++)
+    {
+        double currentMean = CalculateMean(data, i);
+        double currentVariance = CalculateVariance(data, currentMean, i);
+
+        // Try: with just variance.
+        if (Math.Abs(currentMean - mean) <= threshold && Math.Abs(currentVariance - variance) <= threshold)
+        {
+            stabilizationPoint = i;
+            break;
+        }
+    }
+
+    return stabilizationPoint;
+}
+
+// Benchmark Level Averages.
+// Iteration Level Averages.
+string GetBenchmarkFromKey(string key) => key.Split('|')[1];
+string GetConfigFromKey(string key) => key.Split('|')[0];
+string GetIterationFromKey(string key) => key.Split('|')[2];
+string CreateKey(string configName, string benchmarkName, int? iteration) => $"{configName}|{benchmarkName}|{iteration}";
+
+public record TCPData(double avg, double sum, long count, List<double> vals, double stableAverage, long pointOfStabilization, long gcIndex);
+
+public Dictionary<string, TCPData> GetPerIterationTCPData(DataManager dm)
+{
+    var allTraceGCData = GetDataInternal<TraceGC>(dataManager: dm, chartType: new TraceGCChartType(), metrics: ML( Metrics.G.TCPToConsider ));
+    Dictionary<string, TCPData> perIterationData = new();
+    foreach (var pd in allTraceGCData)
+    {
+        string key = CreateKey(pd.Item1.Config, pd.Item1.Benchmark, pd.Item1.Iteration);
+
+        double sum = 0;
+        long count = 0;
+        List<double> vals = new();
+
+        foreach (var g in pd.Item2)
+        {
+            var gc = g.Value;
+            var tcpToConsider = gc.DynamicEvents().SizeAdaptationTuning?.MedianThroughputCostPercent;
+            if (tcpToConsider != null && tcpToConsider > 0)
+            {
+                ++count;
+                sum += tcpToConsider;
+                vals.Add(tcpToConsider);
+            }
+        }
+
+        double avg = sum / count;
+        double stableAverage = avg;
+        long gcIndex = -1;
+        int pointOfStabilization = FindStabilizationPoint(vals, 0.1);
+        if (pointOfStabilization != -1)
+        {
+            stableAverage = vals.Skip(pointOfStabilization).Average();
+            gcIndex = pd.Item2[pointOfStabilization].Value.Number;
+        }
+
+
+        perIterationData[key] = new TCPData(avg, sum, count, vals, stableAverage, pointOfStabilization, gcIndex); 
+    }
+
+    return perIterationData;
+}
+
+public class TCPDataBenchmarkDiff
+{
+    public TCPData baseline {get; set; } 
+    public TCPData comparand {get; set;} 
+    public double percentDifference {get;set;}
+    public double stablePercentDifference {get;set;}
+    public override string ToString() => $"Baseline: {Math.Round(baseline.avg, 2)}, Comparand: {Math.Round(comparand.avg, 2)}, % Diff: {Math.Round(percentDifference, 2)}";
+}
+
+public Dictionary<string, TCPDataBenchmarkDiff> GetPerBenchmarkTCPData(DataManager dm, string baselineConfig, string comparandConfig)
+{
+    Dictionary<string, TCPDataBenchmarkDiff> perBenchmarkData = new();
+    var perIterationData = GetPerIterationTCPData(dm);
+
+    // Aggregate per benchmark.
+    foreach (var pd in perIterationData)
+    {
+        string config = GetConfigFromKey(pd.Key);
+        if (config != baselineConfig && config != comparandConfig)
+        {
+            continue;
+        }
+
+        string benchmark = GetBenchmarkFromKey(pd.Key);
+        if (!perBenchmarkData.TryGetValue(benchmark, out var tcpData))
+        {
+            perBenchmarkData[benchmark] = tcpData = new TCPDataBenchmarkDiff();
+        }
+        
+        if (config == baselineConfig)
+        {
+            tcpData.baseline = pd.Value;
+        }
+        else
+        {
+            tcpData.comparand = pd.Value;
+        }
+    }
+
+    foreach (var b in perBenchmarkData)
+    {
+        b.Value.percentDifference = (b.Value.comparand.avg - b.Value.baseline.avg) / b.Value.baseline.avg * 100;
+        b.Value.stablePercentDifference = (b.Value.comparand.stableAverage - b.Value.baseline.stableAverage ) / b.Value.baseline.stableAverage * 100;
+    }
+
+    return perBenchmarkData;
+}
+
+#!csharp
+
+public void SummarizeBenchmarkTCPData(DataManager dm, string baselineConfig, string comparandConfig, int numberOfBenchmarksToDisplay = 5, bool display = true)
+{
+    var perBenchmarkData = GetPerBenchmarkTCPData(dm, baselineConfig, comparandConfig);
+    StringBuilder sb = new();
+    sb.AppendLine($"## TCP Data Summary Per Benchmark");
+    foreach (var b in perBenchmarkData.OrderByDescending(p => p.Value.percentDifference).Take(numberOfBenchmarksToDisplay))
+    {
+        sb.AppendLine($"   - __{b.Key}__: {Math.Round(b.Value.percentDifference, 2)}% with Baseline: {Math.Round(b.Value.baseline.avg, 2)}% and Comparand: {Math.Round(b.Value.comparand.avg, 2)}%");
+    }
+
+    sb.ToString().DisplayAs("text/markdown");
+
+    if (display)
+    {
+        sb.AppendLine($"| Benchmark | {baselineConfig} | {comparandConfig} | % Difference |");
+        sb.AppendLine("| --------- | ------------- | ------------ | ------------ |");
+
+        int  i=  0;
+        foreach (var d in perBenchmarkData.OrderByDescending(p => p.Value.percentDifference)) 
+        {
+            if (double.IsNaN(d.Value.percentDifference))
+            {
+                continue;
+            }
+
+            sb.AppendLine($"| {i++}. {d.Key} | {Math.Round(d.Value.baseline.stableAverage, 2)} | {Math.Round(d.Value.comparand.stableAverage, 2)} | {Math.Round(d.Value.stablePercentDifference, 2)} |");
+        }
+    }
 }

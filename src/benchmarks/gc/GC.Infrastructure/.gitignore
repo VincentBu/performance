@@ -38,12 +38,10 @@ xlf/
 *.tlh
 *.tmp
 *.tmp_proj
-*.log
 *.vspscc
 *.vssscc
 .builds
 *.pidb
-*.log
 *.svclog
 *.scc
 
@@ -162,7 +160,7 @@ ipython_config.py
 *.vsix
 
 # ETL Files
-*.etl
+#*.etl
 *.etlx
 *.LogFile.txt
 

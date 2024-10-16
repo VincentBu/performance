@@ -1,0 +1,103 @@
+Output: 
+Command: crank --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/scenarios/goldilocks.benchmarks.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/ci.profile.yml --scenario todosapivanilla --profile intel-win-app --profile intel-lin-load --profile amd-lin2-db  --application.options.collectCounters true --application.environmentVariables DOTNET_GCLogEnabled=1  --application.environmentVariables DOTNET_GCName=clrgcexp.dll  --application.environmentVariables DOTNET_GCLogFileSize=100  --application.options.downloadFiles "*gclog.log.log"  --application.options.downloadFilesOutput "Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_GCLog"  --application.environmentVariables DOTNET_GCLogFile=./gclog.log  --application.environmentVariables DOTNET_StressLog=0  --application.environmentVariables DOTNET_gcServer=1  --application.environmentVariables DOTNET_GCDynamicAdaptationMode=1  --application.collect true  --application.collectStartup true  --application.collectArguments "GCCollectOnly"  --application.options.traceOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows.gc.etl.zip --application.framework net9.0  --application.options.outputFiles C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll  --application.options.downloadOutput true  --application.options.downloadOutputOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_28c_2.output.log  --application.options.downloadBuildLog true  --application.options.downloadBuildLogOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_28c_2.build.log  --json Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_28c_2.json --config Commands\RunCommand\BaseSuite\PercentileBasedMetricsConfiguration.yml  --chart --chart-type hex  --application.aspNetCoreVersion 9.0.0-rc.1.24412.15 --application.runtimeVersion 9.0.0-rc.1.24414.5 --application.sdkVersion 9.0.100-rc.2.24420.1 
+A new version is available on NuGet.org (0.2.0-alpha.24313.2). Run 'dotnet tool update Microsoft.Crank.Controller -g --version "0.2.0-*"' to update
+[05:58:21.940] Running session '1230d11af7b442cb9bb12b467fa749c7' with description ''
+[05:58:23.007] Starting job 'db' ...
+[05:58:23.021] Submitted job: http://asp-citrine-amd2:5001/jobs/304
+[05:59:30.430] 'db' has been selected by the server ...
+[05:59:30.440] 'db' is now building ... http://asp-citrine-amd2:5001/jobs/304/buildlog
+[05:59:34.487] 'db' is running ... http://asp-citrine-amd2:5001/jobs/304/output
+[05:59:37.197] Starting job 'application' ...
+[05:59:37.211] Submitted job: http://asp-citrine-win:5001/jobs/595
+[05:59:38.240] 'application' has been selected by the server ...
+[05:59:38.267] File added: C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll
+[05:59:38.268] Uploading C:\Users\musharm\AppData\Local\Temp\nwx3i41x.mt1.zip (343KB)
+[05:59:38.816] 'application' is now building ... http://asp-citrine-win:5001/jobs/595/buildlog
+[05:59:49.904] 'application' is running ... http://asp-citrine-win:5001/jobs/595/output
+[05:59:52.651] Starting job 'load' ...
+[05:59:52.665] Submitted job: http://asp-citrine-lin:5001/jobs/698
+[06:00:23.850] 'load' has been selected by the server ...
+[06:00:23.871] 'load' is now building ... http://asp-citrine-lin:5001/jobs/698/buildlog
+[06:00:30.920] 'load' is running ... http://asp-citrine-lin:5001/jobs/698/output
+[06:01:02.105] Stopping job 'load' ...
+[06:01:03.154] Deleting job 'load' ...
+[06:01:03.174] Stopping job 'application' ...
+[06:01:04.218] Downloading build log from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_28c_2.build.log'
+[06:01:04.240] Downloading job output from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_28c_2.output.log'
+[06:01:04.278] Server is collecting trace file, this can take up to 1 minute
+.....
+[06:01:09.326] Downloading trace file Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows.gc.etl.zip ...
+2,301 KB / 2,301 KB (100%)                                                                          
+
+[06:01:09.646] Downloading file '*gclog.log.log' for 'application'
+[06:01:09.659] Downloading 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_GCLog\gclog.log.log'
+[06:01:09.870] Deleting job 'application' ...
+[06:01:09.879] Stopping job 'db' ...
+[06:01:10.916] Deleting job 'db' ...
+
+| db                   |         |                                  |
+| -------------------- | ------- | -------------------------------- |
+| Max CPU Usage (%)    | 14      |                    44AFFFFFFF    |
+| Max Cores usage (%)  | 679     |                    459EEFFFFF    |
+| Max Working Set (MB) | 292     | 1111111111111111111FFFFFFFFFFF22 |
+| Build Time (ms)      | 1,000   |                                  |
+| Start Time (ms)      | 872     |                                  |
+| Published Size (KB)  | 421,583 |                                  |
+
+
+| application             |                                  |                                                                           |
+| ----------------------- | -------------------------------- | ------------------------------------------------------------------------- |
+| Max CPU Usage (%)       | 92                               |                                          BFFFFFFEEDDDEDDDEEDEDEDDDEEDEE3  |
+| Max Cores usage (%)     | 2,577                            |                                          BFFFFFEEDDDDEDDDEEDEDDDDDDEDEE3  |
+| Max Working Set (MB)    | 171                              | 66666666666666666666666666666666666666666BCCDDDEEEEEEEEEEFFFFFFFFFFFFFFFF |
+| Max Private Memory (MB) | 141                              | 44444444444444444444444444444444444444444ACCCCCDDDDDDDDDEFFFFFFFFFFFFFFFF |
+| Build Time (ms)         | 7,476                            |                                                                           |
+| Start Time (ms)         | 774                              |                                                                           |
+| Published Size (KB)     | 105,464                          |                                                                           |
+| Symbols Size (KB)       | 55                               |                                                                           |
+| .NET Core SDK Version   | 9.0.100-rc.2.24420.1             |                                                                           |
+| ASP.NET Core Version    | 9.0.0-rc.1.24412.15+abbd67b97144 |                                                                           |
+| .NET Runtime Version    | 9.0.0-rc.1.24414.5+0fbd81404d1f  |                                                                           |
+| Working Set P99 (MB)    | 171                              |                                                                           |
+| Working Set P95 (MB)    | 171                              |                                                                           |
+| Working Set P75 (MB)    | 170                              |                                                                           |
+| Working Set P50 (MB)    | 167                              |                                                                           |
+| Private Memory P99 (MB) | 141                              |                                                                           |
+| Private Memory P95 (MB) | 141                              |                                                                           |
+| Private Memory P90 (MB) | 141                              |                                                                           |
+| Private Memory P75 (MB) | 140                              |                                                                           |
+| Private Memory P50 (MB) | 138                              |                                                                           |
+
+
+| load                    |                    |                               |
+| ----------------------- | ------------------ | ----------------------------- |
+| Max CPU Usage (%)       | 27                 |               4FEFFFFFFEFEFFE |
+| Max Cores usage (%)     | 746                |               4FFFFFFFFFFFFFF |
+| Max Working Set (MB)    | 46                 | FFFFFFFFFFFFFF222222222222222 |
+| Max Private Memory (MB) | 358                | 66666666666666FFFFFFFFFFFFFFF |
+| Build Time (ms)         | 6,104              |                               |
+| Start Time (ms)         | 0                  |                               |
+| Published Size (KB)     | 72,281             |                               |
+| Symbols Size (KB)       | 0                  |                               |
+| .NET Core SDK Version   | 8.0.401            |                               |
+| ASP.NET Core Version    | 8.0.8+954f61dd38b3 |                               |
+| .NET Runtime Version    | 8.0.8+08338fcaa5c9 |                               |
+| First Request (ms)      | 233                |                               |
+| Requests/sec            | 218,563            |                               |
+| Requests                | 3,300,290          |                               |
+| Mean latency (ms)       | 1.20               |                               |
+| Max latency (ms)        | 23.17              |                               |
+| Bad responses           | 0                  |                               |
+| Socket errors           | 0                  |                               |
+| Read throughput (MB/s)  | 104.64             |                               |
+| Latency 50th (ms)       | 1.11               |                               |
+| Latency 75th (ms)       | 1.17               |                               |
+| Latency 90th (ms)       | 1.30               |                               |
+| Latency 99th (ms)       | 3.00               |                               |
+
+
+Results saved in 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2_Windows_28c_2.json'
+
+
+ Errors: 
+

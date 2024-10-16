@@ -1,0 +1,9 @@
+
+Command:
+dotnet publish Benchmarks.csproj -c Release --disable-build-servers -o C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\zzpju3nb.uxk\src\Benchmarks\published /p:MicrosoftNETCoreAppPackageVersion=9.0.0-rc.1.24414.5 /p:MicrosoftAspNetCoreAppPackageVersion=9.0.0-rc.1.24412.15 /p:GenerateErrorForMissingTargetingPacks=false /p:RestoreNoCache=true /p:MicrosoftWindowsDesktopAppPackageVersion=9.0.0-rc.2.24451.2 /p:MicrosoftNETPlatformLibrary=Microsoft.NETCore.App --framework net9.0 --self-contained -r win-x64 
+  Determining projects to restore...
+  Restored C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\zzpju3nb.uxk\src\Benchmarks\Benchmarks.csproj (in 968 ms).
+C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\31knjch3.tru\sdk\9.0.100-rc.2.24420.1\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.RuntimeIdentifierInference.targets(326,5): message NETSDK1057: You are using a preview version of .NET. See: https://aka.ms/dotnet-support-policy [C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\zzpju3nb.uxk\src\Benchmarks\Benchmarks.csproj]
+  Benchmarks -> C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\zzpju3nb.uxk\src\Benchmarks\bin\Release\net9.0\win-x64\Benchmarks.dll
+  Benchmarks -> C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\zzpju3nb.uxk\src\Benchmarks\published\
+Exit code: 0

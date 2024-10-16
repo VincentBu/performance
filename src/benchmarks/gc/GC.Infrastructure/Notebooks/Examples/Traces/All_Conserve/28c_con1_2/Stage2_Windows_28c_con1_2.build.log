@@ -1,0 +1,16 @@
+
+Command:
+dotnet publish TodosApi.csproj -c Release --disable-build-servers -o C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\published /p:MicrosoftNETCoreAppPackageVersion=9.0.0-rc.1.24414.5 /p:MicrosoftAspNetCoreAppPackageVersion=9.0.0-rc.1.24412.15 /p:GenerateErrorForMissingTargetingPacks=false /p:RestoreNoCache=true /p:MicrosoftWindowsDesktopAppPackageVersion=9.0.0-rc.2.24451.2 /p:MicrosoftNETPlatformLibrary=Microsoft.NETCore.App /p:PublishAot=false /p:EnableRequestDelegateGenerator=false --framework net9.0 --self-contained -r win-x64 
+  Determining projects to restore...
+  Restored C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\TodosApi.csproj (in 380 ms).
+C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\31knjch3.tru\sdk\9.0.100-rc.2.24420.1\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.RuntimeIdentifierInference.targets(326,5): message NETSDK1057: You are using a preview version of .NET. See: https://aka.ms/dotnet-support-policy [C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\TodosApi.csproj]
+  TodosApi -> C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\bin\Release\net9.0\win-x64\TodosApi.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "C:\.nuget\packages\microsoft.extensions.apidescription.server\9.0.0-rc.1.24412.15\build\../tools/dotnet-getdocument.dll" --assembly "C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\bin\Release\net9.0\win-x64\TodosApi.dll" --file-list "obj\TodosApi.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v9.0" --output "C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi" --project "TodosApi" --assets-file "C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\obj\project.assets.json" --platform "x64" --runtime "win-x64 --self-contained" 
+  Application started. Press Ctrl+C to shut down.
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to 'C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\TodosApi.json'.
+  TodosApi -> C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\mleewckw.pvq\src\BenchmarksApps\TodosApi\published\
+Exit code: 0

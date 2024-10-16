@@ -1,0 +1,35 @@
+
+[13548]conserve mem 1, concurent 1, max heap 28
+[13548]n_heaps is 28, initial n_heaps is 1, 28 cores
+[13548]g0: total budget 73400320 (2621440 / heap), left in budget: 73400320 (2621440 / heap), (allocated 0, 0.000%), min 2621440
+[13548]g1: total budget 7340032 (262144 / heap), left in budget: 7340032 (262144 / heap), (allocated 0, 0.000%), min 262144
+[13548]g2: total budget 7340032 (262144 / heap), left in budget: 7340032 (262144 / heap), (allocated 0, 0.000%), min 262144
+[13548]g3: total budget 88080384 (3145728 / heap), left in budget: 88080384 (3145728 / heap), (allocated 0, 0.000%), min 3145728
+[13548]g4: total budget 88080384 (3145728 / heap), left in budget: 88080384 (3145728 / heap), (allocated 0, 0.000%), min 3145728
+[13548]changing HC took 110us
+[13548]datas max gen0 budget 67108864, min 2621440
+[ 6412]init: 0(0)
+[ 6412]h0: skip 100
+[ 6412]*GC* 1(gen0:0)(0)(alloced for 55147077.109ms, g0 2614176 (b: 2621440, 2621440/h) (0.000mb/ms), g3 120968 (0.000mb/ms), g4 720808 (0.000mb/ms))(NGC)(0)(1)(heap size: 3.463mb max: 3.463mb)
+[ 6412]h0 skip ratio soh: 100 (n_gen_soh: 0, n_eph_soh: 0), loh: 100 (n_gen_loh: 727, n_eph_loh: 727), size 0: 2621664-248584, 1: 0-0, 2: 0-0, 3: 121000-32
+[ 6412]h0 promotion threshold: 262144, promoted bytes: 1267332 size n+1: 0 -> promote
+[ 6412]final gen0 bcs: total desired: 49287440 (49.287mb/heap), before smooth 49287440 -> after smooth 49287440 -> after joined 49287440
+[ 6412]use the min budget for DATAS, assigning to all heaps
+[ 6412]*EGC* 1(gen0:1)(heap size: 2.128mb)(0)(NGC)(C)(P)(ml: 12->0)
+
+[ 6412]init: 0(4)
+[ 6412]h0: g4: l: -1760 (3145728)
+[ 6412]h0: g2 budget
+[ 6412]*GC* 2(gen0:1)(2)(alloced for 1086.068ms, g0 1820856 (b: 2621440, 2621440/h) (0.002mb/ms), g3 0 (0.000mb/ms), g4 2426680 (0.002mb/ms))(NGC)(0)(1)(heap size: 6.373mb max: 6.373mb)
+[ 6412]final gen0 bcs: total desired: 36972920 (36.973mb/heap), before smooth 36972920 -> after smooth 43130184 -> after joined 43130184
+[ 6412]stable soh 1472848 (1.473mb), factor 15.656=>10.000 -> total gen0 new_alloc 14728480 (14.728mb)
+[ 6412]BCD: 14728480/heap (14.728mb) -> 14.728mb, BCS 43130184/heap (43.130mb)
+[ 6412]taking min of the two: 43130184, 14728480
+[ 6412]gen0 new_alloc 43130184 (43.130mb), from datas: 14728480 (14.728mb)
+[ 6412]budget DATAS 14728480, previous 43130184
+[ 6412]adjusted budget for DATAS, assigning to all heaps
+[ 6412]sample#0: 1 heaps, this GC end 55148172970 - last sus end 55147082792 = 1090178, this GC pause 4.063ms, msl wait 0us, tcp 0.373, surv 5776240, gc speed 1.422mb/ms (1421.669kb/ms/heap)
+[ 6412]gen2 sample#0: this GC end 55148172970 - last gen2 end 55137430298 = 10742672, GC elapsed 4063, percent 0.038
+[ 6412]current num of samples 1 (g2: 1) prev processed 0 (g2: 0), last full GC happened at index 2
+[ 6412]not enough GCs, skipping
+[ 6412]*EGC* 2(gen0:2)(heap size: 6.373mb)(2)(NGC)(S)(P)(ml: 12->0)

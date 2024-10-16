@@ -1,0 +1,103 @@
+Output: 
+Command: crank --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/scenarios/goldilocks.benchmarks.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/ci.profile.yml --scenario todosapivanilla --profile intel-win-app --profile intel-lin-load --profile amd-lin2-db --application.environmentVariables DOTNET_TieredPGO=1  --application.options.collectCounters true --application.environmentVariables DOTNET_GCLogEnabled=1  --application.environmentVariables DOTNET_GCName=clrgcexp.dll  --application.environmentVariables DOTNET_GCLogFileSize=100  --application.options.downloadFiles "*gclog.log.log"  --application.options.downloadFilesOutput "Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_GCLog"  --application.environmentVariables DOTNET_GCLogFile=./gclog.log  --application.environmentVariables DOTNET_StressLog=0  --application.environmentVariables DOTNET_gcServer=1  --application.environmentVariables DOTNET_GCDynamicAdaptationMode=1  --application.collect true  --application.collectStartup true  --application.collectArguments "GCCollectOnly"  --application.options.traceOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows.gc.etl.zip --application.framework net9.0  --application.options.outputFiles C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll  --application.options.downloadOutput true  --application.options.downloadOutputOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_28c_2.output.log  --application.options.downloadBuildLog true  --application.options.downloadBuildLogOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_28c_2.build.log  --json Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_28c_2.json --config Commands\RunCommand\BaseSuite\PercentileBasedMetricsConfiguration.yml  --chart --chart-type hex  --application.aspNetCoreVersion 9.0.0-rc.1.24412.15 --application.runtimeVersion 9.0.0-rc.1.24414.5 --application.sdkVersion 9.0.100-rc.2.24420.1 
+A new version is available on NuGet.org (0.2.0-alpha.24313.2). Run 'dotnet tool update Microsoft.Crank.Controller -g --version "0.2.0-*"' to update
+[06:52:19.886] Running session '5a7d67f770444816bb1e1b98de2074cc' with description ''
+[06:52:20.946] Starting job 'db' ...
+[06:52:20.961] Submitted job: http://asp-citrine-amd2:5001/jobs/321
+[06:53:12.306] 'db' has been selected by the server ...
+[06:53:12.316] 'db' is now building ... http://asp-citrine-amd2:5001/jobs/321/buildlog
+[06:53:16.383] 'db' is running ... http://asp-citrine-amd2:5001/jobs/321/output
+[06:53:19.095] Starting job 'application' ...
+[06:53:19.108] Submitted job: http://asp-citrine-win:5001/jobs/643
+[06:53:20.136] 'application' has been selected by the server ...
+[06:53:20.163] File added: C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll
+[06:53:20.165] Uploading C:\Users\musharm\AppData\Local\Temp\spcm3iye.jbj.zip (343KB)
+[06:53:20.708] 'application' is now building ... http://asp-citrine-win:5001/jobs/643/buildlog
+[06:53:31.788] 'application' is running ... http://asp-citrine-win:5001/jobs/643/output
+[06:53:34.507] Starting job 'load' ...
+[06:53:34.519] Submitted job: http://asp-citrine-lin:5001/jobs/751
+[06:53:35.553] 'load' has been selected by the server ...
+[06:53:35.562] 'load' is now building ... http://asp-citrine-lin:5001/jobs/751/buildlog
+[06:53:42.623] 'load' is running ... http://asp-citrine-lin:5001/jobs/751/output
+[06:54:13.810] Stopping job 'load' ...
+[06:54:14.861] Deleting job 'load' ...
+[06:54:14.881] Stopping job 'application' ...
+[06:54:15.920] Downloading build log from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_28c_2.build.log'
+[06:54:15.942] Downloading job output from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_28c_2.output.log'
+[06:54:15.979] Server is collecting trace file, this can take up to 1 minute
+.....
+[06:54:21.030] Downloading trace file Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows.gc.etl.zip ...
+2,427 KB / 2,427 KB (100%)                                                                          
+
+[06:54:21.373] Downloading file '*gclog.log.log' for 'application'
+[06:54:21.387] Downloading 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_GCLog\gclog.log.log'
+[06:54:21.599] Deleting job 'application' ...
+[06:54:21.608] Stopping job 'db' ...
+[06:54:23.656] Deleting job 'db' ...
+
+| db                   |         |                        |
+| -------------------- | ------- | ---------------------- |
+| Max CPU Usage (%)    | 14      |         148FFEFFFFF2   |
+| Max Cores usage (%)  | 665     |         157FFEFFFFF2   |
+| Max Working Set (MB) | 314     | 111111118FFFFFFFFFF222 |
+| Build Time (ms)      | 1,091   |                        |
+| Start Time (ms)      | 890     |                        |
+| Published Size (KB)  | 421,583 |                        |
+
+
+| application             |                                  |                                            |
+| ----------------------- | -------------------------------- | ------------------------------------------ |
+| Max CPU Usage (%)       | 90                               |           BFFFFFEDEDEEEEEDEEEEEEEEEEEEEE2  |
+| Max Cores usage (%)     | 2,524                            |           BFFFFFEDDDEEEEEDEEEEEEEEEEDEEE3  |
+| Max Working Set (MB)    | 175                              | 6666666666CEFFCEEEEEDDEEEEEEEEEEEEEEEEEEEE |
+| Max Private Memory (MB) | 140                              | 4444444444BEFFBEDEEEDEEEEFFFFFFFFFFFFFFFFF |
+| Build Time (ms)         | 8,462                            |                                            |
+| Start Time (ms)         | 749                              |                                            |
+| Published Size (KB)     | 105,464                          |                                            |
+| Symbols Size (KB)       | 55                               |                                            |
+| .NET Core SDK Version   | 9.0.100-rc.2.24420.1             |                                            |
+| ASP.NET Core Version    | 9.0.0-rc.1.24412.15+abbd67b97144 |                                            |
+| .NET Runtime Version    | 9.0.0-rc.1.24414.5+0fbd81404d1f  |                                            |
+| Working Set P99 (MB)    | 169                              |                                            |
+| Working Set P95 (MB)    | 169                              |                                            |
+| Working Set P75 (MB)    | 167                              |                                            |
+| Working Set P50 (MB)    | 167                              |                                            |
+| Private Memory P99 (MB) | 140                              |                                            |
+| Private Memory P95 (MB) | 140                              |                                            |
+| Private Memory P90 (MB) | 140                              |                                            |
+| Private Memory P75 (MB) | 139                              |                                            |
+| Private Memory P50 (MB) | 139                              |                                            |
+
+
+| load                    |                    |                               |
+| ----------------------- | ------------------ | ----------------------------- |
+| Max CPU Usage (%)       | 27                 |               2FFFFFFFFFFFEFF |
+| Max Cores usage (%)     | 754                |               2FFFFFFFFFFFFFF |
+| Max Working Set (MB)    | 46                 | FFFFFFFFFFFFFF222222222222222 |
+| Max Private Memory (MB) | 358                | 66666666666666FFFFFFFFFFFFFFF |
+| Build Time (ms)         | 6,012              |                               |
+| Start Time (ms)         | 0                  |                               |
+| Published Size (KB)     | 72,281             |                               |
+| Symbols Size (KB)       | 0                  |                               |
+| .NET Core SDK Version   | 8.0.401            |                               |
+| ASP.NET Core Version    | 8.0.8+954f61dd38b3 |                               |
+| .NET Runtime Version    | 8.0.8+08338fcaa5c9 |                               |
+| First Request (ms)      | 237                |                               |
+| Requests/sec            | 216,223            |                               |
+| Requests                | 3,264,948          |                               |
+| Mean latency (ms)       | 1.22               |                               |
+| Max latency (ms)        | 22.51              |                               |
+| Bad responses           | 0                  |                               |
+| Socket errors           | 0                  |                               |
+| Read throughput (MB/s)  | 103.52             |                               |
+| Latency 50th (ms)       | 1.11               |                               |
+| Latency 75th (ms)       | 1.18               |                               |
+| Latency 90th (ms)       | 1.32               |                               |
+| Latency 99th (ms)       | 3.16               |                               |
+
+
+Results saved in 'Q:\DATAS_Fixes\Win\All_Conserve\28c_2\Stage2Pgo_Windows_28c_2.json'
+
+
+ Errors: 
+

@@ -1,0 +1,86 @@
+Output: 
+Command: crank --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/scenarios/plaintext.benchmarks.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/azure.profile.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/ci.profile.yml --scenario mvc --profile intel-win-app --profile intel-load2-load  --application.collectDependencies true --application.options.collectCounters true --application.environmentVariables DOTNET_GCLogEnabled=1  --application.environmentVariables DOTNET_GCName=clrgcexp.dll  --application.environmentVariables DOTNET_GCLogFileSize=100  --application.options.downloadFiles "*gclog.log.log"  --application.options.downloadFilesOutput "Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_GCLog"  --application.environmentVariables DOTNET_GCLogFile=./gclog.log  --application.environmentVariables DOTNET_StressLog=0  --application.environmentVariables DOTNET_gcServer=1  --application.environmentVariables DOTNET_GCDynamicAdaptationMode=1  --application.collect true  --application.collectStartup true  --application.collectArguments "GCCollectOnly"  --application.options.traceOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows.gc.etl.zip --application.framework net9.0  --application.options.outputFiles C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll  --application.options.downloadOutput true  --application.options.downloadOutputOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_28c_3.output.log  --application.options.downloadBuildLog true  --application.options.downloadBuildLogOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_28c_3.build.log  --json Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_28c_3.json --config Commands\RunCommand\BaseSuite\PercentileBasedMetricsConfiguration.yml  --chart --chart-type hex  --application.aspNetCoreVersion 9.0.0-rc.1.24412.15 --application.runtimeVersion 9.0.0-rc.1.24414.5 --application.sdkVersion 9.0.100-rc.2.24420.1 
+A new version is available on NuGet.org (0.2.0-alpha.24313.2). Run 'dotnet tool update Microsoft.Crank.Controller -g --version "0.2.0-*"' to update
+[02:30:59.126] Running session 'b40c2250b12f4cb7891fd67550ab318c' with description ''
+[02:30:59.176] Starting job 'application' ...
+[02:30:59.191] Submitted job: http://asp-citrine-win:5001/jobs/411
+[02:32:27.822] 'application' has been selected by the server ...
+[02:32:27.849] File added: C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll
+[02:32:27.851] Uploading C:\Users\musharm\AppData\Local\Temp\1pnjkdah.fox.zip (343KB)
+[02:32:28.394] 'application' is now building ... http://asp-citrine-win:5001/jobs/411/buildlog
+[02:32:40.488] 'application' is running ... http://asp-citrine-win:5001/jobs/411/output
+[02:32:41.529] Starting job 'load' ...
+[02:32:41.542] Submitted job: http://asp-citrine-load2:5001/jobs/481
+[02:32:42.573] 'load' has been selected by the server ...
+[02:32:42.591] 'load' is now building ... http://asp-citrine-load2:5001/jobs/481/buildlog
+[02:32:50.649] 'load' is running ... http://asp-citrine-load2:5001/jobs/481/output
+[02:33:21.009] Stopping job 'load' ...
+[02:33:22.058] Deleting job 'load' ...
+[02:33:22.077] Stopping job 'application' ...
+[02:33:23.122] Downloading build log from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_28c_3.build.log'
+[02:33:23.143] Downloading job output from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_28c_3.output.log'
+[02:33:23.179] Server is collecting trace file, this can take up to 1 minute
+......
+[02:33:29.236] Downloading trace file Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows.gc.etl.zip ...
+5,628 KB / 5,628 KB (100%)                                                                          
+
+[02:33:30.055] Downloading file '*gclog.log.log' for 'application'
+[02:33:30.069] Downloading 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_GCLog\gclog.log.log'
+[02:33:30.533] Deleting job 'application' ...
+
+| application             |                                  |                                           |
+| ----------------------- | -------------------------------- | ----------------------------------------- |
+| Max CPU Usage (%)       | 90                               |          AFFFDCCCCCCCCCCDECDDDDDEDDDEDD4  |
+| Max Cores usage (%)     | 2,524                            |          AFFFDDCCCCCCCCDDDCDDDDDDDDDEDD4  |
+| Max Working Set (MB)    | 102                              | 888888888EEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max Private Memory (MB) | 75                               | 666666666EEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Build Time (ms)         | 10,060                           |                                           |
+| Start Time (ms)         | 489                              |                                           |
+| Published Size (KB)     | 127,760                          |                                           |
+| Symbols Size (KB)       | 58                               |                                           |
+| .NET Core SDK Version   | 9.0.100-rc.2.24420.1             |                                           |
+| ASP.NET Core Version    | 9.0.0-rc.1.24412.15+abbd67b97144 |                                           |
+| .NET Runtime Version    | 9.0.0-rc.1.24414.5+0fbd81404d1f  |                                           |
+| Working Set P99 (MB)    | 102                              |                                           |
+| Working Set P95 (MB)    | 102                              |                                           |
+| Working Set P75 (MB)    | 101                              |                                           |
+| Working Set P50 (MB)    | 101                              |                                           |
+| Private Memory P99 (MB) | 75                               |                                           |
+| Private Memory P95 (MB) | 75                               |                                           |
+| Private Memory P90 (MB) | 75                               |                                           |
+| Private Memory P75 (MB) | 75                               |                                           |
+| Private Memory P50 (MB) | 74                               |                                           |
+
+
+| load                    |                    |                               |
+| ----------------------- | ------------------ | ----------------------------- |
+| Max CPU Usage (%)       | 32                 |               4FFFFFFFFFFFFFF |
+| Max Cores usage (%)     | 906                |               4FFFFFFFFFFFFFF |
+| Max Working Set (MB)    | 46                 | FFFFFFFFFFFFFF222222222222222 |
+| Max Private Memory (MB) | 358                | 66666666666666FFFFFFFFFFFFFFF |
+| Build Time (ms)         | 5,985              |                               |
+| Start Time (ms)         | 0                  |                               |
+| Published Size (KB)     | 72,281             |                               |
+| Symbols Size (KB)       | 0                  |                               |
+| .NET Core SDK Version   | 8.0.401            |                               |
+| ASP.NET Core Version    | 8.0.8+954f61dd38b3 |                               |
+| .NET Runtime Version    | 8.0.8+08338fcaa5c9 |                               |
+| First Request (ms)      | 143                |                               |
+| Requests/sec            | 2,724,851          |                               |
+| Requests                | 41,143,792         |                               |
+| Mean latency (ms)       | 1.31               |                               |
+| Max latency (ms)        | 113.10             |                               |
+| Bad responses           | 0                  |                               |
+| Socket errors           | 0                  |                               |
+| Read throughput (MB/s)  | 343.02             |                               |
+| Latency 50th (ms)       | 0.83               |                               |
+| Latency 75th (ms)       | 1.27               |                               |
+| Latency 90th (ms)       | 2.23               |                               |
+| Latency 99th (ms)       | 0.00               |                               |
+
+
+Results saved in 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\PlaintextMvc_Windows_28c_3.json'
+
+
+ Errors: 
+

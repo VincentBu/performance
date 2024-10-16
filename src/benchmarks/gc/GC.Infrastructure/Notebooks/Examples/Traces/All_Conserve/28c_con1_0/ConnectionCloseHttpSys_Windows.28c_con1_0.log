@@ -1,0 +1,113 @@
+Output: 
+Command: crank --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/scenarios/plaintext.benchmarks.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/azure.profile.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/ci.profile.yml --scenario connectionclose --profile intel-win-app --profile intel-load2-load --variable connections=32 --variable server=HttpSys --application.options.requiredOperatingSystem windows  --application.collectDependencies true --application.options.collectCounters true --application.environmentVariables DOTNET_GCLogEnabled=1  --application.environmentVariables DOTNET_GCName=clrgcexp.dll  --application.environmentVariables DOTNET_GCLogFileSize=100  --application.options.downloadFiles "*gclog.log.log"  --application.options.downloadFilesOutput "Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_GCLog"  --application.environmentVariables DOTNET_GCLogFile=./gclog.log  --application.environmentVariables DOTNET_StressLog=0  --application.environmentVariables DOTNET_gcServer=1  --application.environmentVariables DOTNET_GCDynamicAdaptationMode=1  --application.environmentVariables DOTNET_GCConserveMemory=1  --application.collect true  --application.collectStartup true  --application.collectArguments "GCCollectOnly"  --application.options.traceOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows.gc.etl.zip --application.framework net9.0  --application.options.outputFiles C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll  --application.options.downloadOutput true  --application.options.downloadOutputOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_28c_con1_0.output.log  --application.options.downloadBuildLog true  --application.options.downloadBuildLogOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_28c_con1_0.build.log  --json Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_28c_con1_0.json --config Commands\RunCommand\BaseSuite\PercentileBasedMetricsConfiguration.yml  --chart --chart-type hex  --application.aspNetCoreVersion 9.0.0-rc.1.24412.15 --application.runtimeVersion 9.0.0-rc.1.24414.5 --application.sdkVersion 9.0.100-rc.2.24420.1 
+A new version is available on NuGet.org (0.2.0-alpha.24313.2). Run 'dotnet tool update Microsoft.Crank.Controller -g --version "0.2.0-*"' to update
+[12:43:01.903] Running session 'd8f3e51944fc44ff99e432144524f603' with description ''
+[12:43:01.961] Starting job 'application' ...
+[12:43:01.975] Submitted job: http://asp-citrine-win:5001/jobs/304
+[12:43:03.016] 'application' has been selected by the server ...
+[12:43:03.044] File added: C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll
+[12:43:03.046] Uploading C:\Users\musharm\AppData\Local\Temp\nshshg00.joz.zip (343KB)
+[12:43:03.588] 'application' is now building ... http://asp-citrine-win:5001/jobs/304/buildlog
+[12:43:16.675] 'application' is running ... http://asp-citrine-win:5001/jobs/304/output
+[12:43:17.716] Starting job 'load' ...
+[12:43:17.728] Submitted job: http://asp-citrine-load2:5001/jobs/373
+[12:43:18.762] 'load' has been selected by the server ...
+[12:43:18.781] 'load' is now building ... http://asp-citrine-load2:5001/jobs/373/buildlog
+[12:43:25.847] 'load' is running ... http://asp-citrine-load2:5001/jobs/373/output
+[12:43:57.036] Stopping job 'load' ...
+[12:43:58.086] Deleting job 'load' ...
+[12:43:58.106] Stopping job 'application' ...
+[12:44:00.012] Downloading build log from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_28c_con1_0.build.log'
+[12:44:00.035] Downloading job output from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_28c_con1_0.output.log'
+[12:44:00.077] Server is collecting trace file, this can take up to 1 minute
+.....
+[12:44:05.301] Downloading trace file Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows.gc.etl.zip ...
+39 KB / 682 KB (6%)                                                                                 
+40 KB / 682 KB (6%)                                                                                 
+682 KB / 682 KB (100%)                                                                              
+
+[12:44:06.862] Downloading file '*gclog.log.log' for 'application'
+[12:44:06.875] Downloading 'Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_GCLog\gclog.log.log'
+[12:44:06.964] Deleting job 'application' ...
+
+| application                             |                                  |                                            |
+| --------------------------------------- | -------------------------------- | ------------------------------------------ |
+| Max CPU Usage (%)                       | 20                               |          FEA9A889A9B7998BB9AA989889AB991   |
+| Max Cores usage (%)                     | 552                              |          FEA9A889B9C7998BB9AA989889AB991   |
+| Max Working Set (MB)                    | 71                               | AAAAAAAAAFFFFFFFFFFFFFFFEFFFEFFFFFFFFFFF   |
+| Max Private Memory (MB)                 | 51                               | 888888888EFFFFFEFFEFFFFFEEEEEEEEEEEEFFFF   |
+| Build Time (ms)                         | 10,261                           |                                            |
+| Start Time (ms)                         | 362                              |                                            |
+| Published Size (KB)                     | 127,760                          |                                            |
+| Symbols Size (KB)                       | 58                               |                                            |
+| .NET Core SDK Version                   | 9.0.100-rc.2.24420.1             |                                            |
+| ASP.NET Core Version                    | 9.0.0-rc.1.24412.15+abbd67b97144 |                                            |
+| .NET Runtime Version                    | 9.0.0-rc.1.24414.5+0fbd81404d1f  |                                            |
+| Max CPU Usage (%)                       | 22                               |          8FA8987798988888B98A88787889A94   |
+| Max Working Set (MB)                    | 74                               | 9AAAAAAAAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max GC Heap Size (MB)                   | 18                               | 2222222227C23236233DFC962CCABA9DD888D9CAAA |
+| Size of committed memory by the GC (MB) | 21                               |          FDEEEEEEEEEEEEEEEDEEDEEEEEDEEEEEE |
+| Max Number of Gen 0 GCs / sec           | 20.00                            |          AEFFFFFFFFEFFFFFEFFFFFFFFFFFFFA   |
+| Max Number of Gen 1 GCs / sec           | 8.00                             |          4FDBDDBDDBDBDDBDBDDBDDBDDBDDDB9   |
+| Max Number of Gen 2 GCs / sec           | 1.00                             |          FF                                |
+| Max Gen 0 GC Budget (MB)                | 17                               | 222222222EECEDCEDCECEDCEEEECEDCEECFEDCEDDD |
+| Max Time in GC (%)                      | 4.00                             |          F84884884848848888488488488848888 |
+| Max Gen 0 Size (B)                      | 11,486,776                       |          BEF 5AA95 5555   E A 5 EBA59BB999 |
+| Max Gen 1 Size (B)                      | 3,087,440                        |          F3153 53 5 53 5353 53 53 533 5333 |
+| Max Gen 2 Size (B)                      | 799,792                          |          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max LOH Size (B)                        | 111,920                          |          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max POH Size (B)                        | 704,328                          |          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max Allocation Rate (B/sec)             | 305,847,704                      |          7DEFFFFFFFFFFFFFFFFFFFFFFFFFFFA   |
+| Max GC Heap Fragmentation (%)           | 8,694%                           |          BEF BEDDC CABC   E D C EEDBDEDDDD |
+| # of Assemblies Loaded                  | 88                               | EEEEEEEEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max Exceptions (#/s)                    | 0                                |                                            |
+| Max Lock Contention (#/s)               | 419                              |          7F22233233332432342333353323431   |
+| Max ThreadPool Threads Count            | 30                               | CCCCCCCCCEFFFFFFFFFFFFFFFFFFFFDDDDDDDDDEEE |
+| Max ThreadPool Queue Length             | 12                               |          F   1     1    1    1   5  2      |
+| Max ThreadPool Items (#/s)              | 227,485                          |          7DEFFFFFFFFFFFFFFFFFFFFFFFFFFFA   |
+| Max Active Timers                       | 0                                |                                            |
+| IL Jitted (B)                           | 216,108                          | 4455666779DEEEEEEFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Methods Jitted                          | 2,625                            | 5667777889DEEEEEEEEEEEEEEEEEEEFFFFFFFFFFFF |
+| Working Set P99 (MB)                    | 70                               |                                            |
+| Working Set P95 (MB)                    | 70                               |                                            |
+| Working Set P75 (MB)                    | 70                               |                                            |
+| Working Set P50 (MB)                    | 70                               |                                            |
+| Private Memory P99 (MB)                 | 50                               |                                            |
+| Private Memory P95 (MB)                 | 50                               |                                            |
+| Private Memory P90 (MB)                 | 50                               |                                            |
+| Private Memory P75 (MB)                 | 49                               |                                            |
+| Private Memory P50 (MB)                 | 49                               |                                            |
+
+
+| load                    |                    |                               |
+| ----------------------- | ------------------ | ----------------------------- |
+| Max CPU Usage (%)       | 27                 |               8EFEFEEEFEEEEFE |
+| Max Cores usage (%)     | 743                |               8FFFFFFFFFFFFFF |
+| Max Working Set (MB)    | 46                 | FFFFEFFFFFFFFF222222222222222 |
+| Max Private Memory (MB) | 357                | 66666666666666FFFFFFFFFFFFFFF |
+| Build Time (ms)         | 6,016              |                               |
+| Start Time (ms)         | 0                  |                               |
+| Published Size (KB)     | 72,281             |                               |
+| Symbols Size (KB)       | 0                  |                               |
+| .NET Core SDK Version   | 8.0.401            |                               |
+| ASP.NET Core Version    | 8.0.8+954f61dd38b3 |                               |
+| .NET Runtime Version    | 8.0.8+08338fcaa5c9 |                               |
+| First Request (ms)      | 121                |                               |
+| Requests/sec            | 79,335             |                               |
+| Requests                | 1,197,907          |                               |
+| Mean latency (ms)       | 0.25               |                               |
+| Max latency (ms)        | 15.41              |                               |
+| Bad responses           | 0                  |                               |
+| Socket errors           | 0                  |                               |
+| Read throughput (MB/s)  | 12.48              |                               |
+| Latency 50th (ms)       | 0.19               |                               |
+| Latency 75th (ms)       | 0.28               |                               |
+| Latency 90th (ms)       | 0.45               |                               |
+| Latency 99th (ms)       | 1.17               |                               |
+
+
+Results saved in 'Q:\DATAS_Fixes\Win\All_Conserve\28c_con1_0\ConnectionCloseHttpSys_Windows_28c_con1_0.json'
+
+
+ Errors: 
+

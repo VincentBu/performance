@@ -1,0 +1,22 @@
+
+ASP.NET Core Benchmarks
+-----------------------
+Current directory: C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\uqymsr1q.uow\src\Benchmarks\published
+AspNetCore version: 9.0.0-rc.1.24412.15+abbd67b97144c14ef60cdeb416ad9c5d75356c7f
+.NET Runtime version: 9.0.0-rc.1.24414.5+0fbd81404d1f211572387498474063bc6f407f0f
+EFCore version: 8.0.0
+Environment.ProcessorCount: 28
+Scenario configuration found in scenarios.json and/or command line args
+
+The following scenarios were enabled:
+  Plaintext -> /plaintext
+
+Database: None
+ConnectionString: Server=(localdb)\mssqllocaldb;Database=aspnet5-Benchmarks;Trusted_Connection=True;MultipleActiveResultSets=true
+Using server HttpSys
+Server GC is currently ENABLED
+Hosting environment: Production
+Content root path: C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\uqymsr1q.uow\src\Benchmarks\published
+Now listening on: https://10.0.0.104:5000/
+Application started. Press Ctrl+C to shut down.
+Application is shutting down...

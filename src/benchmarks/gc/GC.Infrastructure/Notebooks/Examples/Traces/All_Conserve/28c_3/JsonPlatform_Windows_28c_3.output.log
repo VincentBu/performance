@@ -1,0 +1,12 @@
+Kestrel Platform-Level Application
+/plaintext
+/json
+BuildWebHost()
+Args: --urls http://10.0.0.104:5000
+Transport: 
+Options: WaitForData=False, IOQueue=16
+Hosting environment: Production
+Content root path: C:\Users\Administrator\AppData\Local\Temp\benchmarks-agent\benchmarks-server-7876\q5hxy11v.q1i\src\BenchmarksApps\TechEmpower\PlatformBenchmarks\published\
+Now listening on: http://10.0.0.104:5000
+Application started. Press Ctrl+C to shut down.
+Application is shutting down...

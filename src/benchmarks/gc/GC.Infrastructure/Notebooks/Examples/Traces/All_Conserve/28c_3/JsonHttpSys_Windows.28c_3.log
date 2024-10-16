@@ -1,0 +1,111 @@
+Output: 
+Command: crank --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/scenarios/json.benchmarks.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/azure.profile.yml --config https://raw.githubusercontent.com/aspnet/Benchmarks/main/build/ci.profile.yml --scenario json --profile intel-win-app --profile intel-load2-load --variable server=HttpSys --application.options.requiredOperatingSystem windows  --application.collectDependencies true --application.options.collectCounters true --application.environmentVariables DOTNET_GCLogEnabled=1  --application.environmentVariables DOTNET_GCName=clrgcexp.dll  --application.environmentVariables DOTNET_GCLogFileSize=100  --application.options.downloadFiles "*gclog.log.log"  --application.options.downloadFilesOutput "Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_GCLog"  --application.environmentVariables DOTNET_GCLogFile=./gclog.log  --application.environmentVariables DOTNET_StressLog=0  --application.environmentVariables DOTNET_gcServer=1  --application.environmentVariables DOTNET_GCDynamicAdaptationMode=1  --application.collect true  --application.collectStartup true  --application.collectArguments "GCCollectOnly"  --application.options.traceOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows.gc.etl.zip --application.framework net9.0  --application.options.outputFiles C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll  --application.options.downloadOutput true  --application.options.downloadOutputOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_28c_3.output.log  --application.options.downloadBuildLog true  --application.options.downloadBuildLogOutput Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_28c_3.build.log  --json Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_28c_3.json --config Commands\RunCommand\BaseSuite\PercentileBasedMetricsConfiguration.yml  --chart --chart-type hex  --application.aspNetCoreVersion 9.0.0-rc.1.24412.15 --application.runtimeVersion 9.0.0-rc.1.24414.5 --application.sdkVersion 9.0.100-rc.2.24420.1 
+A new version is available on NuGet.org (0.2.0-alpha.24313.2). Run 'dotnet tool update Microsoft.Crank.Controller -g --version "0.2.0-*"' to update
+[12:21:56.038] Running session 'c7c59a0b71904ef9b90415e3df6ef0b2' with description ''
+[12:21:56.101] Starting job 'application' ...
+[12:21:56.119] Submitted job: http://asp-citrine-win:5001/jobs/285
+[12:21:57.174] 'application' has been selected by the server ...
+[12:21:57.201] File added: C:\Users\musharm\source\repos\runtime\artifacts\tests\coreclr\windows.x64.Release\Tests\Core_Root\Test\clrgcexp.dll
+[12:21:57.204] Uploading C:\Users\musharm\AppData\Local\Temp\tgp31nf5.phj.zip (343KB)
+[12:21:57.749] 'application' is now building ... http://asp-citrine-win:5001/jobs/285/buildlog
+[12:22:09.915] 'application' is running ... http://asp-citrine-win:5001/jobs/285/output
+[12:22:10.953] Starting job 'load' ...
+[12:22:10.972] Submitted job: http://asp-citrine-load2:5001/jobs/354
+[12:22:12.025] 'load' has been selected by the server ...
+[12:22:12.050] 'load' is now building ... http://asp-citrine-load2:5001/jobs/354/buildlog
+[12:22:20.198] 'load' is running ... http://asp-citrine-load2:5001/jobs/354/output
+[12:22:50.640] Stopping job 'load' ...
+[12:22:51.701] Deleting job 'load' ...
+[12:22:51.723] Stopping job 'application' ...
+[12:22:52.820] Downloading build log from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_28c_3.build.log'
+[12:22:52.843] Downloading job output from asp-citrine-win to 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_28c_3.output.log'
+[12:22:52.889] Server is collecting trace file, this can take up to 1 minute
+.....
+[12:22:57.986] Downloading trace file Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows.gc.etl.zip ...
+3,860 KB / 3,860 KB (100%)                                                                          
+
+[12:22:58.544] Downloading file '*gclog.log.log' for 'application'
+[12:22:58.562] Downloading 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_GCLog\gclog.log.log'
+[12:22:58.823] Deleting job 'application' ...
+
+| application                             |                                  |                                            |
+| --------------------------------------- | -------------------------------- | ------------------------------------------ |
+| Max CPU Usage (%)                       | 78                               |          4FECBCCCDCCCCBBCCACCCCCCCCCBCCA   |
+| Max Cores usage (%)                     | 2,178                            |          5FECBCCCDCCCCBBCCADDCCCCDCCBDCA   |
+| Max Working Set (MB)                    | 94                               | 788888888CEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF  |
+| Max Private Memory (MB)                 | 76                               | 566666666BDEFFFFFFFFFFFFFFFFFFFFFFFFFFFFF  |
+| Build Time (ms)                         | 10,078                           |                                            |
+| Start Time (ms)                         | 362                              |                                            |
+| Published Size (KB)                     | 127,760                          |                                            |
+| Symbols Size (KB)                       | 58                               |                                            |
+| .NET Core SDK Version                   | 9.0.100-rc.2.24420.1             |                                            |
+| ASP.NET Core Version                    | 9.0.0-rc.1.24412.15+abbd67b97144 |                                            |
+| .NET Runtime Version                    | 9.0.0-rc.1.24414.5+0fbd81404d1f  |                                            |
+| Max CPU Usage (%)                       | 78                               |           DFCCCCCDCCDDCBCBBBDCDCDCDCDBCD5  |
+| Max Working Set (MB)                    | 99                               | 7777778888EEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max GC Heap Size (MB)                   | 33                               | 1111111111B4777E3A3396434A7D438533F7D34899 |
+| Size of committed memory by the GC (MB) | 40                               |           DDEFFFFFFFFFEEEFEEEEEEEEEEEEEEEE |
+| Max Number of Gen 0 GCs / sec           | 67.00                            |           CBFFFFFFFFFFFFFDFEFFEEFEEFEFEF5  |
+| Max Number of Gen 1 GCs / sec           | 16.00                            |           FBEDCCCCCDCCCCCACBCCBCCCACCCBC4  |
+| Max Number of Gen 2 GCs / sec           | 3.00                             |           F 55                             |
+| Max Gen 0 GC Budget (MB)                | 29                               | 1111111111EEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max Time in GC (%)                      | 7.00                             |           BFDDDFDDDBBDDBDDDDDBDBF9DDDBBBBB |
+| Max Gen 0 Size (B)                      | 17,801,704                       |           5F74F876249F2692289 49D6DBBF6744 |
+| Max Gen 1 Size (B)                      | 3,019,112                        |           7549CCC9C136636F9C919661C64393CC |
+| Max Gen 2 Size (B)                      | 1,422,120                        |           CDEEEEEEEEEEEEEFFFFFFFFFFFFFFFFF |
+| Max LOH Size (B)                        | 111,920                          |           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max POH Size (B)                        | 782,608                          |           DDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max Allocation Rate (B/sec)             | 1,843,828,736                    |           9BEFFFFFFFFFFFFDFEFFEEFEFFFFEF5  |
+| Max GC Heap Fragmentation (%)           | 8,571%                           |           BFDAECBB6CEF8DD67CD ADEDDEEFBD99 |
+| # of Assemblies Loaded                  | 91                               | EEEEEEEEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF |
+| Max Exceptions (#/s)                    | 0                                |                                            |
+| Max Lock Contention (#/s)               | 2,739                            |           4F85455455455445454555444555551  |
+| Max ThreadPool Threads Count            | 48                               | 88888888889FFFFFFFFFFFFFFFFFFFFFFFFFEEEEED |
+| Max ThreadPool Queue Length             | 135                              |           FA2   2       2    12   1 1      |
+| Max ThreadPool Items (#/s)              | 1,127,718                        |           34CFFFFFFFFFFFFEFEFFEEFFFFFFEF5  |
+| Max Active Timers                       | 0                                |                                            |
+| IL Jitted (B)                           | 253,794                          | 34455556678BEEEEEEEEEEEFFFFFFFFFFFFFFFFFFF |
+| Methods Jitted                          | 3,121                            | 45566666678BEEEEEEEEEEEEEFFFFFFFFFFFFFFFFF |
+| Working Set P99 (MB)                    | 92                               |                                            |
+| Working Set P95 (MB)                    | 92                               |                                            |
+| Working Set P75 (MB)                    | 92                               |                                            |
+| Working Set P50 (MB)                    | 92                               |                                            |
+| Private Memory P99 (MB)                 | 75                               |                                            |
+| Private Memory P95 (MB)                 | 75                               |                                            |
+| Private Memory P90 (MB)                 | 75                               |                                            |
+| Private Memory P75 (MB)                 | 75                               |                                            |
+| Private Memory P50 (MB)                 | 74                               |                                            |
+
+
+| load                    |                    |                               |
+| ----------------------- | ------------------ | ----------------------------- |
+| Max CPU Usage (%)       | 31                 |               5FFFFFFFFFFFFFF |
+| Max Cores usage (%)     | 860                |               5FFFFFFFFFFFFFF |
+| Max Working Set (MB)    | 45                 | FFFFFFFFFFFFFF222222222222222 |
+| Max Private Memory (MB) | 358                | 66666666666666FFFFFFFFFFFFFFF |
+| Build Time (ms)         | 6,896              |                               |
+| Start Time (ms)         | 0                  |                               |
+| Published Size (KB)     | 72,281             |                               |
+| Symbols Size (KB)       | 0                  |                               |
+| .NET Core SDK Version   | 8.0.401            |                               |
+| ASP.NET Core Version    | 8.0.8+954f61dd38b3 |                               |
+| .NET Runtime Version    | 8.0.8+08338fcaa5c9 |                               |
+| First Request (ms)      | 141                |                               |
+| Requests/sec            | 389,153            |                               |
+| Requests                | 5,875,867          |                               |
+| Mean latency (ms)       | 0.70               |                               |
+| Max latency (ms)        | 18.66              |                               |
+| Bad responses           | 0                  |                               |
+| Socket errors           | 0                  |                               |
+| Read throughput (MB/s)  | 67.17              |                               |
+| Latency 50th (ms)       | 0.75               |                               |
+| Latency 75th (ms)       | 0.79               |                               |
+| Latency 90th (ms)       | 1.19               |                               |
+| Latency 99th (ms)       | 2.21               |                               |
+
+
+Results saved in 'Q:\DATAS_Fixes\Win\All_Conserve\28c_3\JsonHttpSys_Windows_28c_3.json'
+
+
+ Errors: 
+

@@ -345,6 +345,9 @@ void DisplayBenchmarkSummaryWithRegressions(DataManager dm, string baselineConfi
     metrics = metrics.Where(m => filteredMetricSet.Contains(m.Title)).ToList();
     StringBuilder sb = new();
     sb.AppendLine($"## Out of {totalBenchmarks} benchmarks, {filteredBenchmarks.Count} have regressed.");
+
+    // TODO: Show the thresholds used.
+
     foreach (var regression in regressions.OrderByDescending(r => r.regressionPercentage).Take(benchmarksToDisplay))
     {
         sb.AppendLine($"   - __{regression.benchmarkName}__ has regressed by {regression.regressionPercentage}% for {regression.metricInfo}");
@@ -362,9 +365,111 @@ void DisplayBenchmarkSummaryWithRegressions(DataManager dm, string baselineConfi
 
 #!csharp
 
+public class Cluster
+{
+    public List<double> DataPoints { get; set; } = new List<double>();
+    public double Average => DataPoints.Count > 0 ? DataPoints.Average() : 0;
+    public double Count => DataPoints.Count;
+    public static double CalculateMedian(List<double> sortedData)
+    {
+        sortedData.Sort();
+        int mid = sortedData.Count / 2;
+        return sortedData.Count % 2 != 0 ? sortedData[mid] : (sortedData[mid - 1] + sortedData[mid]) / 2.0;
+    }
+}
+
+public sealed class ClusteringResult
+{
+    public ClusteringResult(List<Cluster> clusters, List<double> anomalies)
+    {
+        Clusters = clusters;
+        Anomalies = anomalies;
+    }
+
+    public List<Cluster> Clusters { get; } 
+    public List<double> Anomalies { get; }
+    // Single element clusters and anomalies detected indicate an anomaly in the data.
+    public bool HasAnomaly => Anomalies.Count > 0 || Clusters.Any(c => c.Count == 1);
+}
+
+public class Clustering
+{
+    public static ClusteringResult KMeansClusteringWithAnomalyDetection(List<double?> data, int? numberOfClusters = null, double? anomalyThreshold = null, int maxIterations = 100)
+    {
+        var dataPoints = data.Where(d => d.HasValue).Select(d => (double)d).ToList();
+        numberOfClusters ??= data.Count() / 2 + 1;
+        int k = numberOfClusters.Value;
+        if (dataPoints.Count == 0 || k <= 0 || k > dataPoints.Count) throw new ArgumentException("Invalid data or cluster count");
+
+        anomalyThreshold ??= dataPoints.Average() + dataPoints.StandardDeviation() * 2; // Using mean + 2σ for anomaly detection 
+
+        // Step 1: Initialize centroids randomly
+        Random random = new Random();
+        var centroids = dataPoints.OrderBy(_ => random.Next()).Take(k).ToList();
+        var clusters = new List<Cluster>();
+        var anomalies = new List<double>();
+
+        for (int iteration = 0; iteration < maxIterations; iteration++)
+        {
+            // Step 2: Assign points to the nearest centroid
+            clusters = Enumerable.Range(0, k).Select(_ => new Cluster()).ToList();
+
+            foreach (var point in dataPoints)
+            {
+                var nearestCentroid = centroids
+                    .Select((c, index) => new { Index = index, Distance = Math.Abs(point - c) })
+                    .OrderBy(x => x.Distance)
+                    .First();
+
+                if (nearestCentroid.Distance > anomalyThreshold)
+                {
+                    // Mark as anomaly if the distance is beyond the threshold
+                    anomalies.Add(point);
+                }
+                else
+                {
+                    // Otherwise, assign to the nearest cluster
+                    clusters[nearestCentroid.Index].DataPoints.Add(point);
+                }
+            }
+
+            // Step 3: Recalculate centroids
+            var newCentroids = clusters.Select(cluster => cluster.DataPoints.Count > 0 ? cluster.Average : 0).ToList();
+
+            // Check for convergence (if centroids haven't changed, break the loop)
+            if (centroids.SequenceEqual(newCentroids))
+                break;
+
+            centroids = newCentroids;
+        }
+
+        return new ClusteringResult(clusters, anomalies);
+    }
+
+    public static void DisplayClustersAndAnomaliesTextually(ClusteringResult result)
+    {
+        for (int i = 0; i < result.Clusters.Count; i++)
+        {
+            Console.WriteLine($"Cluster {i + 1}:");
+            Console.WriteLine($" - Data Points: {string.Join(", ", result.Clusters[i].DataPoints)}");
+            Console.WriteLine($" - Count: {result.Clusters[i].Count}");
+            Console.WriteLine($" - Average: {result.Clusters[i].Average:F2}");
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Anomalies:");
+        if (result.Anomalies.Count > 0)
+            Console.WriteLine($" - {string.Join(", ", result.Anomalies)}");
+        else
+            Console.WriteLine(" - None");
+    }
+}
+
+#!csharp
+
 public record IterationDetails(string configName, int iterationNumber, Dictionary<string, double?> data);
 
-void DisplayIterationData(DataManager dataManager, string baselineConfigName, string comparandConfigName, List<Metric<IterationData>> metrics = null,
+void DisplayIterationData(DataManager dataManager, string baselineConfigName, string comparandConfigName = null, List<Metric<IterationData>> metrics = null,
     Filter runFilter = null, Filter benchmarkFilter = null, IntFilter iterationFilter = null,
     ConfigIterationFilter configIterationFilter = null, Func<IterationData, bool> dataFilter = null,
     Func<string, string> benchmarkMap = null, XArrangement xArrangement = null,
@@ -372,6 +477,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     bool display = true, bool debug = false, double volatilityThreshold = 5, Dictionary<Metric<IterationData>, double> metricVolOverridePercentage = null, Aggregation aggregation = null
     , int iterationsToDisplay = 5)
 {
+    comparandConfigName ??= "";
     metricVolOverridePercentage ??= new();
     aggregation ??= Aggregation.Average;
     IterationsChartType chartType = new IterationsChartType();
@@ -390,8 +496,8 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
         xArrangement: xArrangement,
         configNameSimplifier: configNameSimplifier, includeRunName: includeRunName, debug: debug);
 
-    string GetBenchmarkFromKey(string key) => key.Split('|')[1];
     string GetConfigFromKey(string key) => key.Split('|')[0];
+    string GetBenchmarkFromKey(string key) => key.Split('|')[1];
     string GetMetricFromKey(string key) => key.Split('|')[2];
     string CreateKey(string configName, string benchmarkName, string metricName) => $"{configName}|{benchmarkName}|{metricName}";
 
@@ -468,8 +574,8 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
         table.AppendLine($"| Comparison | % Diff | " + string.Join(" | ", baselineAggregatedMetrics.Zip(comparisonAggregatedMetrics, (b, c) => ((c - b) / b * 100).GetValueOrDefault().ToString("F2"))) + " |"); 
         table.AppendLine("\n");
 
+        // Anomalies Section.
         List<(string key, int idx, double? anomolousVal, IEnumerable<double?> allVals, double volatility)> anomalies = new();
-
         foreach (var iteration in iterationData.Where(gc => GetBenchmarkFromKey(gc.Key) == benchmark.Key))
         {
             double volatilityThresholdToUse = volatilityThreshold;
@@ -479,10 +585,28 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                 volatilityThresholdToUse = overrideVol;
             }
 
-            (int idx, double? vol) = FindMostDifferentDataPoint(iteration.Value, volatilityThresholdToUse);
-            if (idx != -1)
+            ClusteringResult clusterResult = Clustering.KMeansClusteringWithAnomalyDetection(iteration.Value.ToList());
+            if (clusterResult.HasAnomaly)
             {
-                anomalies.Add((iteration.Key, idx, iteration.Value[idx], iteration.Value, vol.GetValueOrDefault()));  
+                // vol is the min-max % diff
+                double? vol = (iteration.Value.Max() - iteration.Value.Min()) / iteration.Value.Min() * 100;
+
+                // Go through anomalies.
+                foreach (var anomaly in clusterResult.Anomalies)
+                {
+                    int idx = iteration.Value.ToList().IndexOf(anomaly);
+                    anomalies.Add((iteration.Key, idx, anomaly, iteration.Value, vol.GetValueOrDefault()));
+                }
+
+                // Go through single element clusters.
+                foreach (var cluster in clusterResult.Clusters)
+                {
+                    if (cluster.Count == 1)
+                    {
+                        int idx = iteration.Value.ToList().IndexOf(cluster.DataPoints.First());
+                        anomalies.Add((iteration.Key, idx, cluster.DataPoints.First(), iteration.Value, vol.GetValueOrDefault()));
+                    }
+                }
             }
         }
 
@@ -509,7 +633,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     sb.AppendLine($"## Anomalies in Iterations"); 
     foreach (var volatilityVals in allAnomalies.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
     {
-        sb.AppendLine($"   - __{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has an anomaly: {Math.Round(volatilityVals.anomolousVal.GetValueOrDefault(), 2)} for {volatilityVals.idx}th iteration with Volatility: {Math.Round(volatilityVals.volatility, 2)}% - {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
+        sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has an anomaly {Math.Round(volatilityVals.anomolousVal.GetValueOrDefault(), 2)} for the {volatilityVals.idx} iteration with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
     }
     
     sb.ToString().DisplayAs("text/markdown");
@@ -690,8 +814,6 @@ int FindStabilizationPoint(List<double> gcs, double threshold)
     return stabilizationPoint;
 }
 
-// Benchmark Level Averages.
-// Iteration Level Averages.
 string GetBenchmarkFromKey(string key) => key.Split('|')[1];
 string GetConfigFromKey(string key) => key.Split('|')[0];
 string GetIterationFromKey(string key) => key.Split('|')[2];
@@ -787,50 +909,6 @@ public Dictionary<string, TCPDataBenchmarkDiff> GetPerBenchmarkTCPData(DataManag
 
     return perBenchmarkData;
 }
-
-#!csharp
-
-/*
-Aggregation SafeAverage = new Aggregation((gcs => {
-    long count = 0;
-    double sum = 0;
-
-    foreach (var gc in gcs)
-    {
-        if (!double.IsNaN(gc) && gc != 0)
-        {
-            sum += gc;
-            count++;
-        }
-    }
-
-    return count != 0 ? sum / count: double.NaN;
-}), "SafeAverage", "");
-
-Aggregation SafeAndStableAverage = new Aggregation((gcs => {
-    long count = 0;
-    double sum = 0;
-
-    foreach (var gc in gcs)
-    {
-        if (!double.IsNaN(gc) && gc != 0)
-        {
-            sum += gc;
-            count++;
-        }
-    }
-
-    double stableAverage = sum / count;
-    long gcIndex = -1;
-    int pointOfStabilization = FindStabilizationPoint(gcs.ToList(), 0.1);
-    if (pointOfStabilization != -1)
-    {
-        stableAverage = gcs.Skip(pointOfStabilization).Average();
-    }
-
-    return stableAverage;
-}), "SafeAndStableAverage", "");
-*/
 
 #!csharp
 

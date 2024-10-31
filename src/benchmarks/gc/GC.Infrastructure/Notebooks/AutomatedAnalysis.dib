@@ -388,8 +388,27 @@ public sealed class ClusteringResult
 
     public List<Cluster> Clusters { get; } 
     public List<double> Anomalies { get; }
+
     // Single element clusters and anomalies detected indicate an anomaly in the data.
     public bool HasAnomaly => Anomalies.Count > 0 || Clusters.Any(c => c.Count == 1);
+    public List<Cluster> BimodalClusters => Clusters.Where(c => c.Count > 1).ToList();
+    public bool HasBimodalBehavior => BimodalClusters.Count >= 2;
+
+    public static string DisplayCluster(List<Cluster> clusters)
+    {
+        StringBuilder sb = new();
+
+        foreach (var cluster in clusters)
+        {
+            sb.Append("(");
+            sb.Append(string.Join(", ", cluster.DataPoints.Select(d => Math.Round(d, 2))));
+            sb.Append("),");
+        }
+
+        sb.Remove(sb.Length - 1, 1);
+
+        return sb.ToString();
+    }
 }
 
 public class Clustering
@@ -397,11 +416,11 @@ public class Clustering
     public static ClusteringResult KMeansClusteringWithAnomalyDetection(List<double?> data, int? numberOfClusters = null, double? anomalyThreshold = null, int maxIterations = 100)
     {
         var dataPoints = data.Where(d => d.HasValue).Select(d => (double)d).ToList();
-        numberOfClusters ??= data.Count() / 2 + 1;
+        numberOfClusters ??= data.Count() / 2;
         int k = numberOfClusters.Value;
         if (dataPoints.Count == 0 || k <= 0 || k > dataPoints.Count) throw new ArgumentException("Invalid data or cluster count");
 
-        anomalyThreshold ??= dataPoints.Average() + dataPoints.StandardDeviation() * 2; // Using mean + 2σ for anomaly detection 
+        anomalyThreshold ??= dataPoints.Average() + dataPoints.StandardDeviation() * 3; // Using mean + 3σ for anomaly detection 
 
         // Step 1: Initialize centroids randomly
         Random random = new Random();
@@ -506,6 +525,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     Dictionary<string, List<double?>> iterationData = new();
 
     List<(string key, int idx, double? anomolousVal, IEnumerable<double?> allVals, double volatility)> allAnomalies = new();
+    List<(string key, List<Cluster> bimodalClusters, IEnumerable<double?> allVals, double volatility)> allBimodal = new();
 
     // Config -> Benchmark -> (Iteration -> Data).
     // For a benchmark and config -> Intravol of the iterations.
@@ -576,6 +596,8 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
 
         // Anomalies Section.
         List<(string key, int idx, double? anomolousVal, IEnumerable<double?> allVals, double volatility)> anomalies = new();
+        List<(string key, List<Cluster> bimodalCluster, IEnumerable<double?> allVals, double volatility)> bimodalBehavior = new();
+
         foreach (var iteration in iterationData.Where(gc => GetBenchmarkFromKey(gc.Key) == benchmark.Key))
         {
             double volatilityThresholdToUse = volatilityThreshold;
@@ -586,11 +608,9 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
             }
 
             ClusteringResult clusterResult = Clustering.KMeansClusteringWithAnomalyDetection(iteration.Value.ToList());
+            double? vol = (iteration.Value.Max() - iteration.Value.Min()) / iteration.Value.Min() * 100;
             if (clusterResult.HasAnomaly)
             {
-                // vol is the min-max % diff
-                double? vol = (iteration.Value.Max() - iteration.Value.Min()) / iteration.Value.Min() * 100;
-
                 // Go through anomalies.
                 foreach (var anomaly in clusterResult.Anomalies)
                 {
@@ -608,9 +628,14 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
                     }
                 }
             }
+
+            if (clusterResult.HasBimodalBehavior)
+            {
+                bimodalBehavior.Add((iteration.Key, clusterResult.BimodalClusters, iteration.Value, vol.GetValueOrDefault()));
+            }
         }
 
-        if (anomalies.Count > 0)
+        if (anomalies.Count > 0) 
         {
             table.AppendLine($"### Anomalies");
             table.AppendLine();
@@ -627,6 +652,23 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
 
             allAnomalies.AddRange(anomalies);
         }
+
+        if (bimodalBehavior.Count > 0) 
+        {
+            table.AppendLine($"### Bimodal Behavior");
+            table.AppendLine();
+            table.AppendLine($"| Config | Clusters | Metric | Vol % | {string.Join("|", Enumerable.Range(0, bimodalBehavior[0].allVals.Count()))} |");
+            table.AppendLine("| ------ | --------- | ------ | ---------- | " + string.Join(" | ", Enumerable.Range(0, bimodalBehavior[0].allVals.Count()).Select(i => "------")) + " |");
+            foreach (var anomaly in bimodalBehavior.OrderByDescending(a => a.volatility))
+            {
+                string key = anomaly.key;
+                string config = GetConfigFromKey(key);
+                string metric = GetMetricFromKey(key);
+                table.AppendLine($"| {config} | {ClusteringResult.DisplayCluster(anomaly.bimodalCluster)} | {metric}  | {Math.Round(anomaly.volatility, 2)} | {string.Join(" | ", anomaly.allVals.Select(a => a.GetValueOrDefault().ToString("N2")))} | ");
+            }
+
+            allBimodal.AddRange(bimodalBehavior);
+        }
     }
 
     StringBuilder sb = new();
@@ -634,6 +676,12 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     foreach (var volatilityVals in allAnomalies.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
     {
         sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has an anomaly {Math.Round(volatilityVals.anomolousVal.GetValueOrDefault(), 2)} for the {volatilityVals.idx} iteration with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
+    }
+
+    sb.AppendLine($"## Bimodal Behavior in Iterations"); 
+    foreach (var volatilityVals in allBimodal.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
+    {
+        sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has bimodal behavior {ClusteringResult.DisplayCluster(volatilityVals.bimodalClusters)} with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
     }
     
     sb.ToString().DisplayAs("text/markdown");

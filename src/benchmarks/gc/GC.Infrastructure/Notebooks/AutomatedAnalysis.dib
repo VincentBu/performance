@@ -696,7 +696,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
         sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has an anomaly {Math.Round(volatilityVals.anomolousVal.GetValueOrDefault(), 2)} for iteration __{volatilityVals.idx}__ with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
     }
 
-    sb.AppendLine($"## Bimodal Behavior in Iterations"); 
+    sb.AppendLine($"### Bimodal Behavior in Iterations"); 
     foreach (var volatilityVals in allBimodal.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
     {
         sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has bimodal behavior with __{volatilityVals.bimodalClusters.Count}__ bimodal clusters with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))} - {ClusteringResult.DisplayCluster(volatilityVals.bimodalClusters)}.");

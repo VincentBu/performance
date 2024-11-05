@@ -346,8 +346,16 @@ void DisplayBenchmarkSummaryWithRegressions(DataManager dm, string baselineConfi
     StringBuilder sb = new();
     sb.AppendLine($"## Out of {totalBenchmarks} benchmarks, {filteredBenchmarks.Count} have regressed.");
 
-    // TODO: Show the thresholds used.
+    // Show thresholds.
+    sb.AppendLine($"### Thresholds Used");
+    sb.AppendLine($"- Default Threshold: {benchmarkRegressionThreshold}%"); 
 
+    foreach (var metricTolerance in metricToleranceOverridePercentage)
+    {
+        sb.AppendLine($"- {metricTolerance.Key.Title}: {metricTolerance.Value}%");
+    }
+
+    sb.AppendLine($"### Details");
     foreach (var regression in regressions.OrderByDescending(r => r.regressionPercentage).Take(benchmarksToDisplay))
     {
         sb.AppendLine($"   - __{regression.benchmarkName}__ has regressed by {regression.regressionPercentage}% for {regression.metricInfo}");
@@ -672,7 +680,17 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     }
 
     StringBuilder sb = new();
-    sb.AppendLine($"## Anomalies in Iterations"); 
+    sb.AppendLine($"## Anomalies in Iterations");
+
+    // Thresholds.
+    sb.AppendLine("### Thresholds");
+    sb.AppendLine($"- Default Volatility Threshold: {volatilityThreshold}%");
+    foreach (var metricVol in metricVolOverridePercentage)
+    {
+        sb.AppendLine($"- {metricVol.Key.Title}: {metricVol.Value}%");
+    }
+
+    sb.AppendLine("### Details");
     foreach (var volatilityVals in allAnomalies.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
     {
         sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has an anomaly {Math.Round(volatilityVals.anomolousVal.GetValueOrDefault(), 2)} for iteration __{volatilityVals.idx}__ with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
@@ -681,7 +699,7 @@ void DisplayIterationData(DataManager dataManager, string baselineConfigName, st
     sb.AppendLine($"## Bimodal Behavior in Iterations"); 
     foreach (var volatilityVals in allBimodal.OrderByDescending(r => r.volatility).Take(iterationsToDisplay))
     {
-        sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has bimodal behavior {ClusteringResult.DisplayCluster(volatilityVals.bimodalClusters)} with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))}.");
+        sb.AppendLine($"   - __{GetConfigFromKey(volatilityVals.key)}-{GetBenchmarkFromKey(volatilityVals.key)}__ for {GetMetricFromKey(volatilityVals.key)} has bimodal behavior with __{volatilityVals.bimodalClusters.Count}__ bimodal clusters with Volatility: {Math.Round(volatilityVals.volatility, 2)}%:  {string.Join(", ", volatilityVals.allVals.Select(v => Math.Round(v.GetValueOrDefault(), 2)))} - {ClusteringResult.DisplayCluster(volatilityVals.bimodalClusters)}.");
     }
     
     sb.ToString().DisplayAs("text/markdown");

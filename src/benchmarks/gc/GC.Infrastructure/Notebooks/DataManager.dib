@@ -10,17 +10,11 @@
 #r "nuget: Microsoft.Data.Analysis, 0.19.1"
 //#r "nuget: Newtonsoft.Json"
 #r "nuget: XPlot.Plotly"
-#r "nuget: XPlot.Plotly.Interactive"
+//#r "nuget: XPlot.Plotly.Interactive"
 //#r "nuget: YamlDotnet"
-
-// TODO: Ensure you are pointing to the right artifacts folder.
-#r "..\..\..\..\..\artifacts\bin\GC.Analysis.API\Release\net8.0\GC.Analysis.API.dll"
 
 using System.IO;
 using System.Text.RegularExpressions;
-
-using GC.Analysis.API;
-using GC.Analysis.API.DynamicEvents;
 
 //using Etlx = Microsoft.Diagnostics.Tracing.Etlx;
 //using Microsoft.Data.Analysis;
@@ -31,6 +25,14 @@ using Microsoft.Diagnostics.Tracing.Parsers.Clr;
 //using Newtonsoft.Json;
 //using System.Diagnostics;
 using XPlot.Plotly;
+
+#!csharp
+
+// TODO: Ensure you are pointing to the right artifacts folder.
+#r "..\..\..\..\..\artifacts\bin\GC.Analysis.API\Release\net8.0\GC.Analysis.API.dll"
+
+using GC.Analysis.API;
+using GC.Analysis.API.DynamicEvents;
 
 #!csharp
 

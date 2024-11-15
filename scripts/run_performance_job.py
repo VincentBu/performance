@@ -133,7 +133,7 @@ def get_pre_commands(args: RunPerformanceJobArgs, v8_version: str):
     if args.os_sub_group == "_musl":    
         install_prerequisites += [
             "sudo apk add icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib cargo",
-            "sudo apk add libgdiplus --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing"
+            "sudo apk add libgdiplus --repository http://dl-cdn.alpinelinux.org/alpine/v3.18/community"
         ]
 
     if args.internal:
@@ -227,7 +227,7 @@ def get_pre_commands(args: RunPerformanceJobArgs, v8_version: str):
             ]
 
     # Set MONO_ENV_OPTIONS with for Mono Interpreter runs
-    if args.codegen_type == "Interpreter" and args.runtime_type == "mono":
+    if args.codegen_type.lower() == "interpreter" and args.runtime_type == "mono":
         if args.os_group == "windows":
             helix_pre_commands += ['set MONO_ENV_OPTIONS="--interpreter"']
         else:
@@ -338,7 +338,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
 
     helix_type_suffix = ""
     if args.runtime_type == "wasm":
-        if args.codegen_type == "AOT":
+        if args.codegen_type.lower() == "aot":
             helix_type_suffix = "/wasm/aot"
         else:
             helix_type_suffix = "/wasm"
@@ -377,7 +377,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
     
     args.performance_repo_dir = os.path.abspath(args.performance_repo_dir)
 
-    mono_interpreter = args.codegen_type == "Interpreter" and args.runtime_type == "mono"
+    mono_interpreter = args.codegen_type.lower() == "interpreter" and args.runtime_type == "mono"
 
     if args.target_csproj is None:
         if args.os_group == "windows":
@@ -390,7 +390,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
     if args.libraries_download_dir is None and not args.performance_repo_ci and args.runtime_repo_dir is not None:
         args.libraries_download_dir = os.path.join(args.runtime_repo_dir, "artifacts")
 
-    llvm = args.codegen_type == "AOT" and args.runtime_type != "wasm"
+    llvm = args.codegen_type.lower() == "aot" and args.runtime_type != "wasm"
     android_mono = args.runtime_type == "AndroidMono"
     ios_mono = args.runtime_type == "iOSMono"
     ios_nativeaot = args.runtime_type == "iOSNativeAOT"
@@ -400,7 +400,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
     wasm_bundle_dir = None
     wasm_aot = False
     if args.runtime_type == "mono":
-        if args.codegen_type == "AOT":
+        if args.codegen_type.lower() == "aot":
             if args.libraries_download_dir is None:
                 raise Exception("Libraries not downloaded for MonoAOT")
             
@@ -417,7 +417,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
                 raise Exception("Libraries not downloaded for WASM")
         
         wasm_bundle_dir = os.path.join(args.libraries_download_dir, "bin", "wasm")
-        if args.codegen_type == "AOT":
+        if args.codegen_type.lower() == "aot":
             wasm_aot = True
 
     working_dir = os.path.join(args.performance_repo_dir, "CorrelationStaging") # folder in which the payload and workitem directories will be made
@@ -448,6 +448,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
     if args.internal:
         creator = ""
         perf_lab_arguments = ["--upload-to-perflab-container"]
+        scenario_arguments = ["--upload-to-perflab-container"]
         helix_source_prefix = "official"
         if args.helix_access_token is None:
             raise Exception("HelixAccessToken environment variable is not configured")
@@ -467,28 +468,29 @@ def run_performance_job(args: RunPerformanceJobArgs):
         if args.performance_repo_ci:
             creator = "dotnet-performance"
         perf_lab_arguments = []
+        scenario_arguments = []
         helix_source_prefix = "pr"
 
     category_exclusions: list[str] = []
 
     configurations = { "CompilationMode": "Tiered", "RunKind": args.run_kind }
 
-    using_mono = False
-    if mono_dotnet is not None:
-        using_mono = True
+    if mono_dotnet is not None or mono_aot:
         configurations["LLVM"] = str(llvm)
         configurations["MonoInterpreter"] = str(mono_interpreter)
         configurations["MonoAOT"] = str(mono_aot)
 
         # TODO: Validate if this exclusion filter is still needed
         extra_bdn_arguments += ["--exclusion-filter", "*Perf_Image*", "*Perf_NamedPipeStream*"]
-        category_exclusions += ["NoMono"]
+
+        # TODO: Identify why Mono AOT does not exclude NoMono, but instead excludes NoWASM
+        if mono_aot:
+            category_exclusions += ["NoAOT", "NoWASM"]
+        else:
+            category_exclusions += ["NoMono"]
 
         if mono_interpreter:
             category_exclusions += ["NoInterpreter"]
-
-        if mono_aot:
-            category_exclusions += ["NoAOT"]
 
     using_wasm = False
     if wasm_bundle_dir is not None:
@@ -568,7 +570,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
     if not args.internal and not args.performance_repo_ci:
         ci_setup_arguments.not_in_lab = True
 
-    if mono_dotnet is not None:
+    if mono_dotnet is not None and not mono_aot:
         mono_dotnet_path = os.path.join(payload_dir, "dotnet-mono")
         getLogger().info("Copying mono dotnet directory to payload directory")
         shutil.copytree(mono_dotnet, mono_dotnet_path)
@@ -886,7 +888,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
             os.environ["DOTNET_MULTILEVEL_LOOKUP"] = "0"
             os.environ["UseSharedCompilation"] = "false"
 
-            getLogger().info("Current dotnet directory:", ci_setup_arguments.install_dir)
+            getLogger().info("Current dotnet directory: %s", ci_setup_arguments.install_dir)
             getLogger().info("If more than one version exist in this directory, usually the latest runtime and sdk will be used.")
 
             # PreparePayloadWorkItems is only available for scenarios runs defined inside the performance repo
@@ -943,7 +945,7 @@ def run_performance_job(args: RunPerformanceJobArgs):
     if using_wasm:
         cli_arguments += ["--run-isolated", "--wasm", "--dotnet-path", "$HELIX_CORRELATION_PAYLOAD/dotnet/"]
 
-    if using_mono:
+    if mono_dotnet is not None:
         if args.versions_props_path is None:
             if args.runtime_repo_dir is None:
                 raise Exception("Version.props must be present for mono runs")
@@ -1059,10 +1061,10 @@ def run_performance_job(args: RunPerformanceJobArgs):
         runtime_flavor=args.runtime_flavor or "",
         hybrid_globalization=args.hybrid_globalization,
         target_csproj=args.target_csproj,
-        work_item_command=work_item_command,
-        baseline_work_item_command=baseline_work_item_command,
-        bdn_arguments=bdn_arguments,
-        baseline_bdn_arguments=baseline_bdn_arguments,
+        work_item_command=work_item_command or None,
+        baseline_work_item_command=baseline_work_item_command or None,
+        bdn_arguments=bdn_arguments or None,
+        baseline_bdn_arguments=baseline_bdn_arguments or None,
         download_files_from_helix=True,
         targets_windows=args.os_group == "windows",
         helix_results_destination_dir=helix_results_destination_dir,
@@ -1073,7 +1075,8 @@ def run_performance_job(args: RunPerformanceJobArgs):
         only_sanity_check=args.only_sanity_check,
         ios_strip_symbols=args.ios_strip_symbols,
         ios_llvm_build=args.ios_llvm_build,
-        fail_on_test_failure=fail_on_test_failure)
+        fail_on_test_failure=fail_on_test_failure,
+        scenario_arguments=scenario_arguments or None)
     
     if args.send_to_helix:
         perf_send_to_helix(perf_send_to_helix_args)

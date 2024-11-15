@@ -4,7 +4,7 @@
 
 #!csharp
 
-//#i "nuget: https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json"
+#i "nuget: https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json"
 
 #r "nuget: Microsoft.Diagnostics.Tracing.TraceEvent, 3.1.13"
 #r "nuget: Microsoft.Data.Analysis, 0.19.1"

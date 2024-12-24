@@ -252,3 +252,4 @@ The infrastructure can be run in modular manner. What this means is that you can
 | microbenchmarks-analyze  | Runs just the analysis portion of the Microbenchmark run assuming the traces are available.   | ``microbenchmarks-analyze --configuration Configuration.yaml``   |
 | aspnetbenchmarks         | Runs the ASPNet Benchmarks - both orchestration and analysis.                                 | ``aspnetbenchmarks --configuration Configuration.yaml``         |
 | aspnetbenchmarks-analyze | Runs just the analysis portion of the ASPNet benchmark run assuming the traces are available. | ``aspnetbenchmarks-analyze --configuration Configuration.yaml`` |
+| stress-createconfigs | Create config files for ReliabilityFramework test. | ``stress-createconfigs --output outputFolderPath`` |

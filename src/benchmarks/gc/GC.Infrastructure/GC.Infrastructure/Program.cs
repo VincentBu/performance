@@ -2,6 +2,7 @@
 using GC.Infrastructure.Commands.GCPerfSim;
 using GC.Infrastructure.Commands.Microbenchmark;
 using GC.Infrastructure.Commands.RunCommand;
+using GC.Infrastructure.Commands.Stress;
 using Microsoft.Win32;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -59,6 +60,9 @@ namespace GC.Infrastructure
                     // ASP.NET Benchmarks
                     configuration.AddCommand<AspNetBenchmarksCommand>("aspnetbenchmarks");
                     configuration.AddCommand<AspNetBenchmarksAnalyzeCommand>("aspnetbenchmarks-analyze");
+
+                    // Stress (Reliability Framework)
+                    configuration.AddCommand<StressCreateConfigsCommand>("stress-createconfigs");
                 });
 
                 app.Run(args);

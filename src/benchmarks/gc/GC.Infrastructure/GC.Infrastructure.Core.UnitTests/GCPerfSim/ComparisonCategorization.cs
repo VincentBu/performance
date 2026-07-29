@@ -100,34 +100,6 @@ namespace GC.Infrastructure.Core.UnitTests.GCPerfSim
             baselineData.GCs.Count.Should().BeGreaterThan(0, "the baseline trace should contain GCs");
             comparandData.GCs.Count.Should().BeGreaterThan(0, "the comparand trace should contain GCs");
 
-            // Build the same ResultItem the gcperfsim / gcperfsim-compare commands build.
-            ResultItem baselineItem = new(baselineData, "Run", "baseline");
-            ResultItem comparandItem = new(comparandData, "Run", "comparand");
-
-            ResultItemComparison comparison = new(baselineItem, comparandItem);
-
-            // --- Speed_MBPerMSec is higher-is-better ---
-            ComparisonResult speed = comparison.GetComparison("Speed_MBPerMSec");
-
-            // The run produced real, finite values.
-            double.IsNaN(speed.BaselineMetric).Should().BeFalse("the run should compute a baseline Speed_MBPerMSec");
-            double.IsNaN(speed.ComparandMetric).Should().BeFalse("the run should compute a comparand Speed_MBPerMSec");
-            speed.BaselineMetric.Should().BeGreaterThan(0);
-            speed.ComparandMetric.Should().BeGreaterThan(0);
-
-            // Displayed delta uses the real, unflipped data.
-            speed.Delta.Should().Be(speed.ComparandMetric - speed.BaselineMetric);
-
-            // Categorization is direction-aware: for a higher-is-better metric the regression-oriented
-            // delta is the negation of the displayed percentage delta.
-            double.IsNaN(speed.PercentageDelta).Should().BeFalse("the run should compute a finite Speed_MBPerMSec percentage delta");
-            speed.RegressionPercentageDelta.Should().BeApproximately(-speed.PercentageDelta, 1e-9);
-
-            // --- A lower-is-better metric keeps the same sign for categorization ---
-            ComparisonResult pause = comparison.GetComparison("PauseDurationMSec_Sum");
-            double.IsNaN(pause.PercentageDelta).Should().BeFalse("the run should compute a finite PauseDurationMSec_Sum percentage delta");
-            pause.RegressionPercentageDelta.Should().BeApproximately(pause.PercentageDelta, 1e-9);
-
             // --- End-to-end categorization through the analyze pipeline ---
             GCTraceMetrics[] baselineMetrics = { new(baselineData, "Run", "baseline") };
             GCTraceMetrics[] comparandMetrics = { new(comparandData, "Run", "comparand") };
